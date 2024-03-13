@@ -1,16 +1,11 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
-import co.edu.uniquindio.estr.jokify.model.Jokify;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import java.nio.charset.StandardCharsets;
-
-import java.util.*;
+import co.edu.uniquindio.estr.jokify.model.Store;
 
 public class ModelFactoryController {
 
-    //Clase Jokify global
-    static Jokify miJokify;
+    //Clase Store global
+    static Store miJokify;
 
     public ModelFactoryController() {
         System.out.println("invocacion clase singleton");
@@ -39,10 +34,10 @@ public class ModelFactoryController {
 //        miSubasta = new Subasta("Subastas UQ", "Carrera 15 #12N, Armenia, Quindío");
     }
 
-    //Getters y setters de Jokify
+    //Getters y setters de Store
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
-    //Funciones de Jokify para el singleton
+    //Funciones de Store para el singleton
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }

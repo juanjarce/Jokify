@@ -1,4 +1,4 @@
 package co.edu.uniquindio.estr.jokify.model;
 
-public class Jokify {
+public class Store {
 }
