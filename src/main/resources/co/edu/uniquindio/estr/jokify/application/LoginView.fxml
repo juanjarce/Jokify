@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.LoginController">
+    <children>
+        <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="683.0" style="-fx-background-color: #000000;">
+            <children>
+            <ImageView fitHeight="415.0" fitWidth="614.0" layoutX="29.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Jokify.png" />
+               </image>
+            </ImageView>
+            </children>
+        </Pane>
+        <Pane layoutX="686.0" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="614.0">
+            <children>
+                <Label layoutX="198.0" layoutY="14.0" text="Bienvenido">
+                    <font>
+                        <Font name="Rockwell" size="48.0" />
+                    </font>
+                    <effect>
+                        <Glow />
+                    </effect>
+                </Label>
+                <TextField fx:id="inputUsuario" layoutX="196.0" layoutY="232.0" prefHeight="45.0" prefWidth="385.0" promptText="Nombre de usuario" />
+                <PasswordField fx:id="inputContrasenia" layoutX="195.0" layoutY="293.0" prefHeight="45.0" prefWidth="385.0" promptText="Contraseña" />
+                <Hyperlink layoutX="211.0" layoutY="338.0" prefHeight="45.0" prefWidth="193.0" text="¿Contraseña olvidada?">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Hyperlink>
+                <Button fx:id="btnIniciarSesion" layoutX="175.0" layoutY="440.0" mnemonicParsing="false" onAction="#ingresarAction" prefHeight="40.0" prefWidth="274.0" style="-fx-background-radius: 16; -fx-background-color: #3399CC;" text="Iniciar sesion" textFill="WHITE">
+                    <font>
+                        <Font name="Rockwell Bold" size="24.0" />
+                    </font>
+                </Button>
+                <Label layoutX="297.0" layoutY="521.0" prefHeight="38.0" prefWidth="21.0" text="o" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Rockwell" size="36.0" />
+                    </font>
+                </Label>
+                <Button layoutX="175.0" layoutY="578.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="275.0" style="-fx-background-radius: 16; -fx-background-color: #669966;" text="Crear cuenta nueva" textFill="WHITE">
+                    <font>
+                        <Font name="Rockwell" size="24.0" />
+                    </font>
+                </Button>
+                <Separator layoutX="13.0" layoutY="542.0" prefHeight="7.0" prefWidth="262.0" />
+                <Separator layoutX="365.0" layoutY="542.0" prefHeight="7.0" prefWidth="229.0" />
+                <Label layoutX="56.0" layoutY="73.0" prefHeight="61.0" prefWidth="534.0" text="Encuentre la mejor oferta musical en la aplicación de reproducción más grande del mundo." textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Rockwell" size="22.0" />
+                    </font>
+                </Label>
+                <Separator layoutX="19.0" layoutY="159.0" prefHeight="7.0" prefWidth="577.0" />
+                <Label alignment="CENTER_RIGHT" layoutX="43.0" layoutY="296.0" prefHeight="40.0" prefWidth="139.0" text="Contraseña:" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Rockwell" size="22.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER_RIGHT" layoutX="43.0" layoutY="235.0" prefHeight="40.0" prefWidth="139.0" text="Usuario:" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Rockwell" size="22.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </children>
+</Pane>
