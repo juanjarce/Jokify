@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class User implements Comparable<User> {
 
-    //Atributes for User class
+    //Attributes for User class
     //There´s only one admin user "user"-"$aDmiN"
     String username;
     String password;
