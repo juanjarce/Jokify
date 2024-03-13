@@ -4,7 +4,7 @@ import co.edu.uniquindio.estr.jokify.structures.DoublyLinkedList;
 
 import java.util.Objects;
 
-public class Artist {
+public class Artist implements Comparable<Artist> {
 
     //Attributes for the Artist class
     String code;
@@ -83,5 +83,11 @@ public class Artist {
                 ", Nationality='" + Nationality + '\'' +
                 ", isPartOfBand=" + isPartOfBand +
                 '}';
+    }
+
+    //compareTo() for Artist class
+    @Override
+    public int compareTo(Artist o) {
+        return this.getCode().compareTo(o.getCode());
     }
 }
