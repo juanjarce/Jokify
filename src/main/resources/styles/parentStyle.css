@@ -40,3 +40,33 @@
     -fx-border-radius: 20px;
 }
 
+.button {
+     -fx-background-color: #00A6FB;
+     -fx-font-family: "Roboto", sans-serif;
+     -fx-font-size: 14px;
+     -fx-text-fill: #F0F0F0;
+     -fx-font-weight: bold;
+     -fx-background-radius: 15;
+     -fx-pref-width: 200px;
+}
+
+.button:hover {
+    -fx-background-color: #F0F0F0;
+    -fx-text-fill: #00A6FB;
+}
+
+.button:pressed {
+    -fx-background-color: #F0F0F0;
+    -fx-text-fill: #191414;
+}
+
+.link {
+    -fx-font-size: 16px;
+    -fx-text-fill: #00A6FB;
+    -fx-underline: false;
+}
+
+.link:hover {
+  -fx-text-fill: #F0F0F0;
+  -fx-cursor: hand;
+}
