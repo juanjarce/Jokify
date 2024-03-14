@@ -49,7 +49,7 @@ public class LoginController {
     }
 
     /**
-     * Goes to the createAcount interface
+     * Goes to the createAcount interfaces
      * @param event
      * @throws IOException
      */
