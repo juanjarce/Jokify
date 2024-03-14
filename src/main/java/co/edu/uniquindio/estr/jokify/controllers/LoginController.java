@@ -11,20 +11,6 @@ public class LoginController {
 
     private Stage stage;
 
-    @FXML
-    private TextField inputUsuario;
-
-    @FXML
-    private PasswordField inputContrasenia;
-
-    @FXML
-    private Button btnIniciarSesion;
-
-    @FXML
-    void ingresarAction(ActionEvent event) {
-
-    }
-
     public void setStage(Stage primaryStage) {
         this.stage = primaryStage;
     }

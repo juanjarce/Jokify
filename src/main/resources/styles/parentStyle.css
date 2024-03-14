@@ -1,0 +1,42 @@
+.body {
+    -fx-background-color: #191414;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #F0F0F0;
+    -fx-font-weight: bold;
+}
+
+.body .title {
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 34px;
+    -fx-text-fill: #F0F0F0;
+}
+
+.forms {
+    -fx-background-color: #20201D;
+    -fx-background-radius: 20px;
+    -fx-font-size: 16px;
+    -fx-text-fill: #F0F0F0;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: #3D3D3D;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #F0F0F0;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-pref-width: 200px;
+}
+
+.text-field:hover {
+    -fx-border-color: #00A6FB;
+    -fx-border-radius: 20px;
+}
+
+.text-field:focused {
+    -fx-border-color: #00A6FB;
+    -fx-border-radius: 20px;
+}
+
