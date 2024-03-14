@@ -25,11 +25,20 @@
                               <Image url="@../images/SearchLogo.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="70.0" layoutY="16.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text="Home" />
-                        <Button layoutX="70.0" layoutY="72.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text="Search" />
+                        <Button layoutX="70.0" layoutY="16.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text="Jokify" />
+                        <Button layoutX="70.0" layoutY="72.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text="Buscar" />
                      </children>
                   </Pane>
-                  <Pane layoutX="13.0" layoutY="146.0" prefHeight="538.0" prefWidth="291.0" styleClass="leftContent" />
+                  <Pane layoutX="13.0" layoutY="146.0" prefHeight="538.0" prefWidth="291.0" styleClass="leftContent">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="32.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/LibraryLogo.png" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="69.0" layoutY="16.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text="Libreria" />
+                     </children>
+                  </Pane>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
         </items>
