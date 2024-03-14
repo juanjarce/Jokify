@@ -12,17 +12,34 @@ public class Store {
     LinkedList<Artist> artistList;
     LinkedList<User> userList;
 
+    //Singleton of the class
+    private static Store store;
+
     //Empty constuctor for the Store class
     public Store(){
 
     }
 
-    //Constructor for the Store class
-    public Store(String name) {
+    /**
+     * Private constructor to apply singleton
+     * @param name
+     */
+    private Store(String name) {
         this.name = name;
         this.songList = new LinkedList<Song>();
         this.artistList = new LinkedList<Artist>();
         this.userList = new LinkedList<User>();
+    }
+
+    /**
+     * Return the instance of the store
+     * @return
+     */
+    public static Store getInstance() {
+        if (store == null) {
+            store = new Store("Jokify");
+        }
+        return store;
     }
 
     //getters() & setters() for the Store class
