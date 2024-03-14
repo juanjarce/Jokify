@@ -67,6 +67,25 @@
 }
 
 .link:hover {
-  -fx-text-fill: #F0F0F0;
-  -fx-cursor: hand;
+    -fx-text-fill: #F0F0F0;
+    -fx-cursor: hand;
+}
+
+/*STYLES FOR THE MENU*/
+
+.splitPane {
+    -fx-background-color: #191414;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #F0F0F0;
+    -fx-font-weight: bold;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: #20201D;
+    -fx-padding: 5px;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-padding: 2px;
 }
