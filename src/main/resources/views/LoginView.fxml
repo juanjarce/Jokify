@@ -14,9 +14,9 @@
       <Pane layoutX="663.0" layoutY="50.0" prefHeight="601.0" prefWidth="600.0" styleClass="forms">
          <children>
             <Label layoutX="169.0" layoutY="28.0" styleClass="title" text="Iniciar Sesión" />
-            <TextField layoutX="198.0" layoutY="216.0" styleClass="text-field" />
+            <TextField fx:id="textFieldUser" layoutX="198.0" layoutY="216.0" styleClass="text-field" />
             <Label layoutX="265.0" layoutY="179.0" styleClass="forms" text="Usuario" />
-            <TextField layoutX="201.0" layoutY="344.0" styleClass="text-field" />
+            <TextField fx:id="textFieldPassword" layoutX="201.0" layoutY="344.0" styleClass="text-field" />
             <Label layoutX="249.0" layoutY="310.0" styleClass="forms" text="Contraseña" />
             <ImageView fitHeight="41.0" fitWidth="36.0" layoutX="280.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -28,7 +28,7 @@
                   <Image url="@../images/PasswordLogo.png" />
                </image>
             </ImageView>
-            <Button layoutX="201.0" layoutY="456.0" mnemonicParsing="false" text="Iniciar Sesión" />
+            <Button fx:id="btnLogin" layoutX="201.0" layoutY="456.0" mnemonicParsing="false" onAction="#login" text="Iniciar Sesión" />
          </children></Pane>
       <ImageView fitHeight="186.0" fitWidth="169.0" layoutX="255.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -38,6 +38,6 @@
       <Label layoutX="278.0" layoutY="330.0" styleClass="title" text="Jokify" />
       <Label layoutX="198.0" layoutY="418.0" styleClass="body" text="La banda sonora de tu vida," />
       <Label layoutX="212.0" layoutY="439.0" styleClass="body" text="con un toque de locura." />
-      <Hyperlink layoutX="249.0" layoutY="517.0" styleClass="link" text="Crear una cuenta" />
+      <Hyperlink fx:id="hpCreateAcount" layoutX="249.0" layoutY="517.0" onAction="#createAcount" styleClass="link" text="Crear una cuenta" />
    </children>
 </AnchorPane>
