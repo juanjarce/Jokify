@@ -1,16 +1,15 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
+import co.edu.uniquindio.estr.jokify.exceptions.UserException;
 import co.edu.uniquindio.estr.jokify.model.Store;
+import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javax.imageio.IIOException;
 import java.io.IOException;
@@ -33,6 +32,7 @@ public class LoginController implements Initializable {
 
     //Aux variables
     private Stage stage;
+    private User currentUser;
     private final Store store = Store.getInstance();
 
     /**
@@ -88,7 +88,28 @@ public class LoginController implements Initializable {
      * @throws IOException
      */
     @FXML
-    void login(ActionEvent event) throws IOException {
+    void login(ActionEvent event)  {
+        try {
+            currentUser = store.loginUser(textFieldUser.getText(), textFieldPassword.getText());
+            showMessage("Jokify", "Login", "Inicio de sesión realizado con éxito", Alert.AlertType.INFORMATION);
+            if (currentUser.getUsername().equals("admin")) {
+                showAdminMenu();
+            } else {
+                showMenu();
+            }
+        } catch (UserException e) {
+            showMessage("Jokify", "Login", e.getMessage(), Alert.AlertType.WARNING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Shows the menu Interface for an user
+     * @throws IOException
+     */
+    private void showMenu() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MenuView.fxml"));
         Parent root = loader.load();
         MenuController controller = loader.getController();
@@ -98,6 +119,37 @@ public class LoginController implements Initializable {
         controller.init(stage, this);
         stage.show();
         this.stage.close();
+    }
+
+    /**
+     * Shows the menu Interface for the admin
+     * @throws IOException
+     */
+    private void showAdminMenu() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MenuAdminView.fxml"));
+        Parent root = loader.load();
+        MenuAdminController controller = loader.getController();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        controller.init(stage, this);
+        stage.show();
+        this.stage.close();
+    }
+
+    /**
+     * show a message for the user
+     * @param title
+     * @param header
+     * @param content
+     * @param alertType
+     */
+    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

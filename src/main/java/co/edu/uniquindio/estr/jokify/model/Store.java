@@ -147,5 +147,21 @@ public class Store {
 
     //FUNCTIONS FOR THE LOGIN ---------------------------------------------------------------------------
 
+    /**
+     * Get the User for the corresponding data
+     * @param username username of the user
+     * @param password password of the user
+     * @return
+     */
+    public User loginUser(String username, String password) throws UserException {
+        Iterator<User> iterator = userList.iterator();
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        throw new UserException("Verifique que el nombre de usuario y la contraseña sean correctas");
+    }
 
 }
