@@ -1,9 +1,9 @@
 package co.edu.uniquindio.estr.jokify.structures;
 
+
+import java.util.NoSuchElementException;
 import java.util.Iterator;
 
-
-//Average Node class used to solve the problems of the laboratory
 class Node<T> {
     T value;
     Node<T> next;
@@ -16,14 +16,22 @@ class Node<T> {
 }
 
 public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
+
+    //Start of the LinkedList
     Node<T> head;
 
-    // Constructor
+    /**
+     * Constructor of the linkedList
+     */
     public LinkedList() {
         this.head = null;
     }
 
-    // Method to add an element at the end of the list
+    /**
+     * Add an element at the end of the list
+     *
+     * @param value
+     */
     public void addLast(T value) {
         Node<T> newNode = new Node<>(value);
         if (head == null) {
@@ -37,62 +45,98 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
         }
     }
 
-    // Method to add an element at the beginning of the list
+    /**
+     * Add an element at the beginning of the list
+     *
+     * @param value
+     */
     public void addFirst(T value) {
         Node<T> newNode = new Node<>(value);
         newNode.next = head;
         head = newNode;
     }
 
-    // Method to add an element at a specific position
+    /**
+     * Gets the size of the list
+     *
+     * @return
+     */
+    public int size() {
+        int size = 0;
+        Node<T> current = head;
+        while (current != null) {
+            size++;
+            current = current.next;
+        }
+        return size;
+    }
+
+    /**
+     * Add an element at a specific position
+     *
+     * @param value
+     * @param position
+     */
     public void add(T value, int position) {
-        if (position < 0) {
-            System.out.println("Invalid position");
-            return;
+        if (position < 0 || position > size()) {
+            throw new IndexOutOfBoundsException("Invalid position");
         }
         if (position == 0) {
             addFirst(value);
-            return;
+        } else {
+            Node<T> current = head;
+            for (int i = 1; i < position; i++) {
+                current = current.next;
+            }
+            Node<T> newNode = new Node<>(value);
+            newNode.next = current.next;
+            current.next = newNode;
         }
-        Node<T> newNode = new Node<>(value);
-        Node<T> current = head;
-        for (int i = 0; i < position - 1 && current != null; i++) {
-            current = current.next;
-        }
-        if (current == null) {
-            System.out.println("Position out of range");
-            return;
-        }
-        newNode.next = current.next;
-        current.next = newNode;
     }
 
-    // Method to get the value of a node at a specific position
-    public T getNodeValue(int position) {
-        Node<T> current = head;
-        for (int i = 0; i < position && current != null; i++) {
-            current = current.next;
+    /**
+     * Get the value of a node at a specific position
+     *
+     * @param position
+     * @return
+     */
+    public T getValue(int position) {
+        if (position < 0 || position >= size()) {
+            throw new IndexOutOfBoundsException("Invalid position");
         }
-        if (current == null) {
-            System.out.println("Position out of range");
-            return null; // Default value to indicate error
+        Node<T> current = head;
+        for (int i = 0; i < position; i++) {
+            current = current.next;
         }
         return current.value;
     }
 
-    // Method to get the node at a specific position
+    /**
+     * Get the node at a specific position
+     *
+     * @param position
+     * @return
+     */
     public Node<T> getNode(int position) {
+        if (position < 0 || position >= size()) {
+            throw new IndexOutOfBoundsException("Invalid position");
+        }
         Node<T> current = head;
-        for (int i = 0; i < position && current != null; i++) {
+        for (int i = 0; i < position; i++) {
             current = current.next;
         }
         return current;
     }
 
-    // Method to get the position of a node given its value
-    public int getNodePosition(T value) {
-        int position = 0;
+    /**
+     * Get the position of a node
+     *
+     * @param value
+     * @return
+     */
+    public int getPosition(T value) {
         Node<T> current = head;
+        int position = 0;
         while (current != null) {
             if (current.value.equals(value)) {
                 return position;
@@ -100,38 +144,54 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
             current = current.next;
             position++;
         }
-        return -1; // Default value to indicate not found
+        return -1;
     }
 
-    // Method to check if the list is empty
+    /**
+     * Check if the list is empty
+     *
+     * @return
+     */
     public boolean isEmpty() {
         return head == null;
     }
 
-    // Method to delete the first node of the list
-    public void deleteFirst() {
-        if (head != null) {
-            head = head.next;
-        }
-    }
-
-    // Method to delete the last node of the list
-    public void deleteLast() {
-        if (head == null || head.next == null) {
-            head = null;
-        } else {
-            Node<T> current = head;
-            while (current.next.next != null) {
-                current = current.next;
-            }
-            current.next = null;
-        }
-    }
-
-    // Method to delete a node given its value
-    public void delete(T value) {
+    /**
+     * Remove the fist node on the list
+     */
+    public void removeFirst() {
         if (head == null) {
+            throw new NoSuchElementException("List is empty");
+        }
+        head = head.next;
+    }
+
+    /**
+     * Remove the last node on the list
+     */
+    public void removeLast() {
+        if (head == null) {
+            throw new NoSuchElementException("List is empty");
+        }
+        if (head.next == null) {
+            head = null;
             return;
+        }
+        Node<T> current = head;
+        while (current.next.next != null) {
+            current = current.next;
+        }
+        current.next = null;
+    }
+
+    /**
+     * Remove the node with a certain value on the list
+     *
+     * @param value
+     */
+    public void remove(T value) {
+        if (head == null) {
+            throw new NoSuchElementException("List is empty");
         }
         if (head.value.equals(value)) {
             head = head.next;
@@ -146,28 +206,39 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
         }
     }
 
-    // Method to modify the value of a node at a specific position
-    public void modifyNode(int position, T newValue) {
-        Node<T> node = getNode(position);
-        if (node != null) {
-            node.value = newValue;
-        } else {
-            System.out.println("Position out of range");
-        }
+    /**
+     * Remove the node in a certain position
+     *
+     * @param index
+     */
+    public void removeAt(int index) {
+        Node<T> node = getNode(index);
+        remove(node.value);
     }
 
-    // Method to sort the list using the insertion sort algorithm
-    public void sortList() {
+    /**
+     * Modify the value of the node that are located in the position
+     *
+     * @param position
+     * @param newValue
+     */
+    public void setValue(int position, T newValue) {
+        Node<T> node = getNode(position);
+        node.value = newValue;
+    }
+
+    /**
+     * Sort the linked list using the insertion sort algorithm
+     */
+    public void sort() {
         if (head == null || head.next == null) {
             return; // The list is already sorted or empty
         }
-
         Node<T> currentNode = head.next;
         while (currentNode != null) {
             T currentValue = currentNode.value;
             Node<T> previousNode = head;
             Node<T> iteratorNode = head;
-
             while (iteratorNode != currentNode) {
                 if (currentValue.compareTo(iteratorNode.value) < 0) {
                     // If the current value is less than the value of the current node, swap them
@@ -177,53 +248,78 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
                 }
                 iteratorNode = iteratorNode.next;
             }
-
             currentNode.value = currentValue;
             currentNode = currentNode.next;
         }
     }
 
-    // Method to print the list
-    public void printList() {
+    /**
+     * Print all the values in the linkedList
+     */
+    public void printLinkedList() {
         Node<T> current = head;
         while (current != null) {
-            System.out.print(current.value + " ");
+            System.out.print(current.value + "-> ");
             current = current.next;
         }
+        System.out.print("null");
         System.out.println();
     }
 
-    // Method to delete the entire list
-    public void deleteList() {
+    /**
+     * Removes all the linkedList
+     */
+    public void clear() {
         head = null;
     }
 
-    // Method to check if an index is valid
+    /**
+     * Look if an index is valid
+     *
+     * @param index
+     * @return
+     */
     private boolean isValidIndex(int index) {
         return index >= 0 && index < size();
     }
 
-    // Method to get the size of the list
-    private int size() {
-        int size = 0;
-        Node<T> current = head;
-        while (current != null) {
-            size++;
-            current = current.next;
+    /**
+     * Reverse all the linked list
+     */
+    public void reverse() {
+        if (head == null || head.next == null) {
+            return; // Nothing to reverse
         }
-        return size;
+        Node<T> previous = null;
+        Node<T> current = head;
+        Node<T> next = head.next;
+        while (next != null) {
+            current.next = previous;
+            previous = current;
+            current = next;
+            next = next.next;
+        }
+        head.next = previous;
+        head = current;
     }
 
-    // Method to reverse a linked list
-    private void reverseLinkedList() {
+    /**
+     * Reverse a linkedList
+     */
+    public void reverseRecursive() {
         if (head == null || head.next == null) {
-            System.out.println("The list cannot be reversed");
+            throw new NoSuchElementException("The list cannot be reversed");
         } else {
             reverseRecursive(head, null);
         }
     }
 
-    // Method to reverse a linked list recursively
+    /**
+     * Reverse a linkedList recursively
+     *
+     * @param current
+     * @param previous
+     */
     private void reverseRecursive(Node<T> current, Node<T> previous) {
         if (current.next == null) {
             head = current;
@@ -234,19 +330,11 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
         }
     }
 
-    // Method to traverse a linked list recursively
-    public void traverseRecursive(Node node) {
-        // Check if the current node is not null
-        if (node != null) {
-            // Print the value of the current node
-            System.out.print(node.value + " ");
-            // Recursively call the method with the next node
-            traverseRecursive(node.next);
-        }
-    }
-
-
-    // Implementation of the iterator method of the Iterable interface
+    /**
+     * Implementation of the iterator method
+     *
+     * @return
+     */
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
@@ -265,5 +353,4 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
             }
         };
     }
-
 }
