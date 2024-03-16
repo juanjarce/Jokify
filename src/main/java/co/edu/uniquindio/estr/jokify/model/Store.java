@@ -1,7 +1,10 @@
 package co.edu.uniquindio.estr.jokify.model;
 
+import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
+import co.edu.uniquindio.estr.jokify.exceptions.UserException;
 import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Store {
@@ -93,5 +96,56 @@ public class Store {
                 "name='" + name + '\'' +
                 '}';
     }
+
+    //LOGIC IMPLEMENTATION FOR THE STORE ----------------------------------------------------------------
+
+    //CRUD FOR THE USERS --------------------------------------------------------------------------------
+
+    /**
+     * Get the instance of a user
+     * @param username the usarname of the user
+     * @return
+     */
+    public User getUser(String username) {
+        Iterator<User> iterator = userList.iterator();
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            if (user.getUsername().compareTo(username) == 0) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Creates a user if all the data is correct and add it to the usersList
+     * @param username username of the new user
+     * @param password password of the new user
+     * @param email email of the new user
+     * @return
+     * @throws UserException
+     * @throws AttributesException
+     */
+    public void createUser(String username, String password, String email) throws UserException, AttributesException {
+        User user = getUser(username);
+        if (user != null) {
+            throw new UserException("El nombre de usuario no esta disponible");
+        } else {
+            if (username == null || username.isBlank()) {
+                throw new AttributesException("El nombre de usuario es obligatorio");
+            }
+            if (password == null || password.isBlank()) {
+                throw new AttributesException("La contraseña es obligatoria");
+            }
+            if (email == null || email.isBlank()) {
+                throw new AttributesException("El email is obligatorio");
+            }
+            User newUser = new User(username, password, email);
+            userList.addLast(newUser);
+        }
+    }
+
+    //FUNCTIONS FOR THE LOGIN ---------------------------------------------------------------------------
+
 
 }

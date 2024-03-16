@@ -1,7 +1,10 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
+import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
+import co.edu.uniquindio.estr.jokify.exceptions.UserException;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -55,9 +58,24 @@ public class SingInController {
         this.loginController = loginController;
     }
 
+    /**
+     * Get the information in the textfields and create an user
+     * @param event
+     */
     @FXML
     void createAcount(ActionEvent event) {
-
+        try {
+            String username = textFieldUser.getText();
+            String password = textFieldPassword.getText();
+            String email = textFieldEmail.getText();
+            store.createUser(username, password, email);
+            cleanFields();
+            showMessage("Jokify", "Registrarse", "Tú registro ha sido realizado de manera exitosa", Alert.AlertType.INFORMATION);
+        } catch (UserException e) {
+            showMessage("Jokify", "Registrarse", e.getMessage(), Alert.AlertType.WARNING);
+        } catch (AttributesException e) {
+            showMessage("Jokify", "Registrarse", e.getMessage(), Alert.AlertType.WARNING);
+        }
     }
 
     /**
@@ -68,6 +86,30 @@ public class SingInController {
     void login(ActionEvent event) {
         loginController.show();
         this.stage.close();
+    }
+
+    /**
+     * Cleans the text fields
+     */
+    private void cleanFields() {
+        textFieldUser.setText("");
+        textFieldPassword.setText("");
+        textFieldEmail.setText("");
+    }
+
+    /**
+     * show a message for the user
+     * @param title
+     * @param header
+     * @param content
+     * @param alertType
+     */
+    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }
