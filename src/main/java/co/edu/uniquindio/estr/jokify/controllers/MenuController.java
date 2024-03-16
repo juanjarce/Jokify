@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
 import co.edu.uniquindio.estr.jokify.model.Store;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -88,6 +90,13 @@ public class MenuController implements Initializable {
     @FXML
     void showJokify(ActionEvent event) throws IOException {
         Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowJokify.fxml"));
+
+        //Apply animations for the content
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
         contentPane.setCenter(newContent);
     }
 
@@ -98,6 +107,13 @@ public class MenuController implements Initializable {
     @FXML
     void showLibrary(ActionEvent event) throws IOException {
         Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowLibrary.fxml"));
+
+        //Apply animations for the content
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
         contentPane.setCenter(newContent);
     }
 
@@ -108,6 +124,13 @@ public class MenuController implements Initializable {
     @FXML
     void showSearch(ActionEvent event) throws IOException {
         Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowSearch.fxml"));
+
+        //Apply animations for the content
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
         contentPane.setCenter(newContent);
     }
 
