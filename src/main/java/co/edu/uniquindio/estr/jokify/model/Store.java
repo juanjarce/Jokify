@@ -29,6 +29,10 @@ public class Store {
         this.songList = new LinkedList<Song>();
         this.artistList = new LinkedList<Artist>();
         this.userList = new LinkedList<User>();
+
+        //Creates the user admin
+        User admin = new User("admin", "$aDmiN", "admin@email.com");
+        userList.addLast(admin);
     }
 
     /**
