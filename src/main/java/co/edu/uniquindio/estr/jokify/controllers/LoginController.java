@@ -66,9 +66,22 @@ public class LoginController {
         this.stage.close();
     }
 
+    /**
+     * If the info of the user is correct, goes to the menu interface
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    void login(ActionEvent event) {
-
+    void login(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MenuView.fxml"));
+        Parent root = loader.load();
+        MenuController controller = loader.getController();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        controller.init(stage, this);
+        stage.show();
+        this.stage.close();
     }
 
 }

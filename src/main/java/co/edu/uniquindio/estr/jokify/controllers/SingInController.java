@@ -46,7 +46,7 @@ public class SingInController {
     }
 
     /**
-     * Init the stage and loginCOntroller
+     * Init the stage and loginController
      * @param stage
      * @param loginController
      */
