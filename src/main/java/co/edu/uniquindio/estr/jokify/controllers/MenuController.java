@@ -3,11 +3,14 @@ package co.edu.uniquindio.estr.jokify.controllers;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +24,9 @@ public class MenuController implements Initializable {
 
     @FXML
     private Button btnLibrary;
+
+    @FXML
+    private Button btnCloseSesion;
 
     @FXML
     private BorderPane contentPane;
@@ -65,19 +71,44 @@ public class MenuController implements Initializable {
 
     }
 
+    /**
+     * Close the sesion of the current user
+     * @param event
+     */
     @FXML
-    void showJokify(ActionEvent event) {
-
+    void closeSesion(ActionEvent event) {
+        loginController.show();
+        this.stage.close();
     }
 
+    /**
+     * Shows the dynamic content for the Jokify app
+     * @param event
+     */
     @FXML
-    void showLibrary(ActionEvent event) {
-
+    void showJokify(ActionEvent event) throws IOException {
+        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowJokify.fxml"));
+        contentPane.setCenter(newContent);
     }
 
+    /**
+     * Shows the dynamic content for the library of the user
+     * @param event
+     */
     @FXML
-    void showSearch(ActionEvent event) {
+    void showLibrary(ActionEvent event) throws IOException {
+        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowLibrary.fxml"));
+        contentPane.setCenter(newContent);
+    }
 
+    /**
+     * Shows the dynamic content for the search property of the app
+     * @param event
+     */
+    @FXML
+    void showSearch(ActionEvent event) throws IOException {
+        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowSearch.fxml"));
+        contentPane.setCenter(newContent);
     }
 
 }

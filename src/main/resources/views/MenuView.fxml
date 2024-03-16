@@ -38,6 +38,7 @@
                            </image>
                         </ImageView>
                         <Button fx:id="btnLibrary" layoutX="69.0" layoutY="16.0" mnemonicParsing="false" onAction="#showLibrary" styleClass="btnTopLeftContent" text="Tu Libreria" />
+                        <Button fx:id="btnCloseSesion" layoutX="14.0" layoutY="501.0" mnemonicParsing="false" onAction="#closeSesion" styleClass="btnTopLeftContent" text="Cerrar Sesión" />
                      </children>
                   </Pane>
                </children>
