@@ -119,3 +119,11 @@
 .btnTopLeftContent:pressed {
     -fx-text-fill: #191414;
 }
+
+/*STYLES FOR THE ADMIN MENU*/
+
+.menuTitle {
+    -fx-font-size: 18px;
+    -fx-text-fill: #00A6FB;
+    -fx-font-weight: bold;
+}

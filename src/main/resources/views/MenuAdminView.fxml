@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1366.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.MenuAdminController">
+    <children>
+        <SplitPane dividerPositions="0.23" prefHeight="700.0" prefWidth="1366.0" styleClass="splitPane">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <Pane layoutX="13.0" layoutY="13.0" prefHeight="590.0" prefWidth="291.0" styleClass="leftContent">
+                            <children>
+                                <Button fx:id="btnLibrary" layoutX="68.0" layoutY="441.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text=" Cargar Información" />
+                        <Button fx:id="btnLibrary1" layoutX="75.0" layoutY="365.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="235.0" styleClass="btnTopLeftContent" text="Agregar Canción" />
+                        <Button fx:id="btnLibrary2" layoutX="75.0" layoutY="295.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text="Agregar Artista" />
+                        <Label layoutX="75.0" layoutY="50.0" styleClass="menuTitle" text="Gestión Jokify" />
+                        <ImageView fitHeight="28.0" fitWidth="27.0" layoutX="34.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/ArtistLogo.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="27.0" layoutX="34.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/SongLogo.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="27.0" layoutX="34.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/DownloadLogo.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="121.0" fitWidth="111.0" layoutX="90.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/GrayLogo.png" />
+                           </image>
+                        </ImageView>
+                            </children>
+                        </Pane>
+                  <Pane layoutX="11.0" layoutY="624.0" prefHeight="60.0" prefWidth="291.0" styleClass="leftContent">
+                     <children>
+                        <Button fx:id="btnLibrary3" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" styleClass="btnTopLeftContent" text="Cerrar Sesión" />
+                     </children>
+                  </Pane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <!-- Contenido dinámico a la derecha del SplitPane -->
+                    <BorderPane fx:id="contentPane" minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" />
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
