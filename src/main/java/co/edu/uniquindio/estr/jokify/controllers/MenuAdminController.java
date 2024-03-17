@@ -6,21 +6,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.util.Duration;
-import javafx.scene.control.TextField;
-import javafx.scene.control.CheckBox;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuAdminController implements Initializable {
-
 
     //Elements fot the manage of artist
 
@@ -59,6 +55,56 @@ public class MenuAdminController implements Initializable {
 
     @FXML
     private Button btnUpdateArtist;
+
+    //Element for the manage of a song
+
+    @FXML
+    private TextField txtNameSong;
+
+    @FXML
+    private TextField txtAlbumSong;
+
+    @FXML
+    private Button btnAddSong;
+
+    @FXML
+    private Button btnNewSong;
+
+    @FXML
+    private TableView<?> tableViewSong;
+
+    @FXML
+    private TableColumn<?, ?> columnCodeSong;
+
+    @FXML
+    private TableColumn<?, ?> columnNameSong;
+
+    @FXML
+    private TableColumn<?, ?> columnArtistSong;
+
+    @FXML
+    private Button btnDeleteSong;
+
+    @FXML
+    private Button btnUpdateSong;
+
+    @FXML
+    private TextField txtCoverSong;
+
+    @FXML
+    private TextField txtYearSong;
+
+    @FXML
+    private TextField txtDurationSong;
+
+    @FXML
+    private TextField txtURLSong;
+
+    @FXML
+    private ComboBox<?> comboBoxGenreSong;
+
+    @FXML
+    private TextField txtArtistNameSong;
 
     //Elements for the manage of the dynamic content
 
@@ -211,6 +257,41 @@ public class MenuAdminController implements Initializable {
      */
     @FXML
     void updateArtist(ActionEvent event) {
+
+    }
+
+    /**
+     * Adds a song
+     * @param event
+     */
+    void addSong(ActionEvent event) {
+
+    }
+
+    /**
+     * Deletes the song that is selected
+     * @param event
+     */
+    @FXML
+    void deleteSong(ActionEvent event) {
+
+    }
+
+    /**
+     * Clears the fields of the song
+     * @param event
+     */
+    @FXML
+    void newSong(ActionEvent event) {
+
+    }
+
+    /**
+     * Update the info of a song
+     * @param event
+     */
+    @FXML
+    void updateSong(ActionEvent event) {
 
     }
 
