@@ -264,12 +264,13 @@ public class MenuAdminController implements Initializable {
      * Adds a song
      * @param event
      */
+    @FXML
     void addSong(ActionEvent event) {
 
     }
 
     /**
-     * Deletes the song that is selected
+     * Deletes the selected song
      * @param event
      */
     @FXML
@@ -278,7 +279,7 @@ public class MenuAdminController implements Initializable {
     }
 
     /**
-     * Clears the fields of the song
+     * Clear the fields of the song
      * @param event
      */
     @FXML
