@@ -155,3 +155,18 @@
     -fx-background-color: #00A6FB; /* Cambia el color de fondo de la fila seleccionada a azul */
     -fx-text-fill: #f0f0f0;
 }
+
+.comboBox {
+    -fx-font-size: 12px;
+    -fx-text-fill: #f0f0f0;
+    -fx-background-color: #3D3D3D;
+}
+
+.comboBox .list-cell {
+    -fx-text-fill: #f0f0f0;
+}
+
+.comboBox .list-cell:selected {
+    -fx-background-color: #00A6FB;
+    -fx-text-fill: #f0f0f0;
+}
