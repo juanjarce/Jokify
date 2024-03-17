@@ -7,16 +7,60 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.util.Duration;
-
+import javafx.scene.control.TextField;
+import javafx.scene.control.CheckBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuAdminController implements Initializable {
+
+
+    //Elements fot the manage of artist
+
+    @FXML
+    private TextField txtNameArtist;
+
+    @FXML
+    private CheckBox checkBoxIsGroup;
+
+    @FXML
+    private TextField txtNationalityArtist;
+
+    @FXML
+    private Button btnAddArtist;
+
+    @FXML
+    private Button btnNewArtist;
+
+    @FXML
+    private TableView<?> tableViewArtist;
+
+    @FXML
+    private TableColumn<?, ?> columnCodeArtist;
+
+    @FXML
+    private TableColumn<?, ?> columnNameArtist;
+
+    @FXML
+    private TableColumn<?, ?> columnNationalityArtist;
+
+    @FXML
+    private TableColumn<?, ?> columnIsGroup;
+
+    @FXML
+    private Button btnDeleteArtist;
+
+    @FXML
+    private Button btnUpdateArtist;
+
+    //Elements for the manage of the dynamic content
 
     @FXML
     private Button btnShowDownloadInfo;
@@ -132,6 +176,42 @@ public class MenuAdminController implements Initializable {
         fadeIn.play();
 
         contentPane.setCenter(newContent);
+    }
+
+    /**
+     * Adds an artist
+     * @param event
+     */
+    @FXML
+    void addArtist(ActionEvent event) {
+
+    }
+
+    /**
+     * Deletes the artist that is selected
+     * @param event
+     */
+    @FXML
+    void deleteArtist(ActionEvent event) {
+
+    }
+
+    /**
+     * Clear the fields of the artist
+     * @param event
+     */
+    @FXML
+    void newArtist(ActionEvent event) {
+
+    }
+
+    /**
+     * Uptade the info of an artist
+     * @param event
+     */
+    @FXML
+    void updateArtist(ActionEvent event) {
+
     }
 
 }
