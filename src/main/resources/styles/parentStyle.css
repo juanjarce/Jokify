@@ -127,3 +127,31 @@
     -fx-text-fill: #00A6FB;
     -fx-font-weight: bold;
 }
+
+.menuText {
+    -fx-font-size: 14px;
+    -fx-text-fill: #f0f0f0;
+    -fx-font-weight: bold;
+}
+
+.table {
+    -fx-background-color: transparent; /* Fondo transparente */
+    -fx-border-color: #00A6FB; /* Color del borde */
+    -fx-border-width: 2px; /* Grosor del borde */
+    -fx-font-size: 14px;
+}
+
+.table .column-header {
+    -fx-background-color: #20201D; /* Fondo transparente */
+    -fx-text-fill: #00A6FB; /* Color del texto */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+}
+
+.table .column-header .label {
+    -fx-text-fill: #00A6FB; /* Color del texto */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #00A6FB; /* Cambia el color de fondo de la fila seleccionada a azul */
+    -fx-text-fill: #f0f0f0;
+}
