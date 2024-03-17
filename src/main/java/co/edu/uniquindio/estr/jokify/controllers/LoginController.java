@@ -97,6 +97,7 @@ public class LoginController implements Initializable {
             } else {
                 showMenu();
             }
+            cleanFields();
         } catch (UserException e) {
             showMessage("Jokify", "Login", e.getMessage(), Alert.AlertType.WARNING);
         } catch (IOException e) {
@@ -135,6 +136,14 @@ public class LoginController implements Initializable {
         controller.init(stage, this);
         stage.show();
         this.stage.close();
+    }
+
+    /**
+     * Cleans the textFields
+     */
+    private void cleanFields() {
+        textFieldUser.setText("");
+        textFieldPassword.setText("");
     }
 
     /**
