@@ -1,13 +1,18 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
 import co.edu.uniquindio.estr.jokify.model.Store;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -74,7 +79,8 @@ public class MenuAdminController implements Initializable {
      */
     @FXML
     void closeSesion(ActionEvent event) {
-
+        loginController.show();
+        this.stage.close();
     }
 
     /**
@@ -82,8 +88,16 @@ public class MenuAdminController implements Initializable {
      * @param event
      */
     @FXML
-    void showAddArtist(ActionEvent event) {
+    void showAddArtist(ActionEvent event) throws IOException {
+        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowAddArtist.fxml"));
 
+        //Apply animations for the content
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
+        contentPane.setCenter(newContent);
     }
 
     /**
@@ -91,8 +105,16 @@ public class MenuAdminController implements Initializable {
      * @param event
      */
     @FXML
-    void showAddSong(ActionEvent event) {
+    void showAddSong(ActionEvent event) throws IOException {
+        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowAddSong.fxml"));
 
+        //Apply animations for the content
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
+        contentPane.setCenter(newContent);
     }
 
     /**
@@ -100,8 +122,16 @@ public class MenuAdminController implements Initializable {
      * @param event
      */
     @FXML
-    void showDownloadInfo(ActionEvent event) {
+    void showDownloadInfo(ActionEvent event) throws IOException {
+        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowDownloadInfo.fxml"));
 
+        //Apply animations for the content
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
+        contentPane.setCenter(newContent);
     }
 
 }
