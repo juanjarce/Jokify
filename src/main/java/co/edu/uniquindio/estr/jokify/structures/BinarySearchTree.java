@@ -123,7 +123,9 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
     }
 
     //------------------------------------------------------------------------------------------------------------------------------------------------
-
+    //------------------------------------------------------------------------------------------------------------------------------------------------
+    //METHODS
+    //For declared iterator in BinarySearchTree class
     @Override
     public Iterator<T> iterator() {
         return new BinaryTreeIterator(root);
@@ -156,13 +158,14 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
         @Override
         public T next() {
             if (!hasNext()) {
-                throw new NoSuchElementException("No more elements in the iterator");
+                throw new NoSuchElementException("No hay mas elementos para el iterador");
             }
             TreeNode<T> current = stack.pop();
             populateStack(current.right); // Adding nodes from the right subtree to the stack
             return current.data;
         }
     }
+    //------------------------------------------------------------------------------------------------------------------------------------------------
 
 }
 

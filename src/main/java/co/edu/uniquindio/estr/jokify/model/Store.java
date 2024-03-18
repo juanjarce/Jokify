@@ -6,7 +6,9 @@ import co.edu.uniquindio.estr.jokify.structures.BinarySearchTree;
 import co.edu.uniquindio.estr.jokify.structures.HashMapCustom;
 import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 public class Store {
@@ -16,6 +18,12 @@ public class Store {
     LinkedList<Song> songList;
     BinarySearchTree<Artist> artistList;
     HashMapCustom<String, User> userList;
+
+    //---------------------------------------------------------------------------------------------
+    //Attributes for manage searching threads results
+     List<Song> resultOrSearch;
+     List<Song> resultAndSearch;
+    //---------------------------------------------------------------------------------------------
 
     //Singleton of the class
     private static Store store;
@@ -157,5 +165,150 @@ public class Store {
             throw new UserException("Verifique que el nombre de usuario y la contraseña sean correctas");
         }
     }
+
+    //FUNCTIONS for search rqeuirements ------------------------------------------------------------------
+
+    // 1. ------------------------------------------------------------------------------------------------
+    //Artist Search: Because artists are stored in a binary tree, their
+    //search is very efficient, therefore, given the name of an Artist it should return its
+    //songs list.
+
+    // Method to search for an artist by name and return their list of songs
+    public List<Song> searchArtistSongs(String artistName) {
+        // Search for the artist by name
+        Artist artist = searchArtistByName(artistName);
+        // If artist is found, return their list of songs
+        if (artist != null) {
+            return (List<Song>) artist.getSongs().toList();
+        } else {
+            // If artist is not found, print an error message and return null
+            System.out.println("Artist not found: " + artistName);
+            return null;
+        }
+    }
+
+    // Method to search for an artist by name
+    private Artist searchArtistByName(String artistName) {
+        // Iterate through the artist list
+        Iterator<Artist> iterator = artistList.iterator();
+        while (iterator.hasNext()) {
+            // Get the next artist
+            Artist artist = iterator.next();
+            // Check if the artist name matches the given name
+            if (artist.getName().equals(artistName)) {
+                return artist; // Return the artist if found
+            }
+        }
+        return null; // Return null if artist not found
+    }
+
+    // 2. ------------------------------------------------------------------------------------------------
+
+    //Search OR: Given the values of two or more attributes of a Song, return a list
+    //with songs with at least one matching attribute.
+
+    // Method for performing OR search for songs, executed in a separate thread
+    public List<Song> searchSongsOrAsync(String attribute1, String attribute2) {
+        // Create a new thread to perform the search
+        Thread searchThread = new Thread(() -> {
+            List<Song> result = searchSongsOr(attribute1, attribute2);
+            // Store the result in a shared variable
+            setResultOr(result);
+        });
+        // Start the thread
+        searchThread.start();
+        // Wait for the thread to finish and then return the result
+        try {
+            searchThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return getResultOr();
+    }
+
+    // Method to set the search result
+    private synchronized void setResultOr(List<Song> result) {
+        this.resultOrSearch = result;
+    }
+
+    // Method to get the search result
+    private synchronized List<Song> getResultOr() {
+        return resultOrSearch;
+    }
+
+    // Method for performing OR search for songs
+    private List<Song> searchSongsOr(String attribute1, String attribute2) {
+        List<Song> result = new ArrayList<>();
+        // Iterate over the list of songs
+        for (Song song : songList) {
+            // Check if at least one of the attributes matches any of the provided values
+            if (songMatchesAttributes(song, attribute1, attribute2)) {
+                result.add(song);
+            }
+        }
+        return result;
+    }
+
+    // Method to check if at least one of the attributes of a song matches any of the provided values
+    private boolean songMatchesAttributes(Song song, String attribute1, String attribute2) {
+        return song.getName().equals(attribute1) ||
+                song.getAlbum().equals(attribute1) ||
+                song.getName().equals(attribute2) ||
+                song.getAlbum().equals(attribute2);
+    }
+
+    // 3. ------------------------------------------------------------------------------------------------
+
+    // Method for performing AND search for songs, executed in a separate thread
+    public List<Song> searchSongsAndAsync(String attribute1, String attribute2) {
+        // Create a new thread to perform the search
+        Thread searchThread = new Thread(() -> {
+            List<Song> result = searchSongsAnd(attribute1, attribute2);
+            // Store the result in a shared variable
+            setResultAnd(result);
+        });
+        // Start the thread
+        searchThread.start();
+        // Wait for the thread to finish and then return the result
+        try {
+            searchThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return getResultAnd();
+    }
+
+    // Method to set the search result
+    private synchronized void setResultAnd(List<Song> result) {
+        this.resultAndSearch = result;
+    }
+
+    // Method to get the search result
+    private synchronized List<Song> getResultAnd() {
+        return resultAndSearch;
+    }
+
+    // Method for performing AND search for songs
+    private List<Song> searchSongsAnd(String attribute1, String attribute2) {
+        List<Song> result = new ArrayList<>();
+        // Iterate over the list of songs
+        for (Song song : songList) {
+            // Check if all attributes match the provided values
+            if (songMatchesAllAttributes(song, attribute1, attribute2)) {
+                result.add(song);
+            }
+        }
+        return result;
+    }
+
+    // Method to check if all attributes of a song match the provided values
+    private boolean songMatchesAllAttributes(Song song, String attribute1, String attribute2) {
+        return song.getName().equals(attribute1) &&
+                song.getAlbum().equals(attribute1) &&
+                song.getName().equals(attribute2) &&
+                song.getAlbum().equals(attribute2);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 
 }

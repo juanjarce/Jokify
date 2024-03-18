@@ -1,5 +1,7 @@
 package co.edu.uniquindio.estr.jokify.structures;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 class DoublyNode<T> {
     T value;
@@ -268,6 +270,21 @@ public class DoublyLinkedList<T extends Comparable<T>> implements Iterable<T> {
                 return value;
             }
         };
+    }
+
+    // Method to convert the doubly linked list to a standard list
+    public List<T> toList() {
+        // Create a new ArrayList to store the elements
+        List<T> list = new ArrayList<>();
+        // Start from the head of the doubly linked list
+        DoublyNode<T> current = head;
+        // Traverse the list and add each element to the ArrayList
+        while (current != null) {
+            list.add(current.value);
+            current = current.next;
+        }
+        // Return the ArrayList containing all elements of the doubly linked list
+        return list;
     }
 
 }
