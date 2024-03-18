@@ -3,6 +3,10 @@ package co.edu.uniquindio.estr.jokify.structures;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Stack;
+
 class TreeNode<T> {
     T data;
     TreeNode<T> left;
@@ -15,7 +19,7 @@ class TreeNode<T> {
     }
 }
 
-public class BinarySearchTree<T extends Comparable<T>> {
+public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
     private TreeNode<T> root;
 
     public void insert(T data) {
@@ -120,6 +124,45 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     //------------------------------------------------------------------------------------------------------------------------------------------------
 
+    @Override
+    public Iterator<T> iterator() {
+        return new BinaryTreeIterator(root);
+    }
+
+    // Inner class implementing the Iterator interface
+    private class BinaryTreeIterator implements Iterator<T> {
+        private Stack<TreeNode<T>> stack;
+
+        public BinaryTreeIterator(TreeNode<T> root) {
+            stack = new Stack<>();
+            // Initially, we add all nodes from the left path to the stack
+            populateStack(root);
+        }
+
+        private void populateStack(TreeNode<T> node) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+        }
+
+        // Method to check if there is a next element in the iterator
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        // Method to get the next element of the iterator (in in-order traversal)
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more elements in the iterator");
+            }
+            TreeNode<T> current = stack.pop();
+            populateStack(current.right); // Adding nodes from the right subtree to the stack
+            return current.data;
+        }
+    }
 
 }
 
