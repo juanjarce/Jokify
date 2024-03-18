@@ -2,6 +2,8 @@ package co.edu.uniquindio.estr.jokify.model;
 
 import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
 import co.edu.uniquindio.estr.jokify.exceptions.UserException;
+import co.edu.uniquindio.estr.jokify.structures.BinarySearchTree;
+import co.edu.uniquindio.estr.jokify.structures.HashMapCustom;
 import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 
 import java.util.Iterator;
@@ -12,8 +14,8 @@ public class Store {
     //Attributes for the Store class
     String name;
     LinkedList<Song> songList;
-    LinkedList<Artist> artistList;
-    LinkedList<User> userList;
+    BinarySearchTree<Artist> artistList;
+    HashMapCustom<String, User> userList;
 
     //Singleton of the class
     private static Store store;
@@ -30,12 +32,12 @@ public class Store {
     private Store(String name) {
         this.name = name;
         this.songList = new LinkedList<Song>();
-        this.artistList = new LinkedList<Artist>();
-        this.userList = new LinkedList<User>();
+        this.artistList = new BinarySearchTree<Artist>();
+        this.userList = new HashMapCustom<String, User>();
 
         //Creates the user admin
         User admin = new User("admin", "$aDmiN", "admin@email.com");
-        userList.addLast(admin);
+        userList.put("admin", admin);
     }
 
     /**
@@ -62,16 +64,16 @@ public class Store {
     public void setSongList(LinkedList<Song> songList) {
         this.songList = songList;
     }
-    public LinkedList<Artist> getArtistList() {
+    public BinarySearchTree<Artist> getArtistList() {
         return artistList;
     }
-    public void setArtistList(LinkedList<Artist> artistList) {
+    public void setArtistList(BinarySearchTree<Artist> artistList) {
         this.artistList = artistList;
     }
-    public LinkedList<User> getUserList() {
+    public HashMapCustom<String, User> getUserList() {
         return userList;
     }
-    public void setUserList(LinkedList<User> userList) {
+    public void setUserList(HashMapCustom<String, User> userList) {
         this.userList = userList;
     }
 
@@ -107,14 +109,7 @@ public class Store {
      * @return
      */
     public User getUser(String username) {
-        Iterator<User> iterator = userList.iterator();
-        while (iterator.hasNext()) {
-            User user = iterator.next();
-            if (user.getUsername().compareTo(username) == 0) {
-                return user;
-            }
-        }
-        return null;
+        return userList.get(username);
     }
 
     /**
@@ -141,7 +136,7 @@ public class Store {
                 throw new AttributesException("El email is obligatorio");
             }
             User newUser = new User(username, password, email);
-            userList.addLast(newUser);
+            userList.put(username, newUser);
         }
     }
 
@@ -154,14 +149,13 @@ public class Store {
      * @return
      */
     public User loginUser(String username, String password) throws UserException {
-        Iterator<User> iterator = userList.iterator();
-        while (iterator.hasNext()) {
-            User user = iterator.next();
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                return user;
-            }
+        User u = userList.get(username);
+        if(u!=null && u.password.equals(password)){
+            return u;
         }
-        throw new UserException("Verifique que el nombre de usuario y la contraseña sean correctas");
+        else{
+            throw new UserException("Verifique que el nombre de usuario y la contraseña sean correctas");
+        }
     }
 
 }
