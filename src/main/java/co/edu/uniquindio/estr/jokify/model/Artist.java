@@ -3,6 +3,7 @@ package co.edu.uniquindio.estr.jokify.model;
 import co.edu.uniquindio.estr.jokify.structures.DoublyLinkedList;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Artist implements Comparable<Artist> {
 
@@ -18,7 +19,17 @@ public class Artist implements Comparable<Artist> {
 
     }
 
-    //Constructor for the Artist class
+    //Principal Constructor for the Artist class
+    public Artist(String name, String nationality, boolean isPartOfBand) {
+        this.code = UUID.randomUUID().toString();
+        this.name = name;
+        Nationality = nationality;
+        this.isPartOfBand = isPartOfBand;
+        this.songs = new DoublyLinkedList<Song>();
+
+    }
+
+    //Secondary Contructor for the Artist class
     public Artist(String code, String name, String nationality, boolean isPartOfBand) {
         this.code = code;
         this.name = name;

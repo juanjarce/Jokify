@@ -22,9 +22,9 @@
                 <TableColumn fx:id="columnCodeSong" prefWidth="150.0" styleClass="column" text="Código" />
                 <TableColumn fx:id="columnNameSong" prefWidth="176.0" styleClass="column" text="Nombre" />
             <TableColumn fx:id="columnArtistSong" prefWidth="165.0" text="Artista" />
-            <TableColumn prefWidth="158.0" text="Albúm" />
-            <TableColumn prefWidth="105.0" text="Año" />
-            <TableColumn prefWidth="175.0" text="Duración" />
+            <TableColumn fx:id="columnAlbumSong" prefWidth="158.0" text="Albúm" />
+            <TableColumn fx:id="columnYearSong" prefWidth="105.0" text="Año" />
+            <TableColumn fx:id="columnDurationSong" prefWidth="175.0" text="Duración" />
             </columns>
         </TableView>
         <Button fx:id="btnDeleteSong" layoutX="556.0" layoutY="624.0" mnemonicParsing="false" onAction="#deleteSong" text="Eliminar" />

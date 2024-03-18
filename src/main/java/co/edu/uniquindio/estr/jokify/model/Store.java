@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estr.jokify.model;
 
+import co.edu.uniquindio.estr.jokify.exceptions.ArtistsException;
 import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
 import co.edu.uniquindio.estr.jokify.exceptions.UserException;
 import co.edu.uniquindio.estr.jokify.structures.BinarySearchTree;
@@ -310,5 +311,57 @@ public class Store {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+
+    //CRUD for Artist --------------------------------------------------------------------------------------------------
+
+    // Método para verificar si un artista existe en la lista de artistas
+    private boolean artistExists(Artist artist) {
+        return artistList.contains(artist);
+    }
+
+    // Método para obtener un artista por su código
+    public Artist getArtist(String code) {
+        Artist artist = new Artist();
+        artist.setCode(code);
+        if (artistExists(artist)) {
+            return artistList.get(artist);
+        } else {
+            System.out.println("El artista con el código " + code + " no existe.");
+            return null;
+        }
+    }
+
+    // Método para agregar un nuevo artista
+    public void createArtist(Artist artist) throws ArtistsException {
+        if (!artistExists(artist)) {
+            artistList.insert(artist);
+            System.out.println("Artista creado exitosamente: " + artist);
+        } else {
+            throw new ArtistsException("El artista con el código " + artist.getCode() + " ya existe.");
+        }
+    }
+
+    // Método para eliminar un artista por su código
+    public void deleteArtist(String code) throws ArtistsException {
+        Artist artist = new Artist();
+        artist.setCode(code);
+        if (artistExists(artist)) {
+            artistList.remove(artist);
+            System.out.println("Artista eliminado exitosamente: " + artist);
+        } else {
+            throw new ArtistsException("El artista con el código " + code + " no existe.");
+        }
+    }
+
+    // Método para actualizar un artista
+    public void updateArtist(Artist updatedArtist) throws ArtistsException {
+        if (artistExists(updatedArtist)) {
+            artistList.remove(updatedArtist);
+            artistList.insert(updatedArtist);
+            System.out.println("Artista actualizado exitosamente: " + updatedArtist);
+        } else {
+            throw new ArtistsException("El artista con el código " + updatedArtist.getCode() + " no existe.");
+        }
+    }
 
 }

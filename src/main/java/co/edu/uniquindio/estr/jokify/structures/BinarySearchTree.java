@@ -22,10 +22,33 @@ class TreeNode<T> {
 public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
     private TreeNode<T> root;
 
+    // Method to retrieve an element from the tree by its key
+    public T get(T key) {
+        return get(root, key);
+    }
+
+    // Recursive helper method to retrieve an element from the tree by its key
+    private T get(TreeNode<T> node, T key) {
+        if (node == null) {
+            return null;
+        }
+
+        int cmp = key.compareTo(node.data);
+        if (cmp < 0) {
+            return get(node.left, key);
+        } else if (cmp > 0) {
+            return get(node.right, key);
+        } else {
+            return node.data;
+        }
+    }
+
+    // Method to insert an element into the tree
     public void insert(T data) {
         root = insertRec(root, data);
     }
 
+    // Recursive helper method to insert an element into the tree
     private TreeNode<T> insertRec(TreeNode<T> node, T data) {
         if (node == null) {
             return new TreeNode<>(data);
@@ -38,10 +61,12 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
         return node;
     }
 
+    // Method to check if an element exists in the tree
     public boolean contains(T data) {
         return containsRec(root, data);
     }
 
+    // Recursive helper method to check if an element exists in the tree
     private boolean containsRec(TreeNode<T> node, T data) {
         if (node == null) {
             return false;
@@ -55,10 +80,12 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
         }
     }
 
+    // Method to remove an element from the tree
     public void remove(T data) {
         root = removeRec(root, data);
     }
 
+    // Recursive helper method to remove an element from the tree
     private TreeNode<T> removeRec(TreeNode<T> node, T data) {
         if (node == null) {
             return null;
@@ -80,10 +107,12 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
         return node;
     }
 
+    // Method to update an element in the tree
     public void update(T oldData, T newData) {
         root = updateRec(root, oldData, newData);
     }
 
+    // Recursive helper method to update an element in the tree
     private TreeNode<T> updateRec(TreeNode<T> node, T oldData, T newData) {
         if (node == null) {
             return null;
@@ -98,6 +127,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
         return node;
     }
 
+    // Method to find the minimum element in the tree
     private TreeNode<T> findMin(TreeNode<T> node) {
         while (node.left != null) {
             node = node.left;
@@ -108,12 +138,14 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
     //------------------------------------------------------------------------------------------------------------------------------------------------
     //Methods for observable list, implemented in UI
 
+    // Method to convert the binary search tree to an observable list
     public ObservableList<T> toObservableList() {
         ObservableList<T> list = FXCollections.observableArrayList();
         inOrderTraversal(root, list);
         return list;
     }
 
+    // Helper method for in-order traversal to populate the observable list
     private void inOrderTraversal(TreeNode<T> node, ObservableList<T> list) {
         if (node != null) {
             inOrderTraversal(node.left, list);

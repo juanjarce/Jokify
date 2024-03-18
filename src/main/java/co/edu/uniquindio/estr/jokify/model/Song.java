@@ -16,6 +16,7 @@ public class Song implements Comparable<Song> {
     int durationOnSeconds;
     String youtubeURL;
     Genre genre;
+    String artistName;
 
     //Empty construtor for Song class
     public Song(){
@@ -23,9 +24,9 @@ public class Song implements Comparable<Song> {
     }
 
     //Constructor for the Song class
-    public Song(String name, String album, String cover, int year, int durationOnSeconds, String youtubeURL, Genre genre) {
+    public Song(String name, String album, String cover, int year, int durationOnSeconds, String youtubeURL, Genre genre, String artistName) {
         //Generate the code automatically using UUID
-        this.code = UUID.randomUUID().toString();;
+        this.code = UUID.randomUUID().toString();
         this.name = name;
         this.album = album;
         this.cover = cover;
@@ -33,6 +34,7 @@ public class Song implements Comparable<Song> {
         this.durationOnSeconds = durationOnSeconds;
         this.youtubeURL = youtubeURL;
         this.genre = genre;
+        this.artistName = artistName;
     }
 
     //getters() & setters() for the Song class
@@ -83,6 +85,12 @@ public class Song implements Comparable<Song> {
     }
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+    public String getArtistName() {
+        return artistName;
+    }
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 
     //equals() for the Song class

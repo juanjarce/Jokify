@@ -1,12 +1,18 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
+import co.edu.uniquindio.estr.jokify.exceptions.ArtistsException;
+import co.edu.uniquindio.estr.jokify.model.Artist;
+import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.Node;
@@ -19,6 +25,8 @@ import java.util.ResourceBundle;
 public class MenuAdminController implements Initializable {
 
     //Elements fot the manage of artist
+    private ObservableList<Artist> listArtistData = FXCollections.observableArrayList();;
+    private ObservableList<Song> listSongData = FXCollections.observableArrayList();;
 
     @FXML
     private TextField txtNameArtist;
@@ -36,19 +44,19 @@ public class MenuAdminController implements Initializable {
     private Button btnNewArtist;
 
     @FXML
-    private TableView<?> tableViewArtist;
+    private TableView<Artist> tableViewArtist;
 
     @FXML
-    private TableColumn<?, ?> columnCodeArtist;
+    private TableColumn<Artist, String> columnCodeArtist;
 
     @FXML
-    private TableColumn<?, ?> columnNameArtist;
+    private TableColumn<Artist, String> columnNameArtist;
 
     @FXML
-    private TableColumn<?, ?> columnNationalityArtist;
+    private TableColumn<Artist, String> columnNationalityArtist;
 
     @FXML
-    private TableColumn<?, ?> columnIsGroup;
+    private TableColumn<Artist, Boolean> columnIsGroup;
 
     @FXML
     private Button btnDeleteArtist;
@@ -71,16 +79,25 @@ public class MenuAdminController implements Initializable {
     private Button btnNewSong;
 
     @FXML
-    private TableView<?> tableViewSong;
+    private TableView<Song> tableViewSong;
 
     @FXML
-    private TableColumn<?, ?> columnCodeSong;
+    private TableColumn<Song, String> columnCodeSong;
 
     @FXML
-    private TableColumn<?, ?> columnNameSong;
+    private TableColumn<Song, String> columnNameSong;
 
     @FXML
-    private TableColumn<?, ?> columnArtistSong;
+    private TableColumn<Song, String> columnArtistSong;
+
+    @FXML
+    private TableColumn<Song, String> columnAlbumSong;
+
+    @FXML
+    private TableColumn<Song, Integer> columnYearSong;
+
+    @FXML
+    private TableColumn<Song, Integer> columnDurationSong;
 
     @FXML
     private Button btnDeleteSong;
@@ -161,6 +178,28 @@ public class MenuAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //Initialize Artists ---------------------------------------------------------------------------------------------
+        //Defining columns
+        this.columnCodeArtist.setCellValueFactory(new PropertyValueFactory<>("code"));
+        this.columnNameArtist.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.columnNationalityArtist.setCellValueFactory(new PropertyValueFactory<>("Nationality"));
+        this.columnIsGroup.setCellValueFactory(new PropertyValueFactory<>("isPartOfBand"));
+
+        // Populate table with artist data
+        tableViewArtist.setItems(store.getArtistList().toObservableList());
+        //----------------------------------------------------------------------------------------------------------------
+
+
+        //Initialize Songs ---------------------------------------------------------------------------------------------
+        //Defining columns
+//        this.columnCodeSong.setCellValueFactory(new PropertyValueFactory<>("code"));
+//        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<>("name"));
+//        this.columnArtistSong.setCellValueFactory(new PropertyValueFactory<>("artistName"));
+//        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<>("album"));
+//        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<>("year"));
+//        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<>("durationOnSeconds"));
+        //----------------------------------------------------------------------------------------------------------------
+
     }
 
     /**
@@ -224,13 +263,44 @@ public class MenuAdminController implements Initializable {
         contentPane.setCenter(newContent);
     }
 
+    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
+
+    //METHODS for Artists managment ------------------------------------------------------------------------------------
+    // Method to update table view with current artist list
+    private void updateArtistTable() {
+        tableViewArtist.setItems(store.getArtistList().toObservableList());
+    }
+
+    // Method to clear input fields
+    private void clearArtistFields() {
+        txtNameArtist.clear();
+        txtNationalityArtist.clear();
+        checkBoxIsGroup.setSelected(false);
+    }
+
     /**
      * Adds an artist
      * @param event
      */
     @FXML
     void addArtist(ActionEvent event) {
-
+        String name = txtNameArtist.getText();
+        String nationality = txtNationalityArtist.getText();
+        boolean isGroup = checkBoxIsGroup.isSelected();
+        try {
+            Artist newArtist = new Artist(name, nationality, isGroup);
+            store.createArtist(newArtist);
+            updateArtistTable();
+            clearArtistFields();
+        } catch (ArtistsException e) {
+            mostrarMensaje("ERROR", "Error agregando al artista", e.getMessage(), Alert.AlertType.WARNING);
+        }
     }
 
     /**
@@ -239,7 +309,17 @@ public class MenuAdminController implements Initializable {
      */
     @FXML
     void deleteArtist(ActionEvent event) {
+        Artist selectedArtist = tableViewArtist.getSelectionModel().getSelectedItem();
+        if (selectedArtist != null) {
+            try {
+                store.deleteArtist(selectedArtist.getCode());
+                updateArtistTable();
+                clearArtistFields();
+            } catch (ArtistsException e) {
+                mostrarMensaje("ERROR", "Error eliminando al artista", e.getMessage(), Alert.AlertType.WARNING);
 
+            }
+        }
     }
 
     /**
@@ -248,7 +328,7 @@ public class MenuAdminController implements Initializable {
      */
     @FXML
     void newArtist(ActionEvent event) {
-
+        clearArtistFields();
     }
 
     /**
@@ -257,8 +337,21 @@ public class MenuAdminController implements Initializable {
      */
     @FXML
     void updateArtist(ActionEvent event) {
-
+        Artist selectedArtist = tableViewArtist.getSelectionModel().getSelectedItem();
+        if (selectedArtist != null) {
+            String name = txtNameArtist.getText();
+            String nationality = txtNationalityArtist.getText();
+            boolean isGroup = checkBoxIsGroup.isSelected();
+            try {
+                Artist updatedArtist = new Artist(selectedArtist.getCode(), name, nationality, isGroup);
+                store.updateArtist(updatedArtist);
+                updateArtistTable();
+            } catch (ArtistsException e) {
+                mostrarMensaje("ERROR", "Error actualizando al artista", e.getMessage(), Alert.AlertType.WARNING);
+            }
+        }
     }
+    //------------------------------------------------------------------------------------------------------------------
 
     /**
      * Adds a song
