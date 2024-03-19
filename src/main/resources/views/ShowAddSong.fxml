@@ -40,7 +40,7 @@
       <ComboBox fx:id="comboBoxGenreSong" layoutX="134.0" layoutY="227.0" prefHeight="23.0" prefWidth="200.0" styleClass="comboBox" />
       <Label layoutX="54.0" layoutY="229.0" styleClass="menuText" text="Género" />
       <Label layoutX="288.0" layoutY="35.0" styleClass="menuText" text="Nombre del artista: " />
-      <ComboBox fx:id="comboArtistNameSong" layoutX="434.0" layoutY="33.0" prefHeight="23.0" prefWidth="200.0" styleClass="comboBox" />
+      <ComboBox fx:id="comboArtistNameSong" layoutX="468.0" layoutY="32.0" prefHeight="23.0" prefWidth="200.0" styleClass="comboBox" />
       <Button fx:id="btnCoverSong" layoutX="456.0" layoutY="111.0" mnemonicParsing="false" onAction="#getCoverEvent" text="Seleccionar Carátula" />
       <ImageView fx:id="coverImageView" fitHeight="84.0" fitWidth="101.0" layoutX="886.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
     </children>
