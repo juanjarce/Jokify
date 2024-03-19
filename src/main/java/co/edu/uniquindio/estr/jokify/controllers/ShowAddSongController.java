@@ -226,6 +226,8 @@ public class ShowAddSongController implements Initializable {
                 // Set the actual artist list
                 this.listSongsData.setAll(store.getSongList().toObservableList());
                 this.tableViewSong.setItems(this.listSongsData);
+                // Refresh table por vosializationg changes
+                this.tableViewSong.refresh();
 
                 //Deselect artist
                 this.selectedSong = null;

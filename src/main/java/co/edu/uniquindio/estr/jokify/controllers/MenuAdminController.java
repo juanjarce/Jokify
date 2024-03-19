@@ -130,14 +130,18 @@ public class MenuAdminController {
      */
     @FXML
     void showDownloadInfo(ActionEvent event) throws IOException {
-        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowDownloadInfo.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowDownloadInfo.fxml"));
+        Parent newContent = loader.load();
 
-        //Apply animations for the content
+        // Obtener el controlador del FXML cargado
+        ShowDownloadInfoController controller = loader.getController();
+        // Aplicar animaciones para el contenido
         FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
 
+        // Establecer el controlador en el contentPane
         contentPane.setCenter(newContent);
     }
 
