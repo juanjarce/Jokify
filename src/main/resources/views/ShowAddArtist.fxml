@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.MenuAdminController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.ShowAddArtistController">
    <children>
       <Label layoutX="57.0" layoutY="33.0" styleClass="menuTitle" text="Datos del artista / Grupo" />
       <TextField fx:id="txtNameArtist" layoutX="194.0" layoutY="112.0" prefHeight="23.0" prefWidth="115.0" />
@@ -18,12 +18,11 @@
       <TextField fx:id="txtNationalityArtist" layoutX="194.0" layoutY="161.0" prefHeight="23.0" prefWidth="115.0" />
       <Button fx:id="btnAddArtist" layoutX="787.0" layoutY="109.0" mnemonicParsing="false" onAction="#addArtist" text="Agregar" />
       <Button fx:id="btnNewArtist" layoutX="787.0" layoutY="159.0" mnemonicParsing="false" onAction="#newArtist" text="Nuevo" />
-      <TableView fx:id="tableViewArtist" layoutX="55.0" layoutY="226.0" prefHeight="369.0" prefWidth="932.0" styleClass="table">
+      <TableView fx:id="tableViewArtist" layoutX="55.0" layoutY="226.0" onMouseClicked="#selectArtistEvent" prefHeight="369.0" prefWidth="932.0" styleClass="table">
         <columns>
-          <TableColumn fx:id="columnCodeArtist" prefWidth="240.0" styleClass="column" text="Código" />
-            <TableColumn fx:id="columnNameArtist" prefWidth="227.0" styleClass="column" text="Nombre" />
-            <TableColumn fx:id="columnNationalityArtist" prefWidth="201.0" styleClass="column" text="Nacionalidad" />
-            <TableColumn fx:id="columnIsGroup" prefWidth="261.0" styleClass="column" text="Artista / Grupo" />
+          <TableColumn fx:id="columnCodeArtist" prefWidth="371.99999237060547" styleClass="column" text="Código" />
+            <TableColumn fx:id="columnNameArtist" prefWidth="278.0" styleClass="column" text="Nombre" />
+            <TableColumn fx:id="columnNationalityArtist" prefWidth="279.0" styleClass="column" text="Nacionalidad" />
         </columns>
       </TableView>
       <Button fx:id="btnDeleteArtist" layoutX="556.0" layoutY="624.0" mnemonicParsing="false" onAction="#deleteArtist" text="Eliminar" />

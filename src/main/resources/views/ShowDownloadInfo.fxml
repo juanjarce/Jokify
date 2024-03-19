@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.MenuAdminController">
-    <children>
-        <Label layoutX="411.0" layoutY="339.0" text="PRUEBA CARGAR INFO" />
-    </children>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.ShowDownloadInfoController">
+   <children>
+      <TableView fx:id="tableViewSong" layoutX="59.0" layoutY="14.0" prefHeight="277.0" prefWidth="932.0" styleClass="table">
+         <columns>
+            <TableColumn fx:id="columnCodeSong" prefWidth="150.0" styleClass="column" text="Código" />
+            <TableColumn fx:id="columnNameSong" prefWidth="176.0" styleClass="column" text="Nombre" />
+            <TableColumn fx:id="columnArtistSong" prefWidth="165.0" text="Artista" />
+            <TableColumn fx:id="columnAlbumSong" prefWidth="158.0" text="Albúm" />
+            <TableColumn fx:id="columnYearSong" prefWidth="105.0" text="Año" />
+            <TableColumn fx:id="columnDurationSong" prefWidth="175.0" text="Duración" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableViewArtist" layoutX="59.0" layoutY="310.0" prefHeight="317.0" prefWidth="932.0" styleClass="table">
+         <columns>
+            <TableColumn fx:id="columnCodeArtist" prefWidth="371.99999237060547" styleClass="column" text="Código" />
+            <TableColumn fx:id="columnNameArtist" prefWidth="278.0" styleClass="column" text="Nombre" />
+            <TableColumn fx:id="columnNationalityArtist" prefWidth="279.0" styleClass="column" text="Nacionalidad" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnLoadFromFile" layoutX="791.0" layoutY="647.0" mnemonicParsing="false" onAction="#loadFromFile" text="Cargar Desde Archivo" />
+   </children>
 </AnchorPane>

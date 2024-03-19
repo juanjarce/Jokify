@@ -22,6 +22,14 @@ class TreeNode<T> {
 public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
     private TreeNode<T> root;
 
+    //getters() & setters()
+    public TreeNode<T> getRoot() {
+        return root;
+    }
+    public void setRoot(TreeNode<T> root) {
+        this.root = root;
+    }
+
     // Method to retrieve an element from the tree by its key
     public T get(T key) {
         return get(root, key);
@@ -197,6 +205,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
             return current.data;
         }
     }
+
     //------------------------------------------------------------------------------------------------------------------------------------------------
 
 }

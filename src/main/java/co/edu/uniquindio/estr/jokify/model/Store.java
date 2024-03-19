@@ -2,11 +2,16 @@ package co.edu.uniquindio.estr.jokify.model;
 
 import co.edu.uniquindio.estr.jokify.exceptions.ArtistsException;
 import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
+import co.edu.uniquindio.estr.jokify.exceptions.SongsException;
 import co.edu.uniquindio.estr.jokify.exceptions.UserException;
+import co.edu.uniquindio.estr.jokify.model.enums.Genre;
 import co.edu.uniquindio.estr.jokify.structures.BinarySearchTree;
 import co.edu.uniquindio.estr.jokify.structures.HashMapCustom;
 import co.edu.uniquindio.estr.jokify.structures.LinkedList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -314,7 +319,7 @@ public class Store {
 
     //CRUD for Artist --------------------------------------------------------------------------------------------------
 
-    // Método para verificar si un artista existe en la lista de artistas
+    // Method to check if an artist exists in the artist list
     private boolean artistExists(Artist artist) {
         return artistList.contains(artist);
     }
@@ -331,7 +336,7 @@ public class Store {
         }
     }
 
-    // Método para agregar un nuevo artista
+    // Method to add a new artist
     public void createArtist(Artist artist) throws ArtistsException {
         if (!artistExists(artist)) {
             artistList.insert(artist);
@@ -341,11 +346,18 @@ public class Store {
         }
     }
 
-    // Método para eliminar un artista por su código
+    // Method to delete an artist by their code
     public void deleteArtist(String code) throws ArtistsException {
         Artist artist = new Artist();
         artist.setCode(code);
         if (artistExists(artist)) {
+            //Delete songs from artist -----------------------------------------
+            for(Song s : songList){
+                if(getArtist(code).getName().equals(s.getArtistName())){
+                    songList.remove(s);
+                }
+            }
+            //------------------------------------------------------------------
             artistList.remove(artist);
             System.out.println("Artista eliminado exitosamente: " + artist);
         } else {
@@ -353,7 +365,7 @@ public class Store {
         }
     }
 
-    // Método para actualizar un artista
+    // Method to update an artist
     public void updateArtist(Artist updatedArtist) throws ArtistsException {
         if (artistExists(updatedArtist)) {
             artistList.remove(updatedArtist);
@@ -364,4 +376,67 @@ public class Store {
         }
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+    //METHODS Songs ----------------------------------------------------------------------------------------------------
+
+    // Method to retrieve a song by its code
+    public Song getSong(String code) {
+        for (Song song : songList) {
+            if (song.getCode().equals(code)) {
+                return song;
+            }
+        }
+        return null; // Return null if song with given code is not found
+    }
+
+    // Method to add a new song
+    public void createSong(Song newSong) throws SongsException {
+        songList.addFirst(newSong);
+        getArtistByName(newSong.artistName).getSongs().addFirst(newSong);
+        System.out.println("Canción creada exitosamente: " + newSong);
+    }
+
+    // Method to delete a song by its code
+    public void deleteSong(String code) throws SongsException {
+        Song s = getSong(code);
+        if(s == null)  throw new SongsException("La canción no se encuentra agregada");
+        getArtistByName(s.artistName).getSongs().delete(s);
+        songList.remove(s);
+        System.out.println("La canción "+code+" fue eliminada exitosamente");
+    }
+
+    // Method to update a song
+    public void updateSong(String code, String name, String album, String cover, int year, int durationOnSeconds, String youtubeURL, Genre genre, String artistName) throws SongsException {
+        Song oldSong = getSong(code);
+        if(oldSong == null)  throw new SongsException("La canción no se encuentra agregada");
+        Song newSong = new Song(code, name, album, cover, year, durationOnSeconds, youtubeURL, genre, artistName);
+        Artist a = getArtistByName(oldSong.getArtistName());
+        a.getSongs().modifyNode(a.getSongs().getNodePosition(oldSong), newSong);
+        songList.setValue(songList.getPosition(getSong(code)), newSong);
+        System.out.println("La canción "+code+" fue actualizada correctamente");
+    }
+
+    //Method for returning a ObservableList with the names of all the Artist added on the artistList
+    public ObservableList<String> getAllArtistNames() {
+        ObservableList<String> artistNames = FXCollections.observableArrayList();
+        Iterator<Artist> iterator = artistList.iterator();
+        while(iterator.hasNext()){
+            artistNames.add(iterator.next().getName());
+        }
+        return artistNames;
+    }
+
+    //Method for obtainig an Artist by his name on the artistList
+    public Artist getArtistByName(String name) {
+        Iterator<Artist> iterator = artistList.iterator();
+        while(iterator.hasNext()){
+            Artist a = iterator.next();
+            if(a.getName().equals(name)){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 }

@@ -23,10 +23,23 @@ public class Song implements Comparable<Song> {
 
     }
 
-    //Constructor for the Song class
+    //Principal Constructor for the Song class
     public Song(String name, String album, String cover, int year, int durationOnSeconds, String youtubeURL, Genre genre, String artistName) {
         //Generate the code automatically using UUID
         this.code = UUID.randomUUID().toString();
+        this.name = name;
+        this.album = album;
+        this.cover = cover;
+        this.year = year;
+        this.durationOnSeconds = durationOnSeconds;
+        this.youtubeURL = youtubeURL;
+        this.genre = genre;
+        this.artistName = artistName;
+    }
+
+    //Secondary Constructor for the Song class
+    public Song(String code, String name, String album, String cover, int year, int durationOnSeconds, String youtubeURL, Genre genre, String artistName) {
+        this.code = code;
         this.name = name;
         this.album = album;
         this.cover = cover;

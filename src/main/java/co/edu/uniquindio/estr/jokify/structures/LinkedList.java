@@ -1,6 +1,9 @@
 package co.edu.uniquindio.estr.jokify.structures;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
@@ -328,6 +331,16 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
             reverseRecursive(current.next, current);
             current.next = previous;
         }
+    }
+
+    // Method to convert a LinkedList to an ObservableList
+    public ObservableList<T> toObservableList() {
+        ObservableList<T> observableList = FXCollections.observableArrayList();
+        Iterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            observableList.add(iterator.next());
+        }
+        return observableList;
     }
 
     /**

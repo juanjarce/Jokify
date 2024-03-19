@@ -6,18 +6,19 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.MenuAdminController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.ShowAddSongController">
     <children>
-        <Label layoutX="57.0" layoutY="33.0" styleClass="menuTitle" text="Datos de la cación" />
+        <Label layoutX="57.0" layoutY="33.0" styleClass="menuTitle" text="Datos de la canción" />
         <TextField fx:id="txtNameSong" layoutX="134.0" layoutY="111.0" prefHeight="23.0" prefWidth="115.0" />
         <Label layoutX="57.0" layoutY="113.0" styleClass="menuText" text="Nombre" />
         <Label layoutX="57.0" layoutY="162.0" styleClass="menuText" text="Albúm" />
         <TextField fx:id="txtAlbumSong" layoutX="134.0" layoutY="162.0" prefHeight="23.0" prefWidth="115.0" />
         <Button fx:id="btnAddSong" layoutX="793.0" layoutY="224.0" mnemonicParsing="false" onAction="#addSong" text="Agregar" />
         <Button fx:id="btnNewSong" layoutX="534.0" layoutY="224.0" mnemonicParsing="false" onAction="#newSong" text="Nuevo" />
-        <TableView fx:id="tableViewSong" layoutX="55.0" layoutY="283.0" prefHeight="312.0" prefWidth="932.0" styleClass="table">
+        <TableView fx:id="tableViewSong" layoutX="55.0" layoutY="283.0" onMouseClicked="#selectSongEvent" prefHeight="312.0" prefWidth="932.0" styleClass="table">
             <columns>
                 <TableColumn fx:id="columnCodeSong" prefWidth="150.0" styleClass="column" text="Código" />
                 <TableColumn fx:id="columnNameSong" prefWidth="176.0" styleClass="column" text="Nombre" />
@@ -31,7 +32,6 @@
         <Button fx:id="btnUpdateSong" layoutX="268.0" layoutY="624.0" mnemonicParsing="false" onAction="#updateSong" text="Actualizar" />
       <Label layoutX="376.0" layoutY="113.0" styleClass="menuText" text="Carátula" />
       <Label layoutX="376.0" layoutY="164.0" styleClass="menuText" text="Año" />
-      <TextField fx:id="txtCoverSong" layoutX="456.0" layoutY="112.0" prefHeight="23.0" prefWidth="115.0" />
       <TextField fx:id="txtYearSong" layoutX="456.0" layoutY="162.0" prefHeight="23.0" prefWidth="115.0" />
       <Label layoutX="683.0" layoutY="115.0" styleClass="menuText" text="Duración" />
       <Label layoutX="683.0" layoutY="165.0" styleClass="menuText" text="URL Youtube" />
@@ -40,6 +40,8 @@
       <ComboBox fx:id="comboBoxGenreSong" layoutX="134.0" layoutY="227.0" prefHeight="23.0" prefWidth="200.0" styleClass="comboBox" />
       <Label layoutX="54.0" layoutY="229.0" styleClass="menuText" text="Género" />
       <Label layoutX="288.0" layoutY="35.0" styleClass="menuText" text="Nombre del artista: " />
-      <TextField fx:id="txtArtistNameSong" layoutX="456.0" layoutY="33.0" prefHeight="23.0" prefWidth="115.0" />
+      <ComboBox fx:id="comboArtistNameSong" layoutX="434.0" layoutY="33.0" prefHeight="23.0" prefWidth="200.0" styleClass="comboBox" />
+      <Button fx:id="btnCoverSong" layoutX="456.0" layoutY="111.0" mnemonicParsing="false" onAction="#getCoverEvent" text="Seleccionar Carátula" />
+      <ImageView fx:id="coverImageView" fitHeight="84.0" fitWidth="101.0" layoutX="886.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
