@@ -96,25 +96,28 @@ public class ShowAddSongController implements Initializable {
             String name = txtNameSong.getText();
             String album = txtAlbumSong.getText();
             String cover = this.coverImageDirection;
-            int year = Integer.parseInt(txtYearSong.getText());
-            int duration = Integer.parseInt(txtDurationSong.getText());
+            String year = txtYearSong.getText();
+            String duration = txtDurationSong.getText();
             String youtubeURL = txtURLSong.getText();
             String genre = comboBoxGenreSong.getValue();
             String artistName = comboArtistNameSong.getSelectionModel().getSelectedItem();
 
-            try {
-                Song newSong = new Song(name, album, cover, year, duration, youtubeURL, Genre.valueOf(genre), artistName);
-                store.createSong(newSong);
-                mostrarMensaje("PROCESO EXITOSO", "Canción agregada", "La canción fue creada exitosamente", Alert.AlertType.INFORMATION);
+            if(validarDatos(name, album, cover, year, duration, youtubeURL, genre, artistName)){
+                try {
+                    Song newSong = new Song(name, album, cover, Integer.parseInt(year), Integer.parseInt(duration), youtubeURL, Genre.valueOf(genre), artistName);
+                    store.createSong(newSong);
+                    mostrarMensaje("PROCESO EXITOSO", "Canción agregada", "La canción fue creada exitosamente", Alert.AlertType.INFORMATION);
 
-                // Set the actual artist list
-                this.listSongsData.setAll(store.getSongList().toObservableList());
-                this.tableViewSong.setItems(this.listSongsData);
+                    // Set the actual artist list
+                    this.listSongsData.setAll(store.getSongList().toObservableList());
+                    this.tableViewSong.setItems(this.listSongsData);
 
-                //Clear the fields
-                clearSongFields();
-            } catch (Exception e) {
-                mostrarMensaje("ERROR", "Error eliminando la canción", e.getMessage(), Alert.AlertType.WARNING);
+                    //Clear the fields
+                    clearSongFields();
+                } catch (Exception e) {
+                    mostrarMensaje("ERROR", "Error eliminando la canción", e.getMessage(), Alert.AlertType.WARNING);
+                }
+
             }
         }
         else{
@@ -213,26 +216,29 @@ public class ShowAddSongController implements Initializable {
             String name = txtNameSong.getText();
             String album = txtAlbumSong.getText();
             String cover = this.coverImageDirection;
-            int year = Integer.parseInt(txtYearSong.getText());
-            int duration = Integer.parseInt(txtDurationSong.getText());
+            String year = txtYearSong.getText();
+            String duration = txtDurationSong.getText();
             String youtubeURL = txtURLSong.getText();
             String genre = comboBoxGenreSong.getValue();
             String artistName = comboArtistNameSong.getSelectionModel().getSelectedItem();
 
-            try {
-                store.updateSong(selectedSong.getCode(), name, album, cover, year, duration, youtubeURL, Genre.valueOf(genre), artistName);
-                mostrarMensaje("PROCESO EXITOSO", "Canción actualizada", "La canción fue actualizada exitosamente", Alert.AlertType.INFORMATION);
+            if(validarDatos(name, album, cover, year, duration, youtubeURL, genre, artistName)){
+                try {
+                    store.updateSong(selectedSong.getCode(), name, album, cover, Integer.parseInt(year), Integer.parseInt(duration), youtubeURL, Genre.valueOf(genre), artistName);
+                    mostrarMensaje("PROCESO EXITOSO", "Canción actualizada", "La canción fue actualizada exitosamente", Alert.AlertType.INFORMATION);
 
-                // Set the actual artist list
-                this.listSongsData.setAll(store.getSongList().toObservableList());
-                this.tableViewSong.setItems(this.listSongsData);
-                // Refresh table por vosializationg changes
-                this.tableViewSong.refresh();
+                    // Set the actual artist list
+                    this.listSongsData.setAll(store.getSongList().toObservableList());
+                    this.tableViewSong.setItems(this.listSongsData);
+                    // Refresh table por vosializationg changes
+                    this.tableViewSong.refresh();
 
-                //Deselect artist
-                this.selectedSong = null;
-            } catch (SongsException e) {
-                mostrarMensaje("ERROR", "Error actualizando la canción", e.getMessage(), Alert.AlertType.WARNING);
+                    //Deselect artist
+                    this.selectedSong = null;
+                } catch (SongsException e) {
+                    mostrarMensaje("ERROR", "Error actualizando la canción", e.getMessage(), Alert.AlertType.WARNING);
+                }
+
             }
         }
     }
@@ -256,6 +262,55 @@ public class ShowAddSongController implements Initializable {
         alert.setHeaderText(header);
         alert.setContentText(contenido);
         alert.showAndWait();
+    }
+
+    //Method for validating the information inserted for the Song
+    private boolean validarDatos(String name, String album, String cover, String year, String duration, String youtubeURL, String genre, String artistName) {
+        StringBuilder mensaje = new StringBuilder();
+
+        if (name == null || name.isEmpty())
+            mensaje.append("El nombre de la canción es inválido.\n");
+
+        if (album == null || album.isEmpty())
+            mensaje.append("El nombre del álbum es inválido.\n");
+
+        if (cover == null || cover.isEmpty())
+            mensaje.append("La dirección de la carátula es inválida.\n");
+
+        if (!isNumeric(year))
+            mensaje.append("El año debe ser un número válido.\n");
+
+        if (!isNumeric(duration))
+            mensaje.append("La duración debe ser un número válido.\n");
+
+        if (youtubeURL == null || youtubeURL.isEmpty())
+            mensaje.append("La URL de YouTube es inválida.\n");
+
+        if (genre == null)
+            mensaje.append("Debe seleccionar un género para la canción.\n");
+
+        if (artistName == null)
+            mensaje.append("Debe seleccionar un artista para la canción.\n");
+
+        if (mensaje.length() == 0) {
+            return true;
+        } else {
+            mostrarMensaje("Información de Canción", "Datos inválidos", mensaje.toString(), Alert.AlertType.WARNING);
+            return false;
+        }
+    }
+
+    //Method for validating if a String is a Number
+    private boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override

@@ -74,19 +74,23 @@ public class ShowAddArtistController implements Initializable {
         String name = txtNameArtist.getText();
         String nationality = txtNationalityArtist.getText();
         boolean isGroup = checkBoxIsGroup.isSelected();
-        try {
-            Artist newArtist = new Artist(name, nationality, isGroup);
-            store.createArtist(newArtist);
-            mostrarMensaje("PROCESO EXITOSO", "Artista agregado", "El artista fue creado exitosamente", Alert.AlertType.INFORMATION);
 
-            // Set the actual artist list
-            this.listArtistData.setAll(store.getArtistList().toObservableList());
-            this.tableViewArtist.setItems(this.listArtistData);
+        if(validarDatos(name, nationality)){
+            try {
+                Artist newArtist = new Artist(name, nationality, isGroup);
+                store.createArtist(newArtist);
+                mostrarMensaje("PROCESO EXITOSO", "Artista agregado", "El artista fue creado exitosamente", Alert.AlertType.INFORMATION);
 
-            //Clear the fields
-            clearArtistFields();
-        } catch (ArtistsException e) {
-            mostrarMensaje("ERROR", "Error agregando al artista", e.getMessage(), Alert.AlertType.WARNING);
+                // Set the actual artist list
+                this.listArtistData.setAll(store.getArtistList().toObservableList());
+                this.tableViewArtist.setItems(this.listArtistData);
+
+                //Clear the fields
+                clearArtistFields();
+            } catch (ArtistsException e) {
+                mostrarMensaje("ERROR", "Error agregando al artista", e.getMessage(), Alert.AlertType.WARNING);
+            }
+
         }
     }
 
@@ -136,21 +140,25 @@ public class ShowAddArtistController implements Initializable {
             String name = txtNameArtist.getText();
             String nationality = txtNationalityArtist.getText();
             boolean isGroup = checkBoxIsGroup.isSelected();
-            try {
-                Artist updatedArtist = new Artist(selectedArtist.getCode(), name, nationality, isGroup);
-                store.updateArtist(updatedArtist);
-                mostrarMensaje("PROCESO EXITOSO", "Artista Actualizado", "El artista fue actualizado exitosamente", Alert.AlertType.INFORMATION);
 
-                // Set the actual artist list
-                this.listArtistData.setAll(store.getArtistList().toObservableList());
-                this.tableViewArtist.setItems(this.listArtistData);
-                // Refresh table por vosializationg changes
-                this.tableViewArtist.refresh();
+            if(validarDatos(name, nationality)){
+                try {
+                    Artist updatedArtist = new Artist(selectedArtist.getCode(), name, nationality, isGroup);
+                    store.updateArtist(updatedArtist);
+                    mostrarMensaje("PROCESO EXITOSO", "Artista Actualizado", "El artista fue actualizado exitosamente", Alert.AlertType.INFORMATION);
 
-                //Deselect artist
-                this.selectedArtist = null;
-            } catch (ArtistsException e) {
-                mostrarMensaje("ERROR", "Error actualizando al artista", e.getMessage(), Alert.AlertType.WARNING);
+                    // Set the actual artist list
+                    this.listArtistData.setAll(store.getArtistList().toObservableList());
+                    this.tableViewArtist.setItems(this.listArtistData);
+                    // Refresh table por vosializationg changes
+                    this.tableViewArtist.refresh();
+
+                    //Deselect artist
+                    this.selectedArtist = null;
+                } catch (ArtistsException e) {
+                    mostrarMensaje("ERROR", "Error actualizando al artista", e.getMessage(), Alert.AlertType.WARNING);
+                }
+
             }
         }
     }
@@ -174,6 +182,25 @@ public class ShowAddArtistController implements Initializable {
             checkBoxIsGroup.setSelected(this.selectedArtist.isPartOfBand());
         }
     }
+
+    //Method for validating the information inserted for the Artist
+    private boolean validarDatos(String name, String nationality) {
+        StringBuilder mensaje = new StringBuilder();
+
+        if (name == null || name.isEmpty())
+            mensaje.append("El nombre del artista es inválido.\n");
+
+        if (nationality == null || nationality.isEmpty())
+            mensaje.append("La nacionalidad del artista es inválida.\n");
+
+        if (mensaje.length() == 0) {
+            return true;
+        } else {
+            mostrarMensaje("Información de Artista", "Datos inválidos", mensaje.toString(), Alert.AlertType.WARNING);
+            return false;
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
