@@ -5,9 +5,7 @@ import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
 import co.edu.uniquindio.estr.jokify.exceptions.SongsException;
 import co.edu.uniquindio.estr.jokify.exceptions.UserException;
 import co.edu.uniquindio.estr.jokify.model.enums.Genre;
-import co.edu.uniquindio.estr.jokify.structures.BinarySearchTree;
-import co.edu.uniquindio.estr.jokify.structures.HashMapCustom;
-import co.edu.uniquindio.estr.jokify.structures.LinkedList;
+import co.edu.uniquindio.estr.jokify.structures.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -441,4 +439,45 @@ public class Store {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+    //METHODS showJokify menu
+
+    /**
+     * Get's the first five favorite songs of an user
+     * @param user
+     * @return
+     */
+    public ArrayList<Song> getFiveFavoriteSongs(User user) {
+        CircularLinkedList<Song> favoritesSongs = user.getLinkedSong();
+        ArrayList<Song> firstSongs = new ArrayList<>();
+        int cont = 0;
+        Iterator<Song> iterator = favoritesSongs.iterator();
+        while (iterator.hasNext()) {
+            Song song = iterator.next();
+            firstSongs.add(song);
+            cont++;
+            if (cont >= 5) {
+                break;
+            }
+        }
+        return firstSongs;
+    }
+
+    /**
+     * Get's five songs of the current songs on the store
+     * @return
+     */
+    public ArrayList<Song> getFiveSongs() {
+        ArrayList<Song> firstSongs = new ArrayList<>();
+        int cont = 0;
+        Iterator<Song> iterator = songList.iterator();
+        while (iterator.hasNext()) {
+            Song song = iterator.next();
+            firstSongs.add(song);
+            cont++;
+            if (cont >= 5) {
+                break;
+            }
+        }
+        return firstSongs;
+    }
 }
