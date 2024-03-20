@@ -11,8 +11,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1366.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.MenuController">
    <children>
       <SplitPane dividerPositions="0.23" prefHeight="700.0" prefWidth="1366.0" styleClass="splitPane">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Pane layoutX="13.0" layoutY="14.0" prefHeight="120.0" prefWidth="291.0" styleClass="topLeftContent">
                      <children>
@@ -42,12 +42,12 @@
                      </children>
                   </Pane>
                </children>
-          </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-              <!-- Contenido dinámico a la derecha del SplitPane -->
-              <BorderPane fx:id="contentPane" minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" />
-          </AnchorPane>
-        </items>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <!-- Contenido dinámico a la derecha del SplitPane -->
+               <BorderPane fx:id="contentPane" minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" />
+            </AnchorPane>
+         </items>
       </SplitPane>
    </children>
 </AnchorPane>

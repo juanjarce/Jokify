@@ -178,3 +178,40 @@
     -fx-background-color: #00A6FB;
     -fx-text-fill: #f0f0f0;
 }
+
+/*STYLES FOR THE USER MENU*/
+
+.flowPane {
+    -fx-background-color: #191414;
+}
+
+.stackPane {
+    -fx-background-color: #191414;
+}
+
+.stackPane:hover {
+    -fx-background-color: #00A6FB;
+}
+
+.stackPaneImg {
+
+}
+
+.stackPaneLabel {
+
+}
+
+.menuBtn {
+    -fx-font-size: 14px;
+    -fx-background-color: #191414;
+    -fx-alignment: baseline-right;
+}
+
+.menuBtn:hover {
+    -fx-background-color: #191414;
+    -fx-text-fill: #00A6FB;
+}
+
+.menuBtn:pressed {
+    -fx-text-fill: #191414;
+}

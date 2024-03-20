@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -89,8 +90,11 @@ public class MenuController implements Initializable {
      */
     @FXML
     void showJokify(ActionEvent event) throws IOException {
-        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowJokify.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowJokify.fxml"));
+        Parent newContent = loader.load();
 
+        // Obtener el controlador del FXML cargado
+        ShowJokifyController controller = loader.getController();
         //Apply animations for the content
         FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
         fadeIn.setFromValue(0.0);

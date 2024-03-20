@@ -52,6 +52,8 @@ public class Store {
         //Creates the user admin
         User admin = new User("admin", "$aDmiN", "admin@email.com");
         userList.put("admin", admin);
+        User joki = new User("joki", "123", "123");
+        userList.put("joki", joki);
     }
 
     /**
