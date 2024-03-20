@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
 import co.edu.uniquindio.estr.jokify.model.Store;
+import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -117,7 +118,16 @@ public class ShowJokifyController implements Initializable {
     private Label lblNS5;
 
     //Aux variables
+    private User currentUser;
     private final Store store = Store.getInstance();
+
+    /**
+     * Get some content of the menuController
+     * @param currentUser
+     */
+    public void init(User currentUser) {
+        this.currentUser = currentUser;
+    }
 
     /**
      * Initialize for the controller
