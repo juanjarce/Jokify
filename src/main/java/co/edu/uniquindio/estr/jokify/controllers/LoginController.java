@@ -95,7 +95,7 @@ public class LoginController implements Initializable {
             if (currentUser.getUsername().equals("admin")) {
                 showAdminMenu();
             } else {
-                showMenu();
+                showMenu(currentUser);
             }
             cleanFields();
         } catch (UserException e) {
@@ -110,14 +110,14 @@ public class LoginController implements Initializable {
      * Shows the menu Interface for an user
      * @throws IOException
      */
-    private void showMenu() throws IOException {
+    private void showMenu(User currentUser) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MenuView.fxml"));
         Parent root = loader.load();
         MenuController controller = loader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        controller.init(stage, this);
+        controller.init(stage, this, currentUser);
         stage.show();
         this.stage.close();
     }

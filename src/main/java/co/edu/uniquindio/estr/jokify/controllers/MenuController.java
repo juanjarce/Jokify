@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
 import co.edu.uniquindio.estr.jokify.model.Store;
+import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ public class MenuController implements Initializable {
     //Aux variables
     private Stage stage;
     private LoginController loginController;
+    private User currentUser;
     private final Store store = Store.getInstance();
 
     /**
@@ -58,10 +60,13 @@ public class MenuController implements Initializable {
      * Init the stage and the loginController
      * @param stage
      * @param loginController
+     * @param currrentUser
      */
-    public void init(Stage stage, LoginController loginController) {
+    public void init(Stage stage, LoginController loginController, User currrentUser) {
         this.stage = stage;
         this.loginController = loginController;
+        this.currentUser = currrentUser;
+        System.out.println(currrentUser.getUsername());
     }
 
     /**
