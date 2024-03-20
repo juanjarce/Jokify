@@ -194,11 +194,13 @@
 }
 
 .stackPaneImg {
-
+    -fx-fit-width: 200px;
+    -fx-fit-height: 150px;
 }
 
 .stackPaneLabel {
-
+    -fx-font-size: 14px;
+    -fx-text-fill: #f0f0f0;
 }
 
 .menuBtn {

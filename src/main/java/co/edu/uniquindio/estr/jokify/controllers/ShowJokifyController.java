@@ -3,15 +3,19 @@ package co.edu.uniquindio.estr.jokify.controllers;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -145,72 +149,53 @@ public class ShowJokifyController implements Initializable {
                     lblNS1.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
                     imageNS1.setImage(aux);
+                    imageNS1.setFitWidth(200);
+                    imageNS1.setFitHeight(150);
+                    animateFadeIn(imageNS1);
                 } else if (i == 1 && songs.get(i) != null) {
                     lblNS2.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
                     imageNS2.setImage(aux);
+                    imageNS2.setFitWidth(200);
+                    imageNS2.setFitHeight(150);
+                    animateFadeIn(imageNS2);
                 } else if (i == 2 && songs.get(i) != null) {
                     lblNS3.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
                     imageNS3.setImage(aux);
+                    imageNS3.setFitWidth(200);
+                    imageNS3.setFitHeight(150);
+                    animateFadeIn(imageNS3);
                 } else if (i == 3 && songs.get(i) != null) {
                     lblNS4.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
                     imageNS4.setImage(aux);
+                    imageNS4.setFitWidth(200);
+                    imageNS4.setFitHeight(150);
+                    animateFadeIn(imageNS4);
                 } else if (i == 4 && songs.get(i) != null) {
                     lblNS5.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
                     imageNS5.setImage(aux);
+                    imageNS5.setFitWidth(200);
+                    imageNS5.setFitHeight(150);
+                    animateFadeIn(imageNS5);
                 }
             }
         }
     }
 
-    /*private void showRecomendedSongs(ArrayList<Song> songs) {
-        if (songs.size() != 0) {
-            for (int i = 0; i < songs.size(); i++) {
-                if (songs.get(i) != null) {
-                    // Configurar el texto de la etiqueta para el nombre de la canción
-                    switch (i) {
-                        case 0:
-                            lblNS1.setText(songs.get(i).getName());
-                            imageNS1 = new ImageView(songs.get(i).getCover());
-                            imageNS1.setFitWidth(100); // Establecer el ancho deseado en píxeles
-                            imageNS1.setFitHeight(100); // Establecer la altura deseada en píxeles
-                            break;
-                        case 1:
-                            lblNS2.setText(songs.get(i).getName());
-                            imageNS2 = new ImageView(songs.get(i).getCover());
-                            imageNS2.setFitWidth(100);
-                            imageNS2.setFitHeight(100);
-                            break;
-                        case 2:
-                            lblNS3.setText(songs.get(i).getName());
-                            imageNS3 = new ImageView(songs.get(i).getCover());
-                            imageNS3.setFitWidth(100);
-                            imageNS3.setFitHeight(100);
-                            break;
-                        case 3:
-                            lblNS4.setText(songs.get(i).getName());
-                            imageNS4 = new ImageView(songs.get(i).getCover());
-                            imageNS4.setFitWidth(100);
-                            imageNS4.setFitHeight(100);
-                            break;
-                        case 4:
-                            lblNS5.setText(songs.get(i).getName());
-                            imageNS5 = new ImageView(songs.get(i).getCover());
-                            imageNS5.setFitWidth(100);
-                            imageNS5.setFitHeight(100);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-            // Agregar las ImageView al FlowPane
-            flowPaneFavoriteSongs1.getChildren().addAll(imageNS1, imageNS2, imageNS3, imageNS4, imageNS5);
-        }
-    }*/
+    /**
+     * Applies a fade in animation to the specified node
+     * @param node
+     */
+    private void animateFadeIn(Node node) {
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+    }
+
     /**
      * Initialize for the controller
      * @param url
