@@ -448,6 +448,9 @@ public class Store {
      */
     public ArrayList<Song> getFiveFavoriteSongs(User user) {
         CircularLinkedList<Song> favoritesSongs = user.getLinkedSong();
+        if (favoritesSongs.isEmpty()) {
+            return getFiveSongs();
+        }
         ArrayList<Song> firstSongs = new ArrayList<>();
         int cont = 0;
         Iterator<Song> iterator = favoritesSongs.iterator();

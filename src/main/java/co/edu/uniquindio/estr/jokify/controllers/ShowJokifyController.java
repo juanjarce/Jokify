@@ -134,12 +134,14 @@ public class ShowJokifyController implements Initializable {
      */
     public void init(User currentUser) {
         this.currentUser = currentUser;
+        ArrayList<Song> songs2 = store.getFiveFavoriteSongs(currentUser);
+        showFavoriteSongs(songs2);
         ArrayList<Song> songs1 = store.getFiveSongs();
         showRecomendedSongs(songs1);
     }
 
     /**
-     * Shows the songs in the flowPane
+     * Shows the recomended songs in the flowPane
      * @param songs
      */
     private void showRecomendedSongs(ArrayList<Song> songs) {
@@ -180,6 +182,53 @@ public class ShowJokifyController implements Initializable {
                     imageNS5.setFitWidth(200);
                     imageNS5.setFitHeight(150);
                     animateFadeIn(imageNS5);
+                }
+            }
+        }
+    }
+
+    /**
+     * Shows the favorite songs of the user un the flowpane
+     * @param songs
+     */
+    private void showFavoriteSongs(ArrayList<Song> songs) {
+        if (songs.size() != 0) {
+            for (int i = 0; i < songs.size(); i++) {
+                if (i == 0 && songs.get(i) != null) {
+                    lblFS1.setText(songs.get(i).getName());
+                    Image aux = new Image(songs.get(i).getCover());
+                    imageFS1.setImage(aux);
+                    imageFS1.setFitWidth(200);
+                    imageFS1.setFitHeight(150);
+                    animateFadeIn(imageFS1);
+                } else if (i == 1 && songs.get(i) != null) {
+                    lblFS2.setText(songs.get(i).getName());
+                    Image aux = new Image(songs.get(i).getCover());
+                    imageFS2.setImage(aux);
+                    imageFS2.setFitWidth(200);
+                    imageFS2.setFitHeight(150);
+                    animateFadeIn(imageFS2);
+                } else if (i == 2 && songs.get(i) != null) {
+                    lblFS3.setText(songs.get(i).getName());
+                    Image aux = new Image(songs.get(i).getCover());
+                    imageFS3.setImage(aux);
+                    imageFS3.setFitWidth(200);
+                    imageFS3.setFitHeight(150);
+                    animateFadeIn(imageFS3);
+                } else if (i == 3 && songs.get(i) != null) {
+                    lblFS4.setText(songs.get(i).getName());
+                    Image aux = new Image(songs.get(i).getCover());
+                    imageFS4.setImage(aux);
+                    imageFS4.setFitWidth(200);
+                    imageFS4.setFitHeight(150);
+                    animateFadeIn(imageFS4);
+                } else if (i == 4 && songs.get(i) != null) {
+                    lblFS5.setText(songs.get(i).getName());
+                    Image aux = new Image(songs.get(i).getCover());
+                    imageFS5.setImage(aux);
+                    imageFS5.setFitWidth(200);
+                    imageFS5.setFitHeight(150);
+                    animateFadeIn(imageFS5);
                 }
             }
         }
