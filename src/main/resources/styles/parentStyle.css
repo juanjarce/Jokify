@@ -221,3 +221,8 @@
 .menuBtn:pressed {
     -fx-text-fill: #191414;
 }
+
+.searchField {
+    -fx-background-color: #20201D;
+    -fx-pref-width: 250px;
+}
