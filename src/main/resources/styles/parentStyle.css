@@ -190,6 +190,10 @@
 }
 
 .stackPane:hover {
+    -fx-background-color: #20201D;
+}
+
+.stackPane:pressed {
     -fx-background-color: #00A6FB;
 }
 
