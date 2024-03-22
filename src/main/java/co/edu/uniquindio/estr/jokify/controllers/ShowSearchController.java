@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -80,58 +77,19 @@ public class ShowSearchController implements Initializable {
     private Label lblRS5;
 
     @FXML
-    private FlowPane flowPaneRelatedArtist;
-
-    @FXML
-    private StackPane stackRA1;
-
-    @FXML
-    private ImageView imageRA1;
-
-    @FXML
-    private Label lblRA1;
-
-    @FXML
-    private StackPane stackRA2;
-
-    @FXML
-    private ImageView imageRA2;
-
-    @FXML
-    private Label lblRA2;
-
-    @FXML
-    private StackPane stackFS31;
-
-    @FXML
-    private ImageView imageRA3;
-
-    @FXML
-    private Label lblRA3;
-
-    @FXML
-    private StackPane stackRA4;
-
-    @FXML
-    private ImageView imageRA4;
-
-    @FXML
-    private Label lblRA4;
-
-    @FXML
-    private StackPane stackRA5;
-
-    @FXML
-    private ImageView imageRA5;
-
-    @FXML
-    private Label lblRA5;
-
-    @FXML
     private Button btnShowMoreSongs;
 
     @FXML
-    private Button btnShowMoreArtist;
+    private Button btnShowArtist;
+
+    @FXML
+    private TableView<?> tableViewArtist;
+
+    @FXML
+    private TableColumn<?, ?> columnNameArtist;
+
+    @FXML
+    private TableColumn<?, ?> columnNationalityArtist;
 
     //Aux variables
     private User currentUser;
@@ -230,8 +188,9 @@ public class ShowSearchController implements Initializable {
         ft.play();
     }
 
+
     @FXML
-    void showMoreAtists(ActionEvent event) {
+    void showAtists(ActionEvent event) {
 
     }
 

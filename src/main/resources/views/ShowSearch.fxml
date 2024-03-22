@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -60,41 +62,13 @@
       </FlowPane>
       <Label layoutX="38.0" layoutY="115.0" styleClass="menuTitle" text="Canciones relacionadas" />
       <Label layoutX="38.0" layoutY="394.0" styleClass="menuTitle" text="Artistas relacionados" />
-      <FlowPane fx:id="flowPaneRelatedArtist" layoutX="24.0" layoutY="435.0" prefHeight="193.0" prefWidth="1002.0" styleClass="flowPane">
-         <children>
-            <StackPane fx:id="stackRA1" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
-               <children>
-                  <ImageView fx:id="imageRA1" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblRA1" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
-               </children>
-            </StackPane>
-            <StackPane fx:id="stackRA2" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
-               <children>
-                  <ImageView fx:id="imageRA2" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblRA2" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
-               </children>
-            </StackPane>
-            <StackPane fx:id="stackFS31" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
-               <children>
-                  <ImageView fx:id="imageRA3" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblRA3" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
-               </children>
-            </StackPane>
-            <StackPane fx:id="stackRA4" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
-               <children>
-                  <ImageView fx:id="imageRA4" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblRA4" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
-               </children>
-            </StackPane>
-            <StackPane fx:id="stackRA5" prefHeight="193.0" prefWidth="194.0" styleClass="stackPane">
-               <children>
-                  <ImageView fx:id="imageRA5" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblRA5" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
-               </children>
-            </StackPane>
-         </children>
-      </FlowPane>
       <Button fx:id="btnShowMoreSongs" layoutX="826.0" layoutY="366.0" mnemonicParsing="false" onAction="#showMoreSongs" styleClass="menuBtn" text="Ver más" />
-      <Button fx:id="btnShowMoreArtist" layoutX="826.0" layoutY="644.0" mnemonicParsing="false" onAction="#showMoreAtists" styleClass="menuBtn" text="Ver más" />
+      <Button fx:id="btnShowArtist" layoutX="605.0" layoutY="639.0" mnemonicParsing="false" onAction="#showAtists" styleClass="menuBtn" text="Conocer artista" />
+      <TableView fx:id="tableViewArtist" layoutX="246.0" layoutY="439.0" prefHeight="193.0" prefWidth="559.0" styleClass="table">
+         <columns>
+            <TableColumn fx:id="columnNameArtist" prefWidth="278.0" styleClass="column" text="Nombre" />
+            <TableColumn fx:id="columnNationalityArtist" prefWidth="279.0" styleClass="column" text="Nacionalidad" />
+         </columns>
+      </TableView>
     </children>
 </AnchorPane>
