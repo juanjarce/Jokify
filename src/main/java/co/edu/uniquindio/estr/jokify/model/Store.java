@@ -269,7 +269,7 @@ public class Store {
     private List<Song> searchSong(String song) {
         List<Song> songs = new ArrayList<>();
         for (Song current : songList) {
-            if (current.getName().equals(song) || current.album.equals(song)) {
+            if (current.getName().toLowerCase().equals(song) || current.album.toLowerCase().equals(song)) {
                 songs.add(current);
             }
         }
