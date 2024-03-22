@@ -129,6 +129,10 @@ public class ShowSearchController implements Initializable {
         }
     }
 
+    /**
+     * Shows the firs 5 songs in the list
+     * @param songs
+     */
     private void showSongs(List<Song> songs) {
         if (songs.size() != 0) {
             for (int i = 0; i < songs.size(); i++) {
