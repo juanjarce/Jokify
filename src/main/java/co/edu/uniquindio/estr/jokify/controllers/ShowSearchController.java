@@ -1,10 +1,14 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
 import co.edu.uniquindio.estr.jokify.exceptions.SearchException;
+import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.animation.FadeTransition;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import java.net.URL;
@@ -83,16 +87,18 @@ public class ShowSearchController implements Initializable {
     private Button btnShowArtist;
 
     @FXML
-    private TableView<?> tableViewArtist;
+    private TableView<Artist> tableViewArtist;
 
     @FXML
-    private TableColumn<?, ?> columnNameArtist;
+    private TableColumn<Artist, String> columnNameArtist;
 
     @FXML
-    private TableColumn<?, ?> columnNationalityArtist;
+    private TableColumn<Artist, String> columnNationalityArtist;
 
     //Aux variables
     private User currentUser;
+    private Artist selectedArtist;
+    private ObservableList<Artist> artistObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
 
     /**
@@ -110,7 +116,16 @@ public class ShowSearchController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //Data in the tableView
+        this.columnNameArtist.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getName()));
+        this.columnNationalityArtist.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getNationality()));
+        //Selection of artist on the table
+        tableViewArtist.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedArtist = newSelection;
+                selectedArtist = tableViewArtist.getSelectionModel().getSelectedItem();
+            }
+        });
     }
 
     /**
@@ -124,9 +139,31 @@ public class ShowSearchController implements Initializable {
             //Creates all the content that can be showed
             List<Song> songs = store.getSongsSearch(search);
             showSongs(songs);
+            List<Artist> artists = store.getArtistsSearch(songs);
+            showAtists(artists);
         } catch (SearchException e) {
             showMessage("Jokify", "Busqueda", e.getMessage(), Alert.AlertType.WARNING);
         }
+    }
+
+    /**
+     * Shows the artists related to the search
+     * @param artists
+     */
+    private void showAtists(List<Artist> artists) {
+        tableViewArtist.getItems().clear();
+        tableViewArtist.setItems(getArtistObservable(artists));
+    }
+
+    /**
+     * ObservableList of the tableView
+     * @param artists
+     * @return
+     */
+    private ObservableList<Artist> getArtistObservable(List<Artist> artists) {
+        artistObservableList.clear();
+        artistObservableList.addAll(artists);
+        return artistObservableList;
     }
 
     /**
@@ -194,7 +231,7 @@ public class ShowSearchController implements Initializable {
 
 
     @FXML
-    void showAtists(ActionEvent event) {
+    void showAtist(ActionEvent event) {
 
     }
 

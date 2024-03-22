@@ -63,7 +63,7 @@
       <Label layoutX="38.0" layoutY="115.0" styleClass="menuTitle" text="Canciones relacionadas" />
       <Label layoutX="38.0" layoutY="394.0" styleClass="menuTitle" text="Artistas relacionados" />
       <Button fx:id="btnShowMoreSongs" layoutX="826.0" layoutY="366.0" mnemonicParsing="false" onAction="#showMoreSongs" styleClass="menuBtn" text="Ver más" />
-      <Button fx:id="btnShowArtist" layoutX="605.0" layoutY="639.0" mnemonicParsing="false" onAction="#showAtists" styleClass="menuBtn" text="Conocer artista" />
+      <Button fx:id="btnShowArtist" layoutX="605.0" layoutY="639.0" mnemonicParsing="false" onAction="#showAtist" styleClass="menuBtn" text="Conocer artista" />
       <TableView fx:id="tableViewArtist" layoutX="246.0" layoutY="439.0" prefHeight="193.0" prefWidth="559.0" styleClass="table">
          <columns>
             <TableColumn fx:id="columnNameArtist" prefWidth="278.0" styleClass="column" text="Nombre" />
