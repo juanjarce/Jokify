@@ -12,8 +12,8 @@
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.ShowSearchController">
     <children>
       <Label layoutX="38.0" layoutY="42.0" styleClass="menuTitle" text="Realizar busqueda" />
-      <TextField layoutX="275.0" layoutY="41.0" prefHeight="23.0" prefWidth="240.0" styleClass="searchField" />
-      <Button layoutX="325.0" layoutY="77.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="155.0" styleClass="menuBtn" text="Buscar" />
+      <TextField fx:id="txtSearch" layoutX="275.0" layoutY="41.0" prefHeight="23.0" prefWidth="240.0" styleClass="searchField" />
+      <Button fx:id="btnSearch" layoutX="325.0" layoutY="77.0" mnemonicParsing="false" onAction="#search" prefHeight="28.0" prefWidth="155.0" styleClass="menuBtn" text="Buscar" />
       <ImageView fitHeight="76.0" fitWidth="68.0" layoutX="933.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Logo.png" />
@@ -24,77 +24,77 @@
             <Image url="@../images/SearchLogo2.png" />
          </image>
       </ImageView>
-      <FlowPane fx:id="flowPaneFavoriteSongs" layoutX="24.0" layoutY="156.0" prefHeight="193.0" prefWidth="1002.0" styleClass="flowPane">
+      <FlowPane fx:id="flowPaneRelatedSongs" layoutX="24.0" layoutY="156.0" prefHeight="193.0" prefWidth="1002.0" styleClass="flowPane">
          <children>
-            <StackPane fx:id="stackFS1" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
+            <StackPane fx:id="stackRS1" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS1" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS1" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRS1" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRS1" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
-            <StackPane fx:id="stackFS2" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
+            <StackPane fx:id="stackRS2" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS2" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS2" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRS2" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRS2" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
-            <StackPane fx:id="stackFS3" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
+            <StackPane fx:id="stackRS3" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS3" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS3" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRS3" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRS3" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
-            <StackPane fx:id="stackFS4" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
+            <StackPane fx:id="stackRS4" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS4" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS4" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRS4" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRS4" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
-            <StackPane fx:id="stackFS5" prefHeight="193.0" prefWidth="194.0" styleClass="stackPane">
+            <StackPane fx:id="stackRS5" prefHeight="193.0" prefWidth="194.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS5" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS5" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRS5" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRS5" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
          </children>
       </FlowPane>
       <Label layoutX="38.0" layoutY="115.0" styleClass="menuTitle" text="Canciones relacionadas" />
       <Label layoutX="38.0" layoutY="394.0" styleClass="menuTitle" text="Artistas relacionados" />
-      <FlowPane fx:id="flowPaneFavoriteSongs1" layoutX="24.0" layoutY="435.0" prefHeight="193.0" prefWidth="1002.0" styleClass="flowPane">
+      <FlowPane fx:id="flowPaneRelatedArtist" layoutX="24.0" layoutY="435.0" prefHeight="193.0" prefWidth="1002.0" styleClass="flowPane">
          <children>
-            <StackPane fx:id="stackFS11" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
+            <StackPane fx:id="stackRA1" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS11" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS11" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRA1" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRA1" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
-            <StackPane fx:id="stackFS21" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
+            <StackPane fx:id="stackRA2" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS21" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS21" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRA2" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRA2" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
             <StackPane fx:id="stackFS31" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS31" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS31" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRA3" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRA3" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
-            <StackPane fx:id="stackFS41" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
+            <StackPane fx:id="stackRA4" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS41" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS41" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRA4" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRA4" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
-            <StackPane fx:id="stackFS51" prefHeight="193.0" prefWidth="194.0" styleClass="stackPane">
+            <StackPane fx:id="stackRA5" prefHeight="193.0" prefWidth="194.0" styleClass="stackPane">
                <children>
-                  <ImageView fx:id="imageFS51" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
-                  <Label fx:id="lblFS51" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
+                  <ImageView fx:id="imageRA5" fitHeight="119.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" styleClass="stackPaneImg" StackPane.alignment="TOP_CENTER" />
+                  <Label fx:id="lblRA5" alignment="BOTTOM_CENTER" prefHeight="174.0" prefWidth="181.0" styleClass="stackPaneLabel" />
                </children>
             </StackPane>
          </children>
       </FlowPane>
-      <Button fx:id="btnShowMore" layoutX="826.0" layoutY="366.0" mnemonicParsing="false" styleClass="menuBtn" text="Ver más" />
-      <Button fx:id="btnShowMore1" layoutX="826.0" layoutY="644.0" mnemonicParsing="false" styleClass="menuBtn" text="Ver más" />
+      <Button fx:id="btnShowMoreSongs" layoutX="826.0" layoutY="366.0" mnemonicParsing="false" onAction="#showMoreSongs" styleClass="menuBtn" text="Ver más" />
+      <Button fx:id="btnShowMoreArtist" layoutX="826.0" layoutY="644.0" mnemonicParsing="false" onAction="#showMoreAtists" styleClass="menuBtn" text="Ver más" />
     </children>
 </AnchorPane>
