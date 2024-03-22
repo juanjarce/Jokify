@@ -474,12 +474,18 @@ public class Store {
 
     // Method to update an artist
     public void updateArtist(Artist updatedArtist) throws ArtistsException {
-        if (artistExists(updatedArtist)) {
-            artistList.remove(updatedArtist);
-            artistList.insert(updatedArtist);
-            System.out.println("Artista actualizado exitosamente: " + updatedArtist);
-        } else {
-            throw new ArtistsException("El artista con el código " + updatedArtist.getCode() + " no existe.");
+        if(getArtist(updatedArtist.getCode()).getSongs().isEmpty()){
+            if (artistExists(updatedArtist)) {
+                Artist oldArtist = getArtist(updatedArtist.getCode());
+                artistList.remove(updatedArtist);
+                artistList.insert(updatedArtist);
+                System.out.println("Artista actualizado exitosamente: " + updatedArtist);
+            } else {
+                throw new ArtistsException("El artista con el código " + updatedArtist.getCode() + " no existe.");
+            }
+        }
+        else{
+            throw new ArtistsException("El artista no puede ser modificado, ya que tiene canciones agregadas");
         }
     }
 
