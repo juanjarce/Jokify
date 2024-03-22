@@ -153,6 +153,7 @@ public class ShowJokifyController implements Initializable {
                     imageNS1.setImage(aux);
                     imageNS1.setFitWidth(200);
                     imageNS1.setFitHeight(150);
+                    imageNS1.setTranslateY(10);
                     animateFadeIn(imageNS1);
                 } else if (i == 1 && songs.get(i) != null) {
                     lblNS2.setText(songs.get(i).getName());
@@ -160,6 +161,7 @@ public class ShowJokifyController implements Initializable {
                     imageNS2.setImage(aux);
                     imageNS2.setFitWidth(200);
                     imageNS2.setFitHeight(150);
+                    imageNS2.setTranslateY(10);
                     animateFadeIn(imageNS2);
                 } else if (i == 2 && songs.get(i) != null) {
                     lblNS3.setText(songs.get(i).getName());
@@ -167,6 +169,7 @@ public class ShowJokifyController implements Initializable {
                     imageNS3.setImage(aux);
                     imageNS3.setFitWidth(200);
                     imageNS3.setFitHeight(150);
+                    imageNS3.setTranslateY(10);
                     animateFadeIn(imageNS3);
                 } else if (i == 3 && songs.get(i) != null) {
                     lblNS4.setText(songs.get(i).getName());
@@ -174,6 +177,7 @@ public class ShowJokifyController implements Initializable {
                     imageNS4.setImage(aux);
                     imageNS4.setFitWidth(200);
                     imageNS4.setFitHeight(150);
+                    imageNS4.setTranslateY(10);
                     animateFadeIn(imageNS4);
                 } else if (i == 4 && songs.get(i) != null) {
                     lblNS5.setText(songs.get(i).getName());
@@ -181,6 +185,7 @@ public class ShowJokifyController implements Initializable {
                     imageNS5.setImage(aux);
                     imageNS5.setFitWidth(200);
                     imageNS5.setFitHeight(150);
+                    imageNS5.setTranslateY(10);
                     animateFadeIn(imageNS5);
                 }
             }
@@ -200,6 +205,7 @@ public class ShowJokifyController implements Initializable {
                     imageFS1.setImage(aux);
                     imageFS1.setFitWidth(200);
                     imageFS1.setFitHeight(150);
+                    imageFS1.setTranslateY(10);
                     animateFadeIn(imageFS1);
                 } else if (i == 1 && songs.get(i) != null) {
                     lblFS2.setText(songs.get(i).getName());
@@ -207,6 +213,7 @@ public class ShowJokifyController implements Initializable {
                     imageFS2.setImage(aux);
                     imageFS2.setFitWidth(200);
                     imageFS2.setFitHeight(150);
+                    imageFS2.setTranslateY(10);
                     animateFadeIn(imageFS2);
                 } else if (i == 2 && songs.get(i) != null) {
                     lblFS3.setText(songs.get(i).getName());
@@ -214,6 +221,7 @@ public class ShowJokifyController implements Initializable {
                     imageFS3.setImage(aux);
                     imageFS3.setFitWidth(200);
                     imageFS3.setFitHeight(150);
+                    imageFS3.setTranslateY(10);
                     animateFadeIn(imageFS3);
                 } else if (i == 3 && songs.get(i) != null) {
                     lblFS4.setText(songs.get(i).getName());
@@ -221,6 +229,7 @@ public class ShowJokifyController implements Initializable {
                     imageFS4.setImage(aux);
                     imageFS4.setFitWidth(200);
                     imageFS4.setFitHeight(150);
+                    imageFS4.setTranslateY(10);
                     animateFadeIn(imageFS4);
                 } else if (i == 4 && songs.get(i) != null) {
                     lblFS5.setText(songs.get(i).getName());
@@ -228,6 +237,7 @@ public class ShowJokifyController implements Initializable {
                     imageFS5.setImage(aux);
                     imageFS5.setFitWidth(200);
                     imageFS5.setFitHeight(150);
+                    imageFS5.setTranslateY(10);
                     animateFadeIn(imageFS5);
                 }
             }

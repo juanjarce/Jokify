@@ -1,19 +1,14 @@
 package co.edu.uniquindio.estr.jokify.model;
 
-import co.edu.uniquindio.estr.jokify.exceptions.ArtistsException;
-import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
-import co.edu.uniquindio.estr.jokify.exceptions.SongsException;
-import co.edu.uniquindio.estr.jokify.exceptions.UserException;
+import co.edu.uniquindio.estr.jokify.exceptions.*;
 import co.edu.uniquindio.estr.jokify.model.enums.Genre;
 import co.edu.uniquindio.estr.jokify.structures.*;
+import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.swing.tree.TreeNode;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Store {
 
@@ -174,26 +169,94 @@ public class Store {
 
     //FUNCTIONS for search rqeuirements ------------------------------------------------------------------
 
+    /**
+     * Return a list of songs related to the userInput
+     * @param input
+     * @return
+     */
+    public List<Song> getSongsSearch(String input) throws SearchException {
+        input.toLowerCase();
+        String[] keywords = input.split(" ");
+        System.out.println(Arrays.toString(keywords));
+        System.out.println("Length: " + keywords.length);
+        List<Song> searchSongs = new ArrayList<>();
+        if (keywords.length == 0) {
+            throw new SearchException("No se encontraron canciones que satisfagan tú busqueda");
+        } if (keywords.length == 1) {
+            searchSongs.addAll(searchArtistSongs(keywords[0]));
+            searchSongs.addAll(searchSong(keywords[0]));
+        } if (keywords.length == 2) {
+            //Asume that the users search with OR
+            searchSongs.addAll(searchSongsOrAsync(keywords[0], keywords[1]));
+        } else if (keywords.length == 3) {
+            if (keywords[1].equals("y")) {
+                searchSongs.addAll(searchSongsAndAsync(keywords[0], keywords[2]));
+            } else if (keywords[1].equals("o")) {
+                searchSongs.addAll(searchSongsOrAsync(keywords[0], keywords[1]));
+            }
+        }
+        if (searchSongs.isEmpty()) {
+            throw new SearchException("No se encontraron canciones que satisfagan tú busqueda");
+        }
+        return searchSongs;
+    }
+
+    /**
+     * Reurn a list of artist related to some songs
+     * @param songs
+     * @return
+     */
+    public List<Artist> getArtistsSearch(List<Song> songs) {
+        Set<Artist> artistSet = new HashSet<>();
+        for (Song song : songs) {
+            artistSet.add(getArtistByName(song.artistName));
+        }
+        return new ArrayList<>(artistSet);
+    }
+
+    /**
+     * Return a list of songs that has a specific parameter
+     * @param song
+     * @return
+     */
+    private List<Song> searchSong(String song) {
+        List<Song> songs = new ArrayList<>();
+        for (Song current : songList) {
+            if (current.getName().toLowerCase().equals(song) || current.album.toLowerCase().equals(song)) {
+                songs.add(current);
+            }
+        }
+        return songs;
+    }
+
     // 1. ------------------------------------------------------------------------------------------------
     //Artist Search: Because artists are stored in a binary tree, their
     //search is very efficient, therefore, given the name of an Artist it should return its
     //songs list.
 
-    // Method to search for an artist by name and return their list of songs
-    public List<Song> searchArtistSongs(String artistName) {
+    /**
+     * Method to search for an artist by his name and return their list of songs
+     * @param artistName
+     * @return
+     */
+    private List<Song> searchArtistSongs(String artistName) {
         // Search for the artist by name
         Artist artist = searchArtistByName(artistName);
         // If artist is found, return their list of songs
         if (artist != null) {
             return (List<Song>) artist.getSongs().toList();
         } else {
-            // If artist is not found, print an error message and return null
+            // If artist is not found, print an error message and return an empty List
             System.out.println("Artist not found: " + artistName);
-            return null;
+            return new ArrayList<>();
         }
     }
 
-    // Method to search for an artist by name
+    /**
+     * Method to search an artist by name
+     * @param artistName
+     * @return
+     */
     private Artist searchArtistByName(String artistName) {
         // Iterate through the artist list
         Iterator<Artist> iterator = artistList.iterator();
@@ -201,7 +264,7 @@ public class Store {
             // Get the next artist
             Artist artist = iterator.next();
             // Check if the artist name matches the given name
-            if (artist.getName().equals(artistName)) {
+            if (artist.getName().toLowerCase().equals(artistName)) {
                 return artist; // Return the artist if found
             }
         }
@@ -213,8 +276,13 @@ public class Store {
     //Search OR: Given the values of two or more attributes of a Song, return a list
     //with songs with at least one matching attribute.
 
-    // Method for performing OR search for songs, executed in a separate thread
-    public List<Song> searchSongsOrAsync(String attribute1, String attribute2) {
+    /**
+     * Method for performing OR search for songs, executed in a separate thread
+     * @param attribute1
+     * @param attribute2
+     * @return
+     */
+    private List<Song> searchSongsOrAsync(String attribute1, String attribute2) {
         // Create a new thread to perform the search
         Thread searchThread = new Thread(() -> {
             List<Song> result = searchSongsOr(attribute1, attribute2);
@@ -232,17 +300,28 @@ public class Store {
         return getResultOr();
     }
 
-    // Method to set the search result
+    /**
+     * Method to set the search result
+     * @param result
+     */
     private synchronized void setResultOr(List<Song> result) {
         this.resultOrSearch = result;
     }
 
-    // Method to get the search result
+    /**
+     * Method to get the search result
+     * @return
+     */
     private synchronized List<Song> getResultOr() {
         return resultOrSearch;
     }
 
-    // Method for performing OR search for songs
+    /**
+     * Method for performing OR search for songs
+     * @param attribute1
+     * @param attribute2
+     * @return
+     */
     private List<Song> searchSongsOr(String attribute1, String attribute2) {
         List<Song> result = new ArrayList<>();
         // Iterate over the list of songs
@@ -255,18 +334,31 @@ public class Store {
         return result;
     }
 
-    // Method to check if at least one of the attributes of a song matches any of the provided values
+    /**
+     * Method to check if at least one of the attributes of a song matches any of the provided values
+     * @param song
+     * @param attribute1
+     * @param attribute2
+     * @return
+     */
     private boolean songMatchesAttributes(Song song, String attribute1, String attribute2) {
-        return song.getName().equals(attribute1) ||
-                song.getAlbum().equals(attribute1) ||
-                song.getName().equals(attribute2) ||
-                song.getAlbum().equals(attribute2);
+        return song.getName().toLowerCase().equals(attribute1) ||
+                song.getAlbum().toLowerCase().equals(attribute1) ||
+                song.getName().toLowerCase().equals(attribute2) ||
+                song.getAlbum().toLowerCase().equals(attribute2) ||
+                song.getArtistName().toLowerCase().equals(attribute1) ||
+                song.getArtistName().toLowerCase().equals(attribute2);
     }
 
     // 3. ------------------------------------------------------------------------------------------------
 
-    // Method for performing AND search for songs, executed in a separate thread
-    public List<Song> searchSongsAndAsync(String attribute1, String attribute2) {
+    /**
+     * Method for performing AND search for songs, executed in a separate thread
+     * @param attribute1
+     * @param attribute2
+     * @return
+     */
+    private List<Song> searchSongsAndAsync(String attribute1, String attribute2) {
         // Create a new thread to perform the search
         Thread searchThread = new Thread(() -> {
             List<Song> result = searchSongsAnd(attribute1, attribute2);
@@ -284,17 +376,28 @@ public class Store {
         return getResultAnd();
     }
 
-    // Method to set the search result
+    /**
+     * Method to set the search result
+     * @param result
+     */
     private synchronized void setResultAnd(List<Song> result) {
         this.resultAndSearch = result;
     }
 
-    // Method to get the search result
+    /**
+     * Method to get the search result
+     * @return
+     */
     private synchronized List<Song> getResultAnd() {
         return resultAndSearch;
     }
 
-    // Method for performing AND search for songs
+    /**
+     * Method for performing AND search for songs
+     * @param attribute1
+     * @param attribute2
+     * @return
+     */
     private List<Song> searchSongsAnd(String attribute1, String attribute2) {
         List<Song> result = new ArrayList<>();
         // Iterate over the list of songs
@@ -307,12 +410,16 @@ public class Store {
         return result;
     }
 
-    // Method to check if all attributes of a song match the provided values
+    /**
+     * Method to check if all attributes of a song match the provided values
+     * @param song
+     * @param attribute1
+     * @param attribute2
+     * @return
+     */
     private boolean songMatchesAllAttributes(Song song, String attribute1, String attribute2) {
-        return song.getName().equals(attribute1) &&
-                song.getAlbum().equals(attribute1) &&
-                song.getName().equals(attribute2) &&
-                song.getAlbum().equals(attribute2);
+        return (song.getName().toLowerCase().equals(attribute1) || song.getAlbum().toLowerCase().equals(attribute1)) &&
+                (song.getName().toLowerCase().equals(attribute2) || song.getAlbum().toLowerCase().equals(attribute2));
     }
 
     //------------------------------------------------------------------------------------------------------------------
