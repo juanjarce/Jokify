@@ -249,6 +249,19 @@ public class Store {
     }
 
     /**
+     * Reurn a list of artist related to some songs
+     * @param songs
+     * @return
+     */
+    public List<Artist> getArtistsSearch(List<Song> songs) {
+        Set<Artist> artistSet = new HashSet<>();
+        for (Song song : songs) {
+            artistSet.add(getArtistByName(song.artistName));
+        }
+        return new ArrayList<>(artistSet);
+    }
+
+    /**
      * Return a list of songs that has a specific parameter
      * @param song
      * @return
@@ -273,7 +286,7 @@ public class Store {
      * @param artistName
      * @return
      */
-    public List<Song> searchArtistSongs(String artistName) {
+    private List<Song> searchArtistSongs(String artistName) {
         // Search for the artist by name
         Artist artist = searchArtistByName(artistName);
         // If artist is found, return their list of songs
@@ -316,7 +329,7 @@ public class Store {
      * @param attribute2
      * @return
      */
-    public List<Song> searchSongsOrAsync(String attribute1, String attribute2) {
+    private List<Song> searchSongsOrAsync(String attribute1, String attribute2) {
         // Create a new thread to perform the search
         Thread searchThread = new Thread(() -> {
             List<Song> result = searchSongsOr(attribute1, attribute2);
@@ -392,7 +405,7 @@ public class Store {
      * @param attribute2
      * @return
      */
-    public List<Song> searchSongsAndAsync(String attribute1, String attribute2) {
+    private List<Song> searchSongsAndAsync(String attribute1, String attribute2) {
         // Create a new thread to perform the search
         Thread searchThread = new Thread(() -> {
             List<Song> result = searchSongsAnd(attribute1, attribute2);
