@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
+import co.edu.uniquindio.estr.jokify.exceptions.SearchException;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
@@ -7,8 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -148,9 +151,20 @@ public class ShowSearchController implements Initializable {
 
     }
 
+    /**
+     * Search the content that's in the search textField
+     * @param event
+     */
     @FXML
     void search(ActionEvent event) {
-
+        try {
+            String search = txtSearch.getText();
+            //Creates all the content that can be showed
+            List<Song> songs = store.getSongsSearch(search);
+            System.out.println(songs.toString());
+        } catch (SearchException e) {
+            showMessage("Jokify", "Busqueda", e.getMessage(), Alert.AlertType.WARNING);
+        }
     }
 
     @FXML
@@ -161,5 +175,20 @@ public class ShowSearchController implements Initializable {
     @FXML
     void showMoreSongs(ActionEvent event) {
 
+    }
+
+    /**
+     * show a message for the user
+     * @param title
+     * @param header
+     * @param content
+     * @param alertType
+     */
+    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
