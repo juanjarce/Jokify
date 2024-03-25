@@ -10,13 +10,17 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -97,6 +101,7 @@ public class ShowSearchController implements Initializable {
 
     //Aux variables
     private User currentUser;
+    private MenuController menuController;
     private Artist selectedArtist;
     private ObservableList<Artist> artistObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
@@ -105,8 +110,9 @@ public class ShowSearchController implements Initializable {
      * Get some content of the menuController and init content
      * @param currentUser
      */
-    public void init(User currentUser) {
+    public void init(User currentUser, MenuController menuController) {
         this.currentUser = currentUser;
+        this.menuController = menuController;
     }
 
     /**
@@ -229,10 +235,18 @@ public class ShowSearchController implements Initializable {
         ft.play();
     }
 
-
+    /**
+     * Shows the information of an artist
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    void showAtist(ActionEvent event) {
-
+    void showAtist(ActionEvent event) throws IOException {
+        if (selectedArtist != null) {
+            menuController.showAtist(selectedArtist);
+        } else {
+            showMessage("Jokify", "Artistas", "Por favor selecciona un artista en la tabla", Alert.AlertType.INFORMATION);
+        }
     }
 
     @FXML

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.ShowArtistController">
+    <children>
+        <Label layoutX="59.0" layoutY="42.0" styleClass="menuTitle" text="Encuentra aquí lo mejor de " />
+      <TableView fx:id="tableViewSong" layoutX="59.0" layoutY="103.0" prefHeight="350.0" prefWidth="932.0" styleClass="table">
+         <columns>
+            <TableColumn fx:id="columnNameSong" prefWidth="306.0" styleClass="column" text="Nombre" />
+            <TableColumn fx:id="columnAlbumSong" prefWidth="235.0" text="Albúm" />
+            <TableColumn fx:id="columnYearSong" minWidth="0.0" prefWidth="183.0" text="Año" />
+            <TableColumn fx:id="columnDurationSong" prefWidth="205.0" text="Duración" />
+         </columns>
+      </TableView>
+      <ImageView fx:id="imageViewCoverSong" fitHeight="165.0" fitWidth="217.0" layoutX="59.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnShowSong" layoutX="791.0" layoutY="472.0" mnemonicParsing="false" onAction="#showSong" styleClass="menuBtn" text="Ver canción" />
+      <Label fx:id="lblArtistName" layoutX="340.0" layoutY="42.0" prefHeight="21.0" prefWidth="281.0" styleClass="menuTitle" />
+    </children>
+</AnchorPane>

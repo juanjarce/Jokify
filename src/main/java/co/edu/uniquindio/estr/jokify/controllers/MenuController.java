@@ -1,5 +1,6 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
+import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.animation.FadeTransition;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -139,7 +141,7 @@ public class MenuController implements Initializable {
         //Get the controller of the FXML file
         ShowSearchController controller = loader.getController();
         //Move the user to the controller
-        controller.init(currentUser);
+        controller.init(currentUser, this);
         //Apply animations for the content
         FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
         fadeIn.setFromValue(0.0);
@@ -147,6 +149,42 @@ public class MenuController implements Initializable {
         fadeIn.play();
 
         contentPane.setCenter(newContent);
+    }
+
+    public void showAtist(Artist selectedArtist) throws IOException {
+        if (selectedArtist != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowArtist.fxml"));
+            Parent newContent = loader.load();
+
+            //Get the controller of the FXML file
+            ShowArtistController controller = loader.getController();
+            //Move the user to the controller
+            controller.init(currentUser, selectedArtist);
+            //Apply animations for the content
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+
+            contentPane.setCenter(newContent);
+        } else {
+            showMessage("Jokify", "Artistas", "Por favor selecciona un artista en la tabla", Alert.AlertType.INFORMATION);
+        }
+    }
+
+    /**
+     * show a message for the user
+     * @param title
+     * @param header
+     * @param content
+     * @param alertType
+     */
+    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }
