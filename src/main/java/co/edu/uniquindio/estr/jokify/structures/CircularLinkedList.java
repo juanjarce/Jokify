@@ -1,5 +1,7 @@
 package co.edu.uniquindio.estr.jokify.structures;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class CircularLinkedList<T extends Comparable<T>> implements Iterable<T> {
     private Node<T> head;
@@ -220,6 +222,29 @@ public class CircularLinkedList<T extends Comparable<T>> implements Iterable<T> 
                 return value;
             }
         };
+    }
+
+    // Method to convert the circular linked list to a standard list
+    public List<T> toList() {
+        // Create a new ArrayList to store the elements
+        List<T> list = new ArrayList<>();
+
+        // Check if the list is empty
+        if (head == null) {
+            return list; // Return an empty list if the circular linked list is empty
+        }
+
+        // Start from the head of the circular linked list
+        Node<T> current = head;
+
+        // Traverse the circular linked list and add each element to the ArrayList
+        do {
+            list.add(current.value);
+            current = current.next;
+        } while (current != head); // Continue until we reach the head again
+
+        // Return the ArrayList containing all elements of the circular linked list
+        return list;
     }
 
 }

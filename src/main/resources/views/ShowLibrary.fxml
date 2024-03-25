@@ -22,6 +22,6 @@
         <ImageView fx:id="imageViewCoverSong" fitHeight="154.0" fitWidth="211.0" layoutX="59.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" />
         <Button fx:id="btnShowSong" layoutX="791.0" layoutY="472.0" mnemonicParsing="false" onAction="#showSong" styleClass="menuBtn" text="Ver canción" />
       <Button fx:id="btnShowArtist" layoutX="791.0" layoutY="519.0" mnemonicParsing="false" onAction="#showArtist" styleClass="menuBtn" text="Ver arista" />
-      <Button fx:id="btnRemoveFavorites" layoutX="79.0" layoutY="633.0" mnemonicParsing="false" onAction="#removeFavorites" styleClass="menuBtn" text="Eliminar de favoritos" />
+      <Button fx:id="btnRemoveFavorites" layoutX="59.0" layoutY="634.0" mnemonicParsing="false" onAction="#removeFavorites" styleClass="menuBtn" text="Eliminar de favoritos" />
     </children>
 </AnchorPane>

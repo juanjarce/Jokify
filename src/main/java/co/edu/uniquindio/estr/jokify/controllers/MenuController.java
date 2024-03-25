@@ -118,8 +118,13 @@ public class MenuController implements Initializable {
      */
     @FXML
     void showLibrary(ActionEvent event) throws IOException {
-        Node newContent = FXMLLoader.load(getClass().getResource("/views/ShowLibrary.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowLibrary.fxml"));
+        Parent newContent = loader.load();
 
+        //Get the controller of the FXML file
+        ShowLibraryController controller = loader.getController();
+        //Move the user to the controller
+        controller.init(currentUser);
         //Apply animations for the content
         FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
         fadeIn.setFromValue(0.0);

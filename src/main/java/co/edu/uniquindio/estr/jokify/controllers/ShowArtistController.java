@@ -77,7 +77,6 @@ public class ShowArtistController implements Initializable {
      */
     private ObservableList<Song> getArtistSongs(Artist selectedArtist) {
         songObservableList.clear();
-        ArrayList<Song> songs = new ArrayList<>();
         songObservableList.addAll(selectedArtist.getSongs().toList());
         return songObservableList;
     }
