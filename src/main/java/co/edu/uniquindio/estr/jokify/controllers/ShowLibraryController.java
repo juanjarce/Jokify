@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -53,7 +55,9 @@ public class ShowLibraryController implements Initializable {
 
     //Aux variables
     private User currentUser;
+    private MenuController menuController;
     private Song selectedSong;
+    private Artist selectedArtist;
     private ObservableList<Song> songObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
 
@@ -61,8 +65,9 @@ public class ShowLibraryController implements Initializable {
      * Init content for the controller
      * @param currentUser
      */
-    public void init(User currentUser) {
+    public void init(User currentUser, MenuController menuController) {
         this.currentUser = currentUser;
+        this.menuController = menuController;
         //User's songs
         tableViewSong.getItems().clear();
         tableViewSong.setItems(getUserSongs(currentUser));
@@ -97,6 +102,7 @@ public class ShowLibraryController implements Initializable {
             if (newSelection != null) {
                 selectedSong = newSelection;
                 selectedSong = tableViewSong.getSelectionModel().getSelectedItem();
+                selectedArtist = store.getArtistByName(selectedSong.getArtistName());
                 // Show the cover of the song
                 Image coverImage = new Image(selectedSong.getCover());
                 imageViewCoverSong.setImage(coverImage);
@@ -109,9 +115,17 @@ public class ShowLibraryController implements Initializable {
 
     }
 
+    /**
+     * Shows the information of an artist
+     * @param event
+     */
     @FXML
-    void showArtist(ActionEvent event) {
-
+    void showArtist(ActionEvent event) throws IOException {
+        if (selectedArtist != null) {
+            menuController.showAtist(selectedArtist);
+        } else {
+            showMessage("Jokify", "Artistas", "Por favor selecciona un artista en la tabla", Alert.AlertType.INFORMATION);
+        }
     }
 
     @FXML
@@ -119,4 +133,18 @@ public class ShowLibraryController implements Initializable {
 
     }
 
+    /**
+     * show a message for the user
+     * @param title
+     * @param header
+     * @param content
+     * @param alertType
+     */
+    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
