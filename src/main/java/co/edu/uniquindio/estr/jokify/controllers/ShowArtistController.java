@@ -67,6 +67,7 @@ public class ShowArtistController implements Initializable {
         //Artist's songs
         tableViewSong.getItems().clear();
         tableViewSong.setItems(getArtistSongs(selectedArtist));
+        lblArtistName.setText(selectedArtist.getName());
     }
 
     /**
