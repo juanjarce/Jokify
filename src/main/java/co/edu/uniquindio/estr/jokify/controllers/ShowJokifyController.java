@@ -5,9 +5,11 @@ import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,6 +18,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -126,14 +129,16 @@ public class ShowJokifyController implements Initializable {
 
     //Aux variables
     private User currentUser;
+    private MenuController menuController;
     private final Store store = Store.getInstance();
 
     /**
      * Get some content of the menuController and init content
      * @param currentUser
      */
-    public void init(User currentUser) {
+    public void init(User currentUser, MenuController menuController) {
         this.currentUser = currentUser;
+        this.menuController = menuController;
         ArrayList<Song> songs2 = store.getFiveFavoriteSongs(currentUser);
         showFavoriteSongs(songs2);
         ArrayList<Song> songs1 = store.getFiveSongs();
@@ -270,8 +275,12 @@ public class ShowJokifyController implements Initializable {
 
     }
 
+    /**
+     * Shows the favorite songs of an user
+     * @param event
+     */
     @FXML
-    void showMore(ActionEvent event) {
-
+    void showMore(ActionEvent event) throws IOException {
+        menuController.showLibraryUser();
     }
 }

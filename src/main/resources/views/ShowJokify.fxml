@@ -44,9 +44,9 @@
          </children>
       </FlowPane>
       <Label layoutX="24.0" layoutY="32.0" styleClass="menuTitle" text="Tus canciones favoritas" />
-      <Button fx:id="btnShowMore" layoutX="826.0" layoutY="290.0" mnemonicParsing="false" styleClass="menuBtn" text="Ver más" />
+      <Button fx:id="btnShowMore" layoutX="826.0" layoutY="290.0" mnemonicParsing="false" onAction="#showMore" styleClass="menuBtn" text="Ver más" />
       <Label layoutX="24.0" layoutY="355.0" styleClass="menuTitle" text="Descubre nuevas canciones" />
-      <Button fx:id="btnDiscoverMore" layoutX="826.0" layoutY="630.0" mnemonicParsing="false" styleClass="menuBtn" text="Descubrir más" />
+      <Button fx:id="btnDiscoverMore" layoutX="826.0" layoutY="630.0" mnemonicParsing="false" onAction="#discoverMore" styleClass="menuBtn" text="Descubrir más" />
       <FlowPane fx:id="flowPaneFavoriteSongs1" layoutX="24.0" layoutY="409.0" prefHeight="193.0" prefWidth="1002.0" styleClass="flowPane">
          <children>
             <StackPane fx:id="stackNS1" prefHeight="193.0" prefWidth="202.0" styleClass="stackPane">
