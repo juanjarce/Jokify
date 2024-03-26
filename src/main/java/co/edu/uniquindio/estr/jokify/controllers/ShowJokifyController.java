@@ -5,6 +5,7 @@ import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -160,6 +162,14 @@ public class ShowJokifyController implements Initializable {
                     imageNS1.setFitHeight(150);
                     imageNS1.setTranslateY(10);
                     animateFadeIn(imageNS1);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackNS1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 1 && songs.get(i) != null) {
                     lblNS2.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -168,6 +178,14 @@ public class ShowJokifyController implements Initializable {
                     imageNS2.setFitHeight(150);
                     imageNS2.setTranslateY(10);
                     animateFadeIn(imageNS2);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackNS2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 2 && songs.get(i) != null) {
                     lblNS3.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -176,6 +194,14 @@ public class ShowJokifyController implements Initializable {
                     imageNS3.setFitHeight(150);
                     imageNS3.setTranslateY(10);
                     animateFadeIn(imageNS3);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackNS3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 3 && songs.get(i) != null) {
                     lblNS4.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -184,6 +210,14 @@ public class ShowJokifyController implements Initializable {
                     imageNS4.setFitHeight(150);
                     imageNS4.setTranslateY(10);
                     animateFadeIn(imageNS4);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackNS4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 4 && songs.get(i) != null) {
                     lblNS5.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -192,6 +226,14 @@ public class ShowJokifyController implements Initializable {
                     imageNS5.setFitHeight(150);
                     imageNS5.setTranslateY(10);
                     animateFadeIn(imageNS5);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackNS5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 }
             }
         }
@@ -212,6 +254,14 @@ public class ShowJokifyController implements Initializable {
                     imageFS1.setFitHeight(150);
                     imageFS1.setTranslateY(10);
                     animateFadeIn(imageFS1);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackFS1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 1 && songs.get(i) != null) {
                     lblFS2.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -220,6 +270,14 @@ public class ShowJokifyController implements Initializable {
                     imageFS2.setFitHeight(150);
                     imageFS2.setTranslateY(10);
                     animateFadeIn(imageFS2);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackFS2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 2 && songs.get(i) != null) {
                     lblFS3.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -228,6 +286,14 @@ public class ShowJokifyController implements Initializable {
                     imageFS3.setFitHeight(150);
                     imageFS3.setTranslateY(10);
                     animateFadeIn(imageFS3);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackFS3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 3 && songs.get(i) != null) {
                     lblFS4.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -236,6 +302,14 @@ public class ShowJokifyController implements Initializable {
                     imageFS4.setFitHeight(150);
                     imageFS4.setTranslateY(10);
                     animateFadeIn(imageFS4);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackFS4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 } else if (i == 4 && songs.get(i) != null) {
                     lblFS5.setText(songs.get(i).getName());
                     Image aux = new Image(songs.get(i).getCover());
@@ -244,6 +318,14 @@ public class ShowJokifyController implements Initializable {
                     imageFS5.setFitHeight(150);
                     imageFS5.setTranslateY(10);
                     animateFadeIn(imageFS5);
+                    Song currentSong = songs.get(i);
+                    //Add functionality to the stack
+                    stackFS5.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            menuController.setCurrentSong(currentSong);
+                        }
+                    });
                 }
             }
         }
