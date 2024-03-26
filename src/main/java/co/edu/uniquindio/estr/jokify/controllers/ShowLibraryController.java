@@ -110,9 +110,23 @@ public class ShowLibraryController implements Initializable {
         });
     }
 
+    /**
+     * Remove a song from the favorites list
+     * @param event
+     */
     @FXML
     void removeFavorites(ActionEvent event) {
-
+        if (selectedSong != null) {
+            store.removeSongFromFavorites(currentUser, selectedSong);
+            showMessage("Jokify", "Libreria", "Canción eliminada de favoritos", Alert.AlertType.INFORMATION);
+            //Update the tableView and image
+            tableViewSong.getItems().clear();
+            tableViewSong.setItems(getUserSongs(currentUser));
+            imageViewCoverSong.setImage(null);
+            selectedSong = null;
+        } else {
+            showMessage("Jokify", "Libreria", "Por favor selecciona una cancioón en la tabla", Alert.AlertType.INFORMATION);
+        }
     }
 
     /**
@@ -124,7 +138,7 @@ public class ShowLibraryController implements Initializable {
         if (selectedArtist != null) {
             menuController.showAtist(selectedArtist);
         } else {
-            showMessage("Jokify", "Artistas", "Por favor selecciona un artista en la tabla", Alert.AlertType.INFORMATION);
+            showMessage("Jokify", "Artistas", "Por favor selecciona una canción en la tabla", Alert.AlertType.INFORMATION);
         }
     }
 

@@ -196,6 +196,24 @@ public class Store {
         }
     }
 
+    /**
+     * Add a song to the favorite list of the user
+     * @param song
+     * @param user
+     */
+    public void addSongToFavorites(User user, Song song) {
+        user.getLinkedSong().addFirst(song);
+    }
+
+    /**
+     * Remove a song from the davorite list of the user
+     * @param song
+     * @param user
+     */
+    public void removeSongFromFavorites(User user, Song song) {
+        user.getLinkedSong().delete(song);
+    }
+
     //FUNCTIONS FOR THE LOGIN ---------------------------------------------------------------------------
 
     /**

@@ -132,17 +132,30 @@ public class CircularLinkedList<T extends Comparable<T>> implements Iterable<T> 
             System.out.println("List is empty");
             return;
         }
-        Node<T> current = head.next;
-        Node<T> previous = head;
-        while (current != head) {
+        Node<T> current = head;
+        Node<T> previous = null;
+        do {
             if (current.value.equals(value)) {
-                previous.next = current.next;
+                if (previous == null) { // If it's the first node
+                    if (current.next == head) { // If it's the only node
+                        head = null;
+                    } else {
+                        Node<T> lastNode = head;
+                        while (lastNode.next != head) {
+                            lastNode = lastNode.next; // Find the last node
+                        }
+                        head = head.next; // Move head to the next node
+                        lastNode.next = head; // Update the last node's next
+                    }
+                } else {
+                    previous.next = current.next;
+                }
                 size--;
                 return;
             }
             previous = current;
             current = current.next;
-        }
+        } while (current != head);
         System.out.println("Value not found");
     }
 
