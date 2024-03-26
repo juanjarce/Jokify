@@ -240,14 +240,32 @@ public class MenuController implements Initializable {
         }
     }
 
+    /**
+     * Adds a song to favorites
+     * @param event
+     */
     @FXML
     void addFavoriteSong(ActionEvent event) {
-
+        if (currentSong != null) {
+            store.addSongToFavorites(currentUser, currentSong);
+            showMessage("Jokify", "Canciones", "Cancion agregada correctamente a favoritos", Alert.AlertType.INFORMATION);
+        } else {
+            showMessage("Jokify", "Canciones", "Ocurrio un error agregando la canción a favoritos", Alert.AlertType.INFORMATION);
+        }
     }
 
+    /**
+     * Removes a song from favorites
+     * @param event
+     */
     @FXML
     void removeFavoriteSong(ActionEvent event) {
-
+        if (currentSong != null) {
+            store.removeSongFromFavorites(currentUser, currentSong);
+            showMessage("Jokify", "Canciones", "Cancion eliminada correctamente de favoritos", Alert.AlertType.INFORMATION);
+        } else {
+            showMessage("Jokify", "Canciones", "Ocurrio un error eliminando la canción a favoritos", Alert.AlertType.INFORMATION);
+        }
     }
 
     @FXML
