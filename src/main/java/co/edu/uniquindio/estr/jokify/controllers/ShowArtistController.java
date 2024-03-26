@@ -53,6 +53,7 @@ public class ShowArtistController implements Initializable {
     private User currentUser;
     private Artist selectedArtist;
     private Song selectedSong;
+    private MenuController menuController;
     private ObservableList<Song> songObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
 
@@ -61,9 +62,10 @@ public class ShowArtistController implements Initializable {
      * @param currentUser
      * @param selectedArtist
      */
-    public void init(User currentUser, Artist selectedArtist) {
+    public void init(User currentUser, Artist selectedArtist, MenuController menuController) {
         this.currentUser = currentUser;
         this.selectedArtist = selectedArtist;
+        this.menuController = menuController;
         //Artist's songs
         tableViewSong.getItems().clear();
         tableViewSong.setItems(getArtistSongs(selectedArtist));
@@ -105,9 +107,13 @@ public class ShowArtistController implements Initializable {
         });
     }
 
+    /**
+     * Shows the song to the user
+     * @param event
+     */
     @FXML
     void showSong(ActionEvent event) {
-
+        menuController.setCurrentSong(selectedSong);
     }
 
 }

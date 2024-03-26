@@ -227,7 +227,7 @@ public class MenuController implements Initializable {
             //Get the controller of the FXML file
             ShowArtistController controller = loader.getController();
             //Move the user to the controller
-            controller.init(currentUser, selectedArtist);
+            controller.init(currentUser, selectedArtist, this);
             //Apply animations for the content
             FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
             fadeIn.setFromValue(0.0);
