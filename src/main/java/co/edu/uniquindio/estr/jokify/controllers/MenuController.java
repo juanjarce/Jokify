@@ -13,6 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -37,12 +40,32 @@ public class MenuController implements Initializable {
     private Button btnCloseSesion;
 
     @FXML
+    private ImageView imgViewCover;
+
+    @FXML
+    private Label lblArtistName;
+
+    @FXML
+    private Label lblSongName;
+
+    @FXML
+    private Button btnAddFavoriteSong;
+
+    @FXML
+    private Button btnRemoveFavoriteSong;
+
+    @FXML
+    private Button btnPlaySong;
+
+    @FXML
     private BorderPane contentPane;
+
 
     //Aux variables
     private Stage stage;
     private LoginController loginController;
     private User currentUser;
+    private Song currentSong;
     private final Store store = Store.getInstance();
 
     /**
@@ -79,7 +102,9 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        btnAddFavoriteSong.setVisible(false);
+        btnRemoveFavoriteSong.setVisible(false);
+        btnPlaySong.setVisible(false);
     }
 
     /**
@@ -212,6 +237,38 @@ public class MenuController implements Initializable {
             contentPane.setCenter(newContent);
         } else {
             showMessage("Jokify", "Artistas", "Por favor selecciona un artista en la tabla", Alert.AlertType.INFORMATION);
+        }
+    }
+
+    @FXML
+    void addFavoriteSong(ActionEvent event) {
+
+    }
+
+    @FXML
+    void removeFavoriteSong(ActionEvent event) {
+
+    }
+
+    @FXML
+    void playSong(ActionEvent event) {
+
+    }
+
+    /**
+     * Sets the dynamic menu interface to show the user information of a selected song
+     */
+    public void setCurrentSong(Song currentSong) {
+        if (currentSong != null) {
+            this.currentSong = currentSong;
+            //Shows the song information on the interface
+            Image coverImage = new Image(currentSong.getCover());
+            lblArtistName.setText(currentSong.getArtistName());
+            lblSongName.setText(currentSong.getName());
+            imgViewCover.setImage(coverImage);
+            btnAddFavoriteSong.setVisible(true);
+            btnRemoveFavoriteSong.setVisible(true);
+            btnPlaySong.setVisible(true);
         }
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -39,6 +40,12 @@
                         </ImageView>
                         <Button fx:id="btnLibrary" layoutX="69.0" layoutY="16.0" mnemonicParsing="false" onAction="#showLibrary" styleClass="btnTopLeftContent" text="Tu Libreria" />
                         <Button fx:id="btnCloseSesion" layoutX="14.0" layoutY="501.0" mnemonicParsing="false" onAction="#closeSesion" styleClass="btnTopLeftContent" text="Cerrar Sesión" />
+                        <ImageView fx:id="imgViewCover" fitHeight="206.0" fitWidth="234.0" layoutX="22.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="lblArtistName" layoutX="22.0" layoutY="98.0" prefHeight="21.0" prefWidth="234.0" styleClass="menuTitle" />
+                        <Label fx:id="lblSongName" layoutX="23.0" layoutY="374.0" prefHeight="18.0" prefWidth="234.0" styleClass="menuText" />
+                        <Button fx:id="btnAddFavoriteSong" layoutX="121.0" layoutY="411.0" mnemonicParsing="false" onAction="#addFavoriteSong" styleClass="shortBtn" text="&lt;3" />
+                        <Button fx:id="btnRemoveFavoriteSong" layoutX="30.0" layoutY="411.0" mnemonicParsing="false" onAction="#removeFavoriteSong" styleClass="shortBtn" text="!" />
+                        <Button fx:id="btnPlaySong" layoutX="214.0" layoutY="411.0" mnemonicParsing="false" onAction="#playSong" styleClass="shortBtn" text="&gt;" />
                      </children>
                   </Pane>
                </children>

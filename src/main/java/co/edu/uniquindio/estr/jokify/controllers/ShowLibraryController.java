@@ -142,9 +142,13 @@ public class ShowLibraryController implements Initializable {
         }
     }
 
+    /**
+     * Shows the song to the user
+     * @param event
+     */
     @FXML
     void showSong(ActionEvent event) {
-
+        menuController.setCurrentSong(selectedSong);
     }
 
     /**

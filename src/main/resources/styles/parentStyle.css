@@ -226,3 +226,7 @@
     -fx-background-color: #20201D;
     -fx-pref-width: 250px;
 }
+
+.shortBtn {
+    -fx-pref-width: 50px;
+}
