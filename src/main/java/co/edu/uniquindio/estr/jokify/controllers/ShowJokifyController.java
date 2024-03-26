@@ -270,9 +270,13 @@ public class ShowJokifyController implements Initializable {
 
     }
 
+    /**
+     * Shows the songs in the app for an user
+     * @param event
+     */
     @FXML
-    void discoverMore(ActionEvent event) {
-
+    void discoverMore(ActionEvent event) throws IOException {
+        menuController.showSongs(store.getSongList().toList());
     }
 
     /**

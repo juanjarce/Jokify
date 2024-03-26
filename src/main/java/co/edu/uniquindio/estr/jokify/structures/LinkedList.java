@@ -4,6 +4,8 @@ package co.edu.uniquindio.estr.jokify.structures;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
@@ -341,6 +343,20 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
             observableList.add(iterator.next());
         }
         return observableList;
+    }
+
+    /**
+     * Turns the linked list into an arraylist
+     * @return
+     */
+    public ArrayList<T> toList() {
+        ArrayList<T> list = new ArrayList<>();
+        Node<T> current = head;
+        while (current != null) {
+            list.add(current.value);
+            current = current.next;
+        }
+        return list;
     }
 
     /**

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
 import co.edu.uniquindio.estr.jokify.model.Artist;
+import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.animation.FadeTransition;
@@ -18,6 +19,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
@@ -141,6 +143,29 @@ public class MenuController implements Initializable {
 
         contentPane.setCenter(newContent);
     }
+
+    /**
+     * Shows the list of songs of the app
+     * @param songs
+     * @throws IOException
+     */
+    public void showSongs(ArrayList<Song> songs) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SongList.fxml"));
+        Parent newContent = loader.load();
+
+        //Get the controller of the FXML file
+        SongListController controller = loader.getController();
+        //Move the user to the controller
+        controller.init(currentUser, this, songs);
+        //Apply animations for the content
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
+        contentPane.setCenter(newContent);
+    }
+
 
     /**
      * Shows the dynamic content for the search property of the app

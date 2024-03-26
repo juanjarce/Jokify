@@ -103,6 +103,7 @@ public class ShowSearchController implements Initializable {
     private User currentUser;
     private MenuController menuController;
     private Artist selectedArtist;
+    private List<Song> songs;
     private ObservableList<Artist> artistObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
 
@@ -143,7 +144,7 @@ public class ShowSearchController implements Initializable {
         try {
             String search = txtSearch.getText();
             //Creates all the content that can be showed
-            List<Song> songs = store.getSongsSearch(search);
+            songs = store.getSongsSearch(search);
             showSongs(songs);
             List<Artist> artists = store.getArtistsSearch(songs);
             showAtists(artists);
@@ -249,9 +250,13 @@ public class ShowSearchController implements Initializable {
         }
     }
 
+    /**
+     * Shows a link of all the songs that are related to the search
+     * @param event
+     */
     @FXML
-    void showMoreSongs(ActionEvent event) {
-
+    void showMoreSongs(ActionEvent event) throws IOException {
+        menuController.showSongs((ArrayList<Song>) songs);
     }
 
     /**
