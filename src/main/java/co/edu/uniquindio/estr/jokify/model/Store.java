@@ -72,7 +72,6 @@ public class Store implements Serializable {
             }
             //------------------------------------------------------------------------------
         }
-        System.out.println(store.userList.toString());
         return store;
     }
 
