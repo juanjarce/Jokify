@@ -2,10 +2,14 @@ package co.edu.uniquindio.estr.jokify.model;
 
 import co.edu.uniquindio.estr.jokify.model.enums.Genre;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Song implements Comparable<Song> {
+public class Song implements Comparable<Song>, Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
 
     //Attributes for Song class
     String code;

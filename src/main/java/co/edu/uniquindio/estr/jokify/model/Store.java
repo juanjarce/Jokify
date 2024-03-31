@@ -8,9 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.swing.tree.TreeNode;
+import java.io.Serializable;
 import java.util.*;
 
-public class Store {
+public class Store implements Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
 
     //Attributes for the Store class
     String name;
