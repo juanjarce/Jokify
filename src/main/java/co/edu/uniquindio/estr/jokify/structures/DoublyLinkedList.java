@@ -1,9 +1,14 @@
 package co.edu.uniquindio.estr.jokify.structures;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class DoublyNode<T> {
+class DoublyNode<T> implements Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     T value;
     DoublyNode<T> previous;
     DoublyNode<T> next;
@@ -16,7 +21,11 @@ class DoublyNode<T> {
     }
 }
 
-public class DoublyLinkedList<T extends Comparable<T>> implements Iterable<T> {
+public class DoublyLinkedList<T extends Comparable<T>> implements Iterable<T>, Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     private DoublyNode<T> head;
     private DoublyNode<T> tail;
     private int size;

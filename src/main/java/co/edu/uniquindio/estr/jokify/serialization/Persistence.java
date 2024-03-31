@@ -37,32 +37,5 @@ public class Persistence {
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // Methods for serialization in XML files---------------------------------------------------------------------------------------------------------------------------------------
-
-    // saveXMLResource()
-    public static void serializeXML(String filePath, Store myStore) {
-        try {
-            XMLEncoder xmlEncoder;
-
-            xmlEncoder = new XMLEncoder(new FileOutputStream(filePath));
-            xmlEncoder.writeObject(myStore);
-            xmlEncoder.close();
-        } catch (Exception ignored) {
-        }
-    }
-
-    // loadXMLResource()
-    public static Store deserializeXML(String filePath) {
-        XMLDecoder xmlDecoder;
-        Store xmlObject = null;
-        try {
-            xmlDecoder = new XMLDecoder(new FileInputStream(filePath));
-            xmlObject = (Store) xmlDecoder.readObject();
-            xmlDecoder.close();
-        } catch (Exception ignored) {
-        }
-        return xmlObject;
-    }
-
 
 }

@@ -1,9 +1,14 @@
 package co.edu.uniquindio.estr.jokify.structures;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-class Entry<K, V> {
+class Entry<K, V> implements Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     K key;
     V value;
 
@@ -13,7 +18,11 @@ class Entry<K, V> {
     }
 }
 
-public class HashMapCustom<K, V> {
+public class HashMapCustom<K, V> implements Serializable{
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     private List<Entry<K, V>> entries;
     private int size;
 
@@ -85,5 +94,22 @@ public class HashMapCustom<K, V> {
         }
         // Return false if key is not found
         return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        for (Entry<K, V> entry : entries) {
+            sb.append(entry.key)
+                    .append("=")
+                    .append(entry.value)
+                    .append(", ");
+        }
+        if (!entries.isEmpty()) {
+            sb.setLength(sb.length() - 2); // Remove the last ", "
+        }
+        sb.append("}");
+        return sb.toString();
     }
 }

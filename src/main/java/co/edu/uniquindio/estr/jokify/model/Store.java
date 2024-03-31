@@ -3,13 +3,12 @@ package co.edu.uniquindio.estr.jokify.model;
 import co.edu.uniquindio.estr.jokify.exceptions.*;
 import co.edu.uniquindio.estr.jokify.model.enums.Genre;
 import co.edu.uniquindio.estr.jokify.serialization.Persistence;
-import co.edu.uniquindio.estr.jokify.serialization.threads.LoadXMLResource;
+import co.edu.uniquindio.estr.jokify.serialization.threads.LoadBinaryResource;
 import co.edu.uniquindio.estr.jokify.structures.*;
 import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.util.*;
 
@@ -62,17 +61,18 @@ public class Store implements Serializable {
     public static Store getInstance() {
         if (store == null) {
             store = new Store("Jokify");
-
-            // Load the Store content
-            LoadXMLResource t1 = new LoadXMLResource();
+            //------------------------------------------------------------------------------
+            //loadBinaryResource()
+            LoadBinaryResource t1 = new LoadBinaryResource();
             t1.start();
             try {
                 t1.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
+            //------------------------------------------------------------------------------
         }
+        System.out.println(store.userList.toString());
         return store;
     }
 
@@ -80,7 +80,6 @@ public class Store implements Serializable {
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Addresses for serialization files
     public static final String ADDRESS_FILE_STOREDAT = "src/main/resources/store.dat";
-    public static final String ADDRESS_FILE_STOREXML = "src/main/resources/store.xml";
 
     // Methods to serialize and deserialize the information of the global class miSubastas ----------------------------------------------------------------------------------------------------------------------
 
@@ -99,20 +98,6 @@ public class Store implements Serializable {
         }
     }
 
-    // saveXMLResource()
-    public static void serializeXML() {
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-        // Data is stored in files
-        Persistence.serializeXML(ADDRESS_FILE_STOREXML, store);
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-    }
-
-    // loadXMLResource()
-    public static void deserializeXML() {
-        if (Persistence.deserializeXML(ADDRESS_FILE_STOREXML) != null) {
-            store = Persistence.deserializeXML(ADDRESS_FILE_STOREXML);
-        }
-    }
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
