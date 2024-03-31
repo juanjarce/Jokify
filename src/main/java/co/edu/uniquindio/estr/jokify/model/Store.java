@@ -2,6 +2,8 @@ package co.edu.uniquindio.estr.jokify.model;
 
 import co.edu.uniquindio.estr.jokify.exceptions.*;
 import co.edu.uniquindio.estr.jokify.model.enums.Genre;
+import co.edu.uniquindio.estr.jokify.serialization.Persistence;
+import co.edu.uniquindio.estr.jokify.serialization.threads.LoadXMLResource;
 import co.edu.uniquindio.estr.jokify.structures.*;
 import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 import javafx.collections.FXCollections;
@@ -60,9 +62,59 @@ public class Store implements Serializable {
     public static Store getInstance() {
         if (store == null) {
             store = new Store("Jokify");
+
+            // Load the Store content
+            LoadXMLResource t1 = new LoadXMLResource();
+            t1.start();
+            try {
+                t1.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
         }
         return store;
     }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Addresses for serialization files
+    public static final String ADDRESS_FILE_STOREDAT = "src/main/resources/store.dat";
+    public static final String ADDRESS_FILE_STOREXML = "src/main/resources/store.xml";
+
+    // Methods to serialize and deserialize the information of the global class miSubastas ----------------------------------------------------------------------------------------------------------------------
+
+    // saveBinaryResource()
+    public static void serializeBinary() {
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // Data is stored in files
+        Persistence.serializeBinary(ADDRESS_FILE_STOREDAT, store);
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    }
+
+    // loadBinaryResource()
+    public static void deserializeBinary() {
+        if (Persistence.deserializeBinary(ADDRESS_FILE_STOREDAT) != null) {
+            store = Persistence.deserializeBinary(ADDRESS_FILE_STOREDAT);
+        }
+    }
+
+    // saveXMLResource()
+    public static void serializeXML() {
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // Data is stored in files
+        Persistence.serializeXML(ADDRESS_FILE_STOREXML, store);
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    }
+
+    // loadXMLResource()
+    public static void deserializeXML() {
+        if (Persistence.deserializeXML(ADDRESS_FILE_STOREXML) != null) {
+            store = Persistence.deserializeXML(ADDRESS_FILE_STOREXML);
+        }
+    }
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //getters() & setters() for the Store class
     public String getName() {
