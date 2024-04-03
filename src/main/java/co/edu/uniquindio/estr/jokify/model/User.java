@@ -2,9 +2,14 @@ package co.edu.uniquindio.estr.jokify.model;
 
 import co.edu.uniquindio.estr.jokify.structures.CircularLinkedList;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Comparable<User> {
+public class User implements Comparable<User>, Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
 
     //Attributes for User class
     //There´s only one admin user "user"-"$aDmiN"

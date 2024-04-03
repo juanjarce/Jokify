@@ -5,6 +5,7 @@ import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.enums.Genre;
+import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -108,6 +109,18 @@ public class ShowAddSongController implements Initializable {
                     store.createSong(newSong);
                     mostrarMensaje("PROCESO EXITOSO", "Canción agregada", "La canción fue creada exitosamente", Alert.AlertType.INFORMATION);
 
+                    //------------------------------------------------------------------------------------------------------------------------------------------------
+                    // Save the Store content
+                    //BinaryResorce()
+                    SaveBinaryResource t1 = new SaveBinaryResource();
+                    t1.start();
+                    try {
+                        t1.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    //------------------------------------------------------------------------------------------------------------------------------------------------
+
                     // Set the actual artist list
                     this.listSongsData.setAll(store.getSongList().toObservableList());
                     this.tableViewSong.setItems(this.listSongsData);
@@ -131,6 +144,18 @@ public class ShowAddSongController implements Initializable {
             try {
                 store.deleteSong(selectedSong.getCode());
                 mostrarMensaje("PROCESO EXITOSO", "Canción eliminada", "La canción fue eliminada exitosamente", Alert.AlertType.INFORMATION);
+
+                //------------------------------------------------------------------------------------------------------------------------------------------------
+                // Save the Store content
+                //BinaryResorce()
+                SaveBinaryResource t1 = new SaveBinaryResource();
+                t1.start();
+                try {
+                    t1.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                //------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Set the actual artist list
                 this.listSongsData.setAll(store.getSongList().toObservableList());
@@ -226,6 +251,18 @@ public class ShowAddSongController implements Initializable {
                 try {
                     store.updateSong(selectedSong.getCode(), name, album, cover, Integer.parseInt(year), Integer.parseInt(duration), youtubeURL, Genre.valueOf(genre), artistName);
                     mostrarMensaje("PROCESO EXITOSO", "Canción actualizada", "La canción fue actualizada exitosamente", Alert.AlertType.INFORMATION);
+
+                    //------------------------------------------------------------------------------------------------------------------------------------------------
+                    // Save the Store content
+                    //BinaryResorce()
+                    SaveBinaryResource t1 = new SaveBinaryResource();
+                    t1.start();
+                    try {
+                        t1.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    //------------------------------------------------------------------------------------------------------------------------------------------------
 
                     // Set the actual artist list
                     this.listSongsData.setAll(store.getSongList().toObservableList());

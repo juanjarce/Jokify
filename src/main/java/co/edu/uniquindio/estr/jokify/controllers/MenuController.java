@@ -4,6 +4,7 @@ import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
+import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -250,6 +251,18 @@ public class MenuController implements Initializable {
         if (currentSong != null) {
             store.addSongToFavorites(currentUser, currentSong);
             showMessage("Jokify", "Canciones", "Cancion agregada correctamente a favoritos", Alert.AlertType.INFORMATION);
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------
+            // Save the Store content
+            //BinaryResorce()
+            SaveBinaryResource t1 = new SaveBinaryResource();
+            t1.start();
+            try {
+                t1.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //------------------------------------------------------------------------------------------------------------------------------------------------
         } else {
             showMessage("Jokify", "Canciones", "Ocurrio un error agregando la canción a favoritos", Alert.AlertType.INFORMATION);
         }
@@ -267,6 +280,18 @@ public class MenuController implements Initializable {
         } else {
             showMessage("Jokify", "Canciones", "Ocurrio un error eliminando la canción a favoritos", Alert.AlertType.INFORMATION);
         }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------
+        // Save the Store content
+        //BinaryResorce()
+        SaveBinaryResource t1 = new SaveBinaryResource();
+        t1.start();
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------
     }
 
     /**

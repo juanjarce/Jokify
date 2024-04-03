@@ -1,9 +1,14 @@
 package co.edu.uniquindio.estr.jokify.structures;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class CircularLinkedList<T extends Comparable<T>> implements Iterable<T> {
+public class CircularLinkedList<T extends Comparable<T>> implements Iterable<T>, Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     private Node<T> head;
     private int size;
 

@@ -3,6 +3,7 @@ package co.edu.uniquindio.estr.jokify.controllers;
 import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
+import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import co.edu.uniquindio.estr.jokify.utils.FileLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -98,6 +99,18 @@ public class ShowDownloadInfoController implements Initializable {
         String path = chooseFile();
         if(!Objects.equals(path, "")){
             FileLoader.loadArtistsAndSongs(store, path);
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------
+            // Save the Store content
+            //BinaryResorce()
+            SaveBinaryResource t1 = new SaveBinaryResource();
+            t1.start();
+            try {
+                t1.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //------------------------------------------------------------------------------------------------------------------------------------------------
 
             //Show on tables
             listArtistData.setAll(store.getArtistList().toObservableList());

@@ -2,15 +2,20 @@ package co.edu.uniquindio.estr.jokify.model;
 
 import co.edu.uniquindio.estr.jokify.exceptions.*;
 import co.edu.uniquindio.estr.jokify.model.enums.Genre;
+import co.edu.uniquindio.estr.jokify.serialization.Persistence;
+import co.edu.uniquindio.estr.jokify.serialization.threads.LoadBinaryResource;
 import co.edu.uniquindio.estr.jokify.structures.*;
 import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.tree.TreeNode;
+import java.io.Serializable;
 import java.util.*;
 
-public class Store {
+public class Store implements Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
 
     //Attributes for the Store class
     String name;
@@ -56,9 +61,44 @@ public class Store {
     public static Store getInstance() {
         if (store == null) {
             store = new Store("Jokify");
+            //------------------------------------------------------------------------------
+            //loadBinaryResource()
+            LoadBinaryResource t1 = new LoadBinaryResource();
+            t1.start();
+            try {
+                t1.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //------------------------------------------------------------------------------
         }
         return store;
     }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Addresses for serialization files
+    public static final String ADDRESS_FILE_STOREDAT = "src/main/resources/store.dat";
+
+    // Methods to serialize and deserialize the information of the global class miSubastas ----------------------------------------------------------------------------------------------------------------------
+
+    // saveBinaryResource()
+    public static void serializeBinary() {
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // Data is stored in files
+        Persistence.serializeBinary(ADDRESS_FILE_STOREDAT, store);
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------
+    }
+
+    // loadBinaryResource()
+    public static void deserializeBinary() {
+        if (Persistence.deserializeBinary(ADDRESS_FILE_STOREDAT) != null) {
+            store = Persistence.deserializeBinary(ADDRESS_FILE_STOREDAT);
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //getters() & setters() for the Store class
     public String getName() {

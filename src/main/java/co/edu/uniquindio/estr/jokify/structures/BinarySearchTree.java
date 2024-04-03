@@ -3,11 +3,16 @@ package co.edu.uniquindio.estr.jokify.structures;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-class TreeNode<T> {
+class TreeNode<T> implements Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     T data;
     TreeNode<T> left;
     TreeNode<T> right;
@@ -19,7 +24,11 @@ class TreeNode<T> {
     }
 }
 
-public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
+public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T>, Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     private TreeNode<T> root;
 
     //getters() & setters()

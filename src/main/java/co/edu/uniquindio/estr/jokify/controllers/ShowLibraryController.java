@@ -4,6 +4,7 @@ import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.model.User;
+import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -119,6 +120,19 @@ public class ShowLibraryController implements Initializable {
         if (selectedSong != null) {
             store.removeSongFromFavorites(currentUser, selectedSong);
             showMessage("Jokify", "Libreria", "Canción eliminada de favoritos", Alert.AlertType.INFORMATION);
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------
+            // Save the Store content
+            //BinaryResorce()
+            SaveBinaryResource t1 = new SaveBinaryResource();
+            t1.start();
+            try {
+                t1.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //------------------------------------------------------------------------------------------------------------------------------------------------
+
             //Update the tableView and image
             tableViewSong.getItems().clear();
             tableViewSong.setItems(getUserSongs(currentUser));

@@ -3,6 +3,7 @@ package co.edu.uniquindio.estr.jokify.controllers;
 import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
 import co.edu.uniquindio.estr.jokify.exceptions.UserException;
 import co.edu.uniquindio.estr.jokify.model.Store;
+import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -71,9 +72,19 @@ public class SingInController {
             store.createUser(username, password, email);
             cleanFields();
             showMessage("Jokify", "Registrarse", "Tú registro ha sido realizado de manera exitosa", Alert.AlertType.INFORMATION);
-        } catch (UserException e) {
-            showMessage("Jokify", "Registrarse", e.getMessage(), Alert.AlertType.WARNING);
-        } catch (AttributesException e) {
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------
+            // Save the Store content
+            //BinaryResorce()
+            SaveBinaryResource t1 = new SaveBinaryResource();
+            t1.start();
+            try {
+                t1.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //------------------------------------------------------------------------------------------------------------------------------------------------
+        } catch (UserException | AttributesException e) {
             showMessage("Jokify", "Registrarse", e.getMessage(), Alert.AlertType.WARNING);
         }
     }

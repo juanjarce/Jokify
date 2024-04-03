@@ -2,10 +2,14 @@ package co.edu.uniquindio.estr.jokify.model;
 
 import co.edu.uniquindio.estr.jokify.structures.DoublyLinkedList;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Artist implements Comparable<Artist> {
+public class Artist implements Comparable<Artist>, Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
 
     //Attributes for the Artist class
     String code;

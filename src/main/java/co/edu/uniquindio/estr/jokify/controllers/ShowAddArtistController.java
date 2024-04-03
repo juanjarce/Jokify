@@ -3,6 +3,7 @@ package co.edu.uniquindio.estr.jokify.controllers;
 import co.edu.uniquindio.estr.jokify.exceptions.ArtistsException;
 import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Store;
+import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -81,6 +82,18 @@ public class ShowAddArtistController implements Initializable {
                 store.createArtist(newArtist);
                 mostrarMensaje("PROCESO EXITOSO", "Artista agregado", "El artista fue creado exitosamente", Alert.AlertType.INFORMATION);
 
+                //------------------------------------------------------------------------------------------------------------------------------------------------
+                // Save the Store content
+                //BinaryResorce()
+                SaveBinaryResource t1 = new SaveBinaryResource();
+                t1.start();
+                try {
+                    t1.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                //------------------------------------------------------------------------------------------------------------------------------------------------
+
                 // Set the actual artist list
                 this.listArtistData.setAll(store.getArtistList().toObservableList());
                 this.tableViewArtist.setItems(this.listArtistData);
@@ -104,6 +117,18 @@ public class ShowAddArtistController implements Initializable {
             try {
                 store.deleteArtist(selectedArtist.getCode());
                 mostrarMensaje("PROCESO EXITOSO", "Artista Eliminado", "El artista fue eliminado exitosamente", Alert.AlertType.INFORMATION);
+
+                //------------------------------------------------------------------------------------------------------------------------------------------------
+                // Save the Store content
+                //BinaryResorce()
+                SaveBinaryResource t1 = new SaveBinaryResource();
+                t1.start();
+                try {
+                    t1.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                //------------------------------------------------------------------------------------------------------------------------------------------------
 
                 // Set the actual artist list
                 this.listArtistData.setAll(store.getArtistList().toObservableList());
@@ -146,6 +171,18 @@ public class ShowAddArtistController implements Initializable {
                     Artist updatedArtist = new Artist(selectedArtist.getCode(), name, nationality, isGroup);
                     store.updateArtist(updatedArtist);
                     mostrarMensaje("PROCESO EXITOSO", "Artista Actualizado", "El artista fue actualizado exitosamente", Alert.AlertType.INFORMATION);
+
+                    //------------------------------------------------------------------------------------------------------------------------------------------------
+                    // Save the Store content
+                    //BinaryResorce()
+                    SaveBinaryResource t1 = new SaveBinaryResource();
+                    t1.start();
+                    try {
+                        t1.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    //------------------------------------------------------------------------------------------------------------------------------------------------
 
                     // Set the actual artist list
                     this.listArtistData.setAll(store.getArtistList().toObservableList());

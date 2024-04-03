@@ -4,12 +4,17 @@ package co.edu.uniquindio.estr.jokify.structures;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
-class Node<T> {
+class Node<T> implements Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
+
     T value;
     Node<T> next;
 
@@ -20,7 +25,10 @@ class Node<T> {
     }
 }
 
-public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
+public class LinkedList<T extends Comparable<T>> implements Iterable<T>, Serializable {
+
+    //Serial ID for Serializable
+    private static final long serialVersionUID = 1L;
 
     //Start of the LinkedList
     Node<T> head;

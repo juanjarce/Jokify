@@ -12,4 +12,6 @@ module co.edu.uniquindio.estr.jokify.application {
     opens co.edu.uniquindio.estr.jokify.application to javafx.graphics, javafx.fxml;
     opens co.edu.uniquindio.estr.jokify.model to javafx.base;
     opens co.edu.uniquindio.estr.jokify.controllers to javafx.fxml;
+    exports co.edu.uniquindio.estr.jokify.model;
+    exports co.edu.uniquindio.estr.jokify.structures;
 }
