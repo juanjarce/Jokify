@@ -9,17 +9,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -268,9 +277,59 @@ public class MenuController implements Initializable {
         }
     }
 
+    /**
+     * Plays the song that is selected by showing an emergent window.
+     * Some songs can't be played due to YouTube politics: https://support.google.com/youtube/answer/6301625?hl=en
+     */
     @FXML
     void playSong(ActionEvent event) {
 
+        // Check if there is a selected song.
+        if(currentSong != null) {
+
+            // Obtain the "embed" link of the YouTube link.
+            String youtubeEmbed = convertToEmbedUrl(currentSong.getYoutubeURL());
+            System.out.println(youtubeEmbed);
+            try {
+                // Create a new Stage for the video.
+                Stage stage = new Stage();
+
+                // Create and load the video.
+                WebView webView = new WebView();
+                webView.getEngine().load(youtubeEmbed);
+
+                // Create a Scene containing the video while indicating its width and height.
+                Scene scene = new Scene(webView, 640, 390);
+
+                // Show the Stage with the Scene and a custom title.
+                String title = currentSong.getName() + " - " + currentSong.getArtistName();
+                stage.setTitle(title);
+                stage.setScene(scene);
+                stage.show();
+
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Function to convert a YouTube video link into its embed correspondence.
+     * @param youtubeUrl
+     * @return
+     */
+    public static String convertToEmbedUrl(String youtubeUrl) {
+        // Check if the input URL is a valid YouTube watch URL
+        if (youtubeUrl.startsWith("https://www.youtube.com/watch?v=")) {
+            // Extract the video ID from the URL
+            String videoId = youtubeUrl.substring("https://www.youtube.com/watch?v=".length());
+
+            // Construct the embed URL using the video ID
+            return "https://www.youtube.com/embed/" + videoId;
+        } else {
+            // If the input URL is not a valid YouTube watch URL, return null or throw an exception
+            return null;
+        }
     }
 
     /**

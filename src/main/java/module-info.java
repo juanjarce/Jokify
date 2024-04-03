@@ -5,6 +5,8 @@ module co.edu.uniquindio.estr.jokify.application {
     requires javafx.fxml;
     requires javafx.base;
     requires javafx.graphics;
+    requires javafx.media;
+    requires javafx.web;
 
 
     opens co.edu.uniquindio.estr.jokify.application to javafx.graphics, javafx.fxml;
