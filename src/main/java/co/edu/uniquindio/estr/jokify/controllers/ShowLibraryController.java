@@ -11,19 +11,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ShowLibraryController implements Initializable {
+
     @FXML
     private TableView<Song> tableViewSong;
 
@@ -53,6 +53,9 @@ public class ShowLibraryController implements Initializable {
 
     @FXML
     private Button btnRemoveFavorites;
+
+    @FXML
+    private ComboBox<String> cbSortby;
 
     //Aux variables
     private User currentUser;
@@ -92,6 +95,13 @@ public class ShowLibraryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // Initialize the sorting values in the combobox
+        cbSortby.getItems().addAll("Nombre", "Album", "Año","Duración", "Artista");
+
+        // Action event listener for the combobox
+        initializeSortByComboBox();
+
         //Data in the tableView
         this.columnNameSong.setCellValueFactory(new PropertyValueFactory<Song, String>("name"));
         this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
@@ -179,4 +189,50 @@ public class ShowLibraryController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+    /**
+     *  Function to check if a sort option has been selected.
+     */
+    private void initializeSortByComboBox() {
+        cbSortby.setOnAction(event -> {
+            String selectedOption = cbSortby.getSelectionModel().getSelectedItem();
+            if(selectedOption!=null) {
+                sortSongsBy(selectedOption);
+            }
+        });
+    }
+
+    /**
+     * Function to sort the liked songs table of the user by a selected sort option.
+     * For String, it will sort it alphabetically.
+     * For Integer, it will sort it from smallest to largest.
+     */
+    private void sortSongsBy(String sortOption) {
+
+        // Obtaining the liked songs observablelist from the user.
+        ObservableList<Song> likedSongsList = getUserSongs(currentUser);
+
+        // Swith case to go all over the combobox options
+        // Props to the Comparator class. Made this a million times easier.
+        switch (sortOption) {
+
+            case "Nombre":
+                likedSongsList.sort(Comparator.comparing(Song::getName));
+                break;
+            case "Album":
+                likedSongsList.sort(Comparator.comparing(Song::getAlbum));
+                break;
+            case "Año":
+                likedSongsList.sort(Comparator.comparing(Song::getYear));
+                break;
+            case "Duración":
+                likedSongsList.sort(Comparator.comparing(Song::getDurationOnSeconds));
+                break;
+            case "Artista":
+                likedSongsList.sort(Comparator.comparing(Song::getArtistName));
+                break;
+        }
+        tableViewSong.setItems(likedSongsList);
+    }
+
 }

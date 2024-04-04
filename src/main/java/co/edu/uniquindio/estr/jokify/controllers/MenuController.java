@@ -71,8 +71,7 @@ public class MenuController implements Initializable {
     private final Store store = Store.getInstance();
 
     /**
-     * Sets the curren stage
-     * @param primaryStage
+     * Sets the current stage
      */
     public void setStage(Stage primaryStage) {
         this.stage = primaryStage;

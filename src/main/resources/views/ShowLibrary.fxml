@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -23,5 +24,6 @@
         <Button fx:id="btnShowSong" layoutX="791.0" layoutY="472.0" mnemonicParsing="false" onAction="#showSong" styleClass="menuBtn" text="Ver canción" />
       <Button fx:id="btnShowArtist" layoutX="791.0" layoutY="519.0" mnemonicParsing="false" onAction="#showArtist" styleClass="menuBtn" text="Ver arista" />
       <Button fx:id="btnRemoveFavorites" layoutX="59.0" layoutY="634.0" mnemonicParsing="false" onAction="#removeFavorites" styleClass="menuBtn" text="Eliminar de favoritos" />
+      <ComboBox fx:id="cbSortby" layoutX="831.0" layoutY="42.0" prefHeight="37.0" prefWidth="160.0" promptText="Ordenar por" />
     </children>
 </AnchorPane>

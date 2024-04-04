@@ -32,7 +32,7 @@ public class Store implements Serializable {
     //Singleton of the class
     private static Store store;
 
-    //Empty constuctor for the Store class
+    //Empty constructor for the Store class
     public Store(){
 
     }
