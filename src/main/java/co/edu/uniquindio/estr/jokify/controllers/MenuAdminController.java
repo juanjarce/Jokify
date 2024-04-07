@@ -37,7 +37,7 @@ public class MenuAdminController {
     private Button btnShowAddArtist;
 
     @FXML
-    private Button btnShowEstadistics;
+    private Button btnShowStatistics;
 
     @FXML
     private Button btnCloseSesion;
@@ -149,7 +149,7 @@ public class MenuAdminController {
     }
 
     @FXML
-    void showEstadistics(ActionEvent event) {
+    void showStatistics(ActionEvent event) {
 
     }
 
