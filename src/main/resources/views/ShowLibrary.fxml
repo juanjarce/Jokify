@@ -24,6 +24,6 @@
         <Button fx:id="btnShowSong" layoutX="791.0" layoutY="472.0" mnemonicParsing="false" onAction="#showSong" styleClass="menuBtn" text="Ver canción" />
       <Button fx:id="btnShowArtist" layoutX="791.0" layoutY="519.0" mnemonicParsing="false" onAction="#showArtist" styleClass="menuBtn" text="Ver arista" />
       <Button fx:id="btnRemoveFavorites" layoutX="59.0" layoutY="634.0" mnemonicParsing="false" onAction="#removeFavorites" styleClass="menuBtn" text="Eliminar de favoritos" />
-      <ComboBox fx:id="cbSortby" layoutX="831.0" layoutY="42.0" prefHeight="37.0" prefWidth="160.0" promptText="Ordenar por" />
+      <ComboBox fx:id="cbSortby" layoutX="854.0" layoutY="52.0" prefHeight="21.0" prefWidth="137.0" promptText="Ordenar por" styleClass="comboBox" />
     </children>
 </AnchorPane>
