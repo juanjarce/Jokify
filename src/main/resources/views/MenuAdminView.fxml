@@ -41,6 +41,12 @@
                               <Image url="@../images/GrayLogo.png" />
                            </image>
                         </ImageView>
+                        <Button fx:id="btnShowEstadistics" layoutX="75.0" layoutY="509.0" mnemonicParsing="false" onAction="#showEstadistics" styleClass="btnTopLeftContent" text="Estadísticas" />
+                        <ImageView fitHeight="28.0" fitWidth="27.0" layoutX="34.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/EstadisticsLogo.png" />
+                           </image>
+                        </ImageView>
                             </children>
                         </Pane>
                   <Pane layoutX="11.0" layoutY="624.0" prefHeight="60.0" prefWidth="291.0" styleClass="leftContent">

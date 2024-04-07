@@ -37,6 +37,9 @@ public class MenuAdminController {
     private Button btnShowAddArtist;
 
     @FXML
+    private Button btnShowEstadistics;
+
+    @FXML
     private Button btnCloseSesion;
 
     @FXML
@@ -143,6 +146,11 @@ public class MenuAdminController {
 
         // Establecer el controlador en el contentPane
         contentPane.setCenter(newContent);
+    }
+
+    @FXML
+    void showEstadistics(ActionEvent event) {
+
     }
 
 }
