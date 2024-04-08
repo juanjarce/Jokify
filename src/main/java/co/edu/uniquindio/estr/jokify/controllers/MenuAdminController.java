@@ -148,9 +148,25 @@ public class MenuAdminController {
         contentPane.setCenter(newContent);
     }
 
+    /**
+     * Shows the dynamic content for the statistics functionality
+     * @param event
+     */
     @FXML
-    void showStatistics(ActionEvent event) {
+    void showStatistics(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowStatistics.fxml"));
+        Parent newContent = loader.load();
 
+        // Obtener el controlador del FXML cargado
+        ShowStatisticsController controller = loader.getController();
+        // Aplicar animaciones para el contenido
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
+        // Establecer el controlador en el contentPane
+        contentPane.setCenter(newContent);
     }
 
 }

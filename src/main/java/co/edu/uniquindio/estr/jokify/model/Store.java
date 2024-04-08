@@ -661,4 +661,37 @@ public class Store {
         }
         return firstSongs;
     }
+
+    // FUNCTIONS FOR THE STATISTICS -----------------------------------------------------------------------
+
+    /**
+     * Method to find the most repeated genre
+     * @return
+     */
+    public Genre findMostRepeatedGenre() {
+        if (songList.isEmpty()) {
+            return null;
+        }
+        Genre mostRepeatedGenre = null;
+        int maxCount = 0;
+        Iterator<Song> iterator = songList.iterator();
+        while (iterator.hasNext()) {
+            Genre currentGenre = iterator.next().getGenre();
+            int currentCount = 1;
+            Iterator<Song> innerIterator = songList.iterator();
+            while (innerIterator.hasNext()) {
+                if (innerIterator.next().getGenre() == currentGenre) {
+                    currentCount++;
+                }
+            }
+            if (currentCount > maxCount) {
+                mostRepeatedGenre = currentGenre;
+                maxCount = currentCount;
+            }
+        }
+        return mostRepeatedGenre;
+    }
+
+
+
 }
