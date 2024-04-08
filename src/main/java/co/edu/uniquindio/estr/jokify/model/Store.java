@@ -54,15 +54,15 @@ public class Store {
         Artist artist2 = new Artist("Hozier", "Irland", false);
         artistList.insert(artist2);
 
-        Song song1 = new Song("YEAH RIGHT", "BALLADS 1", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji1.png", 2018, 174, "https://www.youtube.com/watch?v=tG7wLK4aAOE", Genre.POP, artist1.getName());
+        Song song1 = new Song("YEAH RIGHT", "BALLADS 1", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji1.png", 2018, 174, 10, "https://www.youtube.com/watch?v=tG7wLK4aAOE", Genre.POP, artist1.getName());
         songList.addFirst(song1);
-        Song song2 = new Song("YUKON (INTERLUDE)", "SMITHEREENS", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji2.png", 2022, 120, "https://www.youtube.com/watch?v=llFdrwnBwLE", Genre.POP, artist1.getName());
+        Song song2 = new Song("YUKON (INTERLUDE)", "SMITHEREENS", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji2.png", 2022, 120, 20, "https://www.youtube.com/watch?v=llFdrwnBwLE", Genre.POP, artist1.getName());
         songList.addFirst(song2);
-        Song song3 = new Song("Glimpse of Us", "SMITHEREENS", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji3.png", 2022, 120, "https://www.youtube.com/watch?v=NgsWGfUlwJI", Genre.POP, artist1.getName());
+        Song song3 = new Song("Glimpse of Us", "SMITHEREENS", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji3.png", 2022, 120, 40, "https://www.youtube.com/watch?v=NgsWGfUlwJI", Genre.POP, artist1.getName());
         songList.addFirst(song3);
-        Song song4 = new Song("RUN", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji4.png", 2022, 120, "https://www.youtube.com/watch?v=K09_5IsgGe8", Genre.POP, artist1.getName());
+        Song song4 = new Song("RUN", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji4.png", 2022, 120, 50, "https://www.youtube.com/watch?v=K09_5IsgGe8", Genre.POP, artist1.getName());
         songList.addFirst(song4);
-        Song song5 = new Song("Sanctuary", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji5.png", 2019, 132, "https://www.youtube.com/watch?v=YWN81V7ojOE", Genre.POP, artist1.getName());
+        Song song5 = new Song("Sanctuary", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/joji5.png", 2019, 132, 60, "https://www.youtube.com/watch?v=YWN81V7ojOE", Genre.POP, artist1.getName());
         songList.addFirst(song5);
 
         artist1.getSongs().addFirst(song1);
@@ -71,15 +71,15 @@ public class Store {
         artist1.getSongs().addFirst(song4);
         artist1.getSongs().addFirst(song5);
 
-        Song song6 = new Song("Movement", "Wasteland, Baby!", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier1.png", 2019, 160, "https://www.youtube.com/watch?v=OSye8OO5TkM", Genre.POP, artist2.getName());
+        Song song6 = new Song("Movement", "Wasteland, Baby!", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier1.png", 2019, 160, 1, "https://www.youtube.com/watch?v=OSye8OO5TkM", Genre.POP, artist2.getName());
         songList.addFirst(song6);
-        Song song7 = new Song("The Bones", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier2.png", 2019, 184, "https://www.youtube.com/watch?v=Zmxfd3Z_wBA", Genre.POP, artist2.getName());
+        Song song7 = new Song("The Bones", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier2.png", 2019, 184, 2, "https://www.youtube.com/watch?v=Zmxfd3Z_wBA", Genre.POP, artist2.getName());
         songList.addFirst(song7);
-        Song song8 = new Song("Better Love", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier3.png", 2016, 190, "https://www.youtube.com/watch?v=Wm4CrOfbHMI", Genre.POP, artist2.getName());
+        Song song8 = new Song("Better Love", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier3.png", 2016, 190, 3, "https://www.youtube.com/watch?v=Wm4CrOfbHMI", Genre.POP, artist2.getName());
         songList.addFirst(song8);
-        Song song9 = new Song("Take Me To Church", "Hozier (Special Edition)", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier4.png", 2014, 240, "https://www.youtube.com/watch?v=PVjiKRfKpPI", Genre.POP, artist2.getName());
+        Song song9 = new Song("Take Me To Church", "Hozier (Special Edition)", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier4.png", 2014, 240, 4, "https://www.youtube.com/watch?v=PVjiKRfKpPI", Genre.POP, artist2.getName());
         songList.addFirst(song9);
-        Song song10 = new Song("Eat Your Young", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier5.png", 2023, 248, "https://www.youtube.com/watch?v=e6LM0sIA_Eg", Genre.POP, artist2.getName());
+        Song song10 = new Song("Eat Your Young", "Single", "file:/home/joki/Documents/zzzUniversidad/EstructuraDatos/code/Jokify/src/main/resources/covers/hozier5.png", 2023, 248, 99, "https://www.youtube.com/watch?v=e6LM0sIA_Eg", Genre.POP, artist2.getName());
         songList.addFirst(song10);
 
         artist2.getSongs().addFirst(song6);
@@ -202,6 +202,7 @@ public class Store {
      * @param user
      */
     public void addSongToFavorites(User user, Song song) {
+        song.setLikes(song.getLikes() + 1);
         user.getLinkedSong().addFirst(song);
     }
 
@@ -211,6 +212,7 @@ public class Store {
      * @param user
      */
     public void removeSongFromFavorites(User user, Song song) {
+        song.setLikes(song.getLikes() - 1);
         user.getLinkedSong().delete(song);
     }
 
@@ -692,6 +694,27 @@ public class Store {
         return mostRepeatedGenre;
     }
 
-
+    /**
+     * Method to find the most liked song
+     * @return
+     */
+    public Song findMostLikedSong() {
+        if (songList.isEmpty()) {
+            System.out.println("Lista de canciones vacía");
+            return null;
+        }
+        Song mostLikedSong = null;
+        int maxLikes = Integer.MIN_VALUE;
+        Iterator<Song> iterator = songList.iterator();
+        while (iterator.hasNext()) {
+            Song song = iterator.next();
+            int likes = song.getLikes();
+            if (likes > maxLikes) {
+                mostLikedSong = song;
+                maxLikes = likes;
+            }
+        }
+        return mostLikedSong;
+    }
 
 }

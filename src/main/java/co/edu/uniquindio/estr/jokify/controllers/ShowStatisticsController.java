@@ -23,6 +23,6 @@ public class ShowStatisticsController implements Initializable {
         this.txtGenre.setDisable(true);
         this.txtArtist.setDisable(true);
         this.txtGenre.setText(store.findMostRepeatedGenre().toString());
-
+        this.txtArtist.setText(store.findMostLikedSong().getArtistName());
     }
 }

@@ -104,7 +104,7 @@ public class ShowAddSongController implements Initializable {
 
             if(validarDatos(name, album, cover, year, duration, youtubeURL, genre, artistName)){
                 try {
-                    Song newSong = new Song(name, album, cover, Integer.parseInt(year), Integer.parseInt(duration), youtubeURL, Genre.valueOf(genre), artistName);
+                    Song newSong = new Song(name, album, cover, Integer.parseInt(year), Integer.parseInt(duration), 0, youtubeURL, Genre.valueOf(genre), artistName);
                     store.createSong(newSong);
                     mostrarMensaje("PROCESO EXITOSO", "Canción agregada", "La canción fue creada exitosamente", Alert.AlertType.INFORMATION);
 
