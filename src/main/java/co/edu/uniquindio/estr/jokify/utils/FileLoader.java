@@ -66,9 +66,10 @@ public class FileLoader {
                         String cover = parts[3];
                         int year = Integer.parseInt(parts[4]);
                         int duration = Integer.parseInt(parts[5]);
-                        Genre genre = Genre.valueOf(parts[6]);
-                        String youtubeURL = parts[7];
-                        Song song = new Song(songName, album, cover, year, duration, youtubeURL, genre, artistName);
+                        int likes = Integer.parseInt(parts[6]);
+                        Genre genre = Genre.valueOf(parts[7]);
+                        String youtubeURL = parts[8];
+                        Song song = new Song(songName, album, cover, year, duration, likes, youtubeURL, genre, artistName);
                         songs.add(song);
                     }
                 }

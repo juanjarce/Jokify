@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="1049.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.ShowStatisticsController">
+    <children>
+        <Label layoutX="57.0" layoutY="33.0" styleClass="menuTitle" text="Datos generales de artistas / canciones / géneros" />
+        <TextField fx:id="txtGenre" layoutX="294.0" layoutY="111.0" prefHeight="23.0" prefWidth="115.0" />
+        <Label layoutX="57.0" layoutY="113.0" styleClass="menuText" text="Género con más canciones" />
+        <Label layoutX="57.0" layoutY="162.0" styleClass="menuText" text="Artista más popular" />
+        <TextField fx:id="txtArtist" layoutX="294.0" layoutY="160.0" prefHeight="23.0" prefWidth="115.0" />
+    </children>
+</AnchorPane>
