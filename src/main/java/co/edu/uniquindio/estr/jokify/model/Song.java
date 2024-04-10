@@ -56,6 +56,18 @@ public class Song implements Comparable<Song>, Serializable {
         this.artistName = artistName;
     }
 
+    // Third constructor for the Song class. Desperate times call for desperate measures.
+    public Song(String name, String album, String cover, int i, int i1, String youtubeURL, Genre genre, String artistName) {
+        this.name = name;
+        this.album = album;
+        this.cover = cover;
+        this.year = i;
+        this.durationOnSeconds = i1;
+        this.youtubeURL = youtubeURL;
+        this.genre = genre;
+        this.artistName = artistName;
+    }
+
     //getters() & setters() for the Song class
     public String getCode() {
         return code;

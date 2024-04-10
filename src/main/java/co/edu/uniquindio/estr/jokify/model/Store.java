@@ -654,4 +654,58 @@ public class Store implements Serializable {
         }
         return firstSongs;
     }
+
+    // FUNCTIONS FOR THE STATISTICS -----------------------------------------------------------------------
+
+    /**
+     * Method to find the most repeated genre
+     * @return
+     */
+    public Genre findMostRepeatedGenre() {
+        if (songList.isEmpty()) {
+            return null;
+        }
+        Genre mostRepeatedGenre = null;
+        int maxCount = 0;
+        Iterator<Song> iterator = songList.iterator();
+        while (iterator.hasNext()) {
+            Genre currentGenre = iterator.next().getGenre();
+            int currentCount = 1;
+            Iterator<Song> innerIterator = songList.iterator();
+            while (innerIterator.hasNext()) {
+                if (innerIterator.next().getGenre() == currentGenre) {
+                    currentCount++;
+                }
+            }
+            if (currentCount > maxCount) {
+                mostRepeatedGenre = currentGenre;
+                maxCount = currentCount;
+            }
+        }
+        return mostRepeatedGenre;
+    }
+
+    /**
+     * Method to find the most liked song
+     * @return
+     */
+    public Song findMostLikedSong() {
+        if (songList.isEmpty()) {
+            System.out.println("Lista de canciones vacía");
+            return null;
+        }
+        Song mostLikedSong = null;
+        int maxLikes = Integer.MIN_VALUE;
+        Iterator<Song> iterator = songList.iterator();
+        while (iterator.hasNext()) {
+            Song song = iterator.next();
+            int likes = song.getLikes();
+            if (likes > maxLikes) {
+                mostLikedSong = song;
+                maxLikes = likes;
+            }
+        }
+        return mostLikedSong;
+    }
+
 }
