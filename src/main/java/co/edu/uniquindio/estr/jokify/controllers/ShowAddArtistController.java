@@ -228,9 +228,9 @@ public class ShowAddArtistController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Defining columns
-        this.columnCodeArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("code"));
-        this.columnNameArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
-        this.columnNationalityArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("Nationality"));
+        this.columnCodeArtist.setCellValueFactory(new PropertyValueFactory<>("code"));
+        this.columnNameArtist.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.columnNationalityArtist.setCellValueFactory(new PropertyValueFactory<>("Nationality"));
 
         // Populate table with artist data
         tableViewArtist.setItems(store.getArtistList().toObservableList());
