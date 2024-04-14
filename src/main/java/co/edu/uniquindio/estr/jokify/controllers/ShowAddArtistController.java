@@ -6,20 +6,18 @@ import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ShowAddArtistController implements Initializable {
 
-    //Elements fot the manage of artist
-    private ObservableList<Artist> listArtistData = FXCollections.observableArrayList();
+    //Attributes used to manage an artist.
+    private final ObservableList<Artist> listArtistData = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
     Artist selectedArtist;
 
@@ -33,12 +31,6 @@ public class ShowAddArtistController implements Initializable {
     private TextField txtNationalityArtist;
 
     @FXML
-    private Button btnAddArtist;
-
-    @FXML
-    private Button btnNewArtist;
-
-    @FXML
     private TableView<Artist> tableViewArtist;
 
     @FXML
@@ -50,16 +42,11 @@ public class ShowAddArtistController implements Initializable {
     @FXML
     private TableColumn<Artist, String> columnNationalityArtist;
 
-    @FXML
-    private Button btnDeleteArtist;
+    // -------------------------------------Methods used to manage artists.---------------------------------------------
 
-    @FXML
-    private Button btnUpdateArtist;
-
-    //METHODS for Artists managment ------------------------------------------------------------------------------------
-    // Method to update table view with current artist list
-
-    // Method to clear input fields
+    /**
+     * Clear the input fields of the artist.
+     */
     private void clearArtistFields() {
         txtNameArtist.clear();
         txtNationalityArtist.clear();
@@ -67,24 +54,22 @@ public class ShowAddArtistController implements Initializable {
     }
 
     /**
-     * Adds an artist
-     * @param event
+     * Adds an artist to the store.
      */
     @FXML
-    void addArtist(ActionEvent event) {
+    void addArtist() {
+        // Get the data from the fields.
         String name = txtNameArtist.getText();
         String nationality = txtNationalityArtist.getText();
         boolean isGroup = checkBoxIsGroup.isSelected();
 
-        if(validarDatos(name, nationality)){
+        if(validateData(name, nationality)){
             try {
                 Artist newArtist = new Artist(name, nationality, isGroup);
                 store.createArtist(newArtist);
-                mostrarMensaje("PROCESO EXITOSO", "Artista agregado", "El artista fue creado exitosamente", Alert.AlertType.INFORMATION);
+                showMessage("Éxito", "Artista agregado.", "El artista fue creado exitosamente.", Alert.AlertType.INFORMATION);
 
-                //------------------------------------------------------------------------------------------------------------------------------------------------
-                // Save the Store content
-                //BinaryResorce()
+                // Saves the store content after adding an artist using a thread.
                 SaveBinaryResource t1 = new SaveBinaryResource();
                 t1.start();
                 try {
@@ -92,35 +77,29 @@ public class ShowAddArtistController implements Initializable {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                //------------------------------------------------------------------------------------------------------------------------------------------------
-
-                // Set the actual artist list
+                // Set the actual artist list.
                 this.listArtistData.setAll(store.getArtistList().toObservableList());
                 this.tableViewArtist.setItems(this.listArtistData);
 
-                //Clear the fields
+                //Clear the input fields.
                 clearArtistFields();
             } catch (ArtistsException e) {
-                mostrarMensaje("ERROR", "Error agregando al artista", e.getMessage(), Alert.AlertType.WARNING);
+                showMessage("Error", "Error agregando al artista.\n", e.getMessage(), Alert.AlertType.WARNING);
             }
-
         }
     }
 
     /**
-     * Deletes the artist that is selected
-     * @param event
+     * Deletes the artist that is selected in the table.
      */
     @FXML
-    void deleteArtist(ActionEvent event) {
+    void deleteArtist() {
         if (selectedArtist != null) {
             try {
                 store.deleteArtist(selectedArtist.getCode());
-                mostrarMensaje("PROCESO EXITOSO", "Artista Eliminado", "El artista fue eliminado exitosamente", Alert.AlertType.INFORMATION);
+                showMessage("Éxito", "Artista Eliminado.", "El artista fue eliminado exitosamente.", Alert.AlertType.INFORMATION);
 
-                //------------------------------------------------------------------------------------------------------------------------------------------------
-                // Save the Store content
-                //BinaryResorce()
+                // Saves the store content after deleting an artist using a thread.
                 SaveBinaryResource t1 = new SaveBinaryResource();
                 t1.start();
                 try {
@@ -128,53 +107,47 @@ public class ShowAddArtistController implements Initializable {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                //------------------------------------------------------------------------------------------------------------------------------------------------
-
-                // Set the actual artist list
+                // Set the actual artist list.
                 this.listArtistData.setAll(store.getArtistList().toObservableList());
                 this.tableViewArtist.setItems(this.listArtistData);
 
-                //Clear the fields
+                //Clears the input fields.
                 clearArtistFields();
 
-                //Deselect the artist
+                //Deselect the artist after deleting it.
                 this.selectedArtist = null;
             } catch (ArtistsException e) {
-                mostrarMensaje("ERROR", "Error eliminando al artista", e.getMessage(), Alert.AlertType.WARNING);
-
+                showMessage("Error", "Error eliminando al artista.\n", e.getMessage(), Alert.AlertType.WARNING);
             }
         }
     }
 
     /**
-     * Clear the fields of the artist
-     * @param event
+     * Clear the input fields of the artist.
      */
     @FXML
-    void newArtist(ActionEvent event) {
+    void newArtist() {
         clearArtistFields();
     }
 
     /**
-     * Uptade the info of an artist
-     * @param event
+     * Update the information of an artist.
      */
     @FXML
-    void updateArtist(ActionEvent event) {
+    void updateArtist() {
+        // Checking if there is an artist selected in the interface, if so, the information is extracted and updated.
         if (this.selectedArtist != null) {
             String name = txtNameArtist.getText();
             String nationality = txtNationalityArtist.getText();
             boolean isGroup = checkBoxIsGroup.isSelected();
 
-            if(validarDatos(name, nationality)){
+            if(validateData(name, nationality)){
                 try {
                     Artist updatedArtist = new Artist(selectedArtist.getCode(), name, nationality, isGroup);
                     store.updateArtist(updatedArtist);
-                    mostrarMensaje("PROCESO EXITOSO", "Artista Actualizado", "El artista fue actualizado exitosamente", Alert.AlertType.INFORMATION);
+                    showMessage("Éxito", "Artista Actualizado.", "El artista fue actualizado exitosamente.", Alert.AlertType.INFORMATION);
 
-                    //------------------------------------------------------------------------------------------------------------------------------------------------
-                    // Save the Store content
-                    //BinaryResorce()
+                    // Save the store content after updating an artist using a thread.
                     SaveBinaryResource t1 = new SaveBinaryResource();
                     t1.start();
                     try {
@@ -182,26 +155,28 @@ public class ShowAddArtistController implements Initializable {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    //------------------------------------------------------------------------------------------------------------------------------------------------
-
-                    // Set the actual artist list
+                    // Set the actual artist list.
                     this.listArtistData.setAll(store.getArtistList().toObservableList());
                     this.tableViewArtist.setItems(this.listArtistData);
-                    // Refresh table por vosializationg changes
+                    // Refresh the table with the updated data.
                     this.tableViewArtist.refresh();
-
-                    //Deselect artist
+                    //Deselects the artist after updating it.
                     this.selectedArtist = null;
                 } catch (ArtistsException e) {
-                    mostrarMensaje("ERROR", "Error actualizando al artista", e.getMessage(), Alert.AlertType.WARNING);
+                    showMessage("Error", "Error actualizando al artista.\n", e.getMessage(), Alert.AlertType.WARNING);
                 }
-
             }
         }
     }
-    //------------------------------------------------------------------------------------------------------------------
 
-    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+    /**
+     * Method to show a message.
+     * @param titulo Title of the message.
+     * @param header Header of the message.
+     * @param contenido Content of the message.
+     * @param alertType Type of the message.
+     */
+    public void showMessage(String titulo, String header, String contenido, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(titulo);
         alert.setHeaderText(header);
@@ -209,8 +184,11 @@ public class ShowAddArtistController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Method to select an artist from the table shown on the interface.
+     */
     @FXML
-    void selectArtistEvent(MouseEvent event) {
+    void selectArtistEvent() {
         this.selectedArtist = this.tableViewArtist.getSelectionModel().getSelectedItem();
 
         if(this.selectedArtist!=null) {
@@ -220,8 +198,12 @@ public class ShowAddArtistController implements Initializable {
         }
     }
 
-    //Method for validating the information inserted for the Artist
-    private boolean validarDatos(String name, String nationality) {
+    /**
+     * Method to validate the input data of the fields.
+     * @param name Name of the artist
+     * @param nationality Nationality of the artist.
+     */
+    private boolean validateData(String name, String nationality) {
         StringBuilder mensaje = new StringBuilder();
 
         if (name == null || name.isEmpty())
@@ -230,18 +212,21 @@ public class ShowAddArtistController implements Initializable {
         if (nationality == null || nationality.isEmpty())
             mensaje.append("La nacionalidad del artista es inválida.\n");
 
-        if (mensaje.length() == 0) {
+        if (mensaje.isEmpty()) {
             return true;
         } else {
-            mostrarMensaje("Información de Artista", "Datos inválidos", mensaje.toString(), Alert.AlertType.WARNING);
+            showMessage("Información de Artista", "Datos inválidos", mensaje.toString(), Alert.AlertType.WARNING);
             return false;
         }
     }
 
-
+    /**
+     * Initializes the interface with the data stored in the Store class.
+     * @param url required by the method but not used.
+     * @param resourceBundle required by the method but not used.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Initialize Artists ---------------------------------------------------------------------------------------------
         //Defining columns
         this.columnCodeArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("code"));
         this.columnNameArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
@@ -249,8 +234,6 @@ public class ShowAddArtistController implements Initializable {
 
         // Populate table with artist data
         tableViewArtist.setItems(store.getArtistList().toObservableList());
-        //----------------------------------------------------------------------------------------------------------------
     }
-
 }
 

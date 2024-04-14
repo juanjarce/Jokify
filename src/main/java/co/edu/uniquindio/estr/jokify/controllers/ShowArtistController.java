@@ -3,14 +3,10 @@ package co.edu.uniquindio.estr.jokify.controllers;
 import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
-import co.edu.uniquindio.estr.jokify.model.User;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -44,38 +39,30 @@ public class ShowArtistController implements Initializable {
     private ImageView imageViewCoverSong;
 
     @FXML
-    private Button btnShowSong;
-
-    @FXML
     private Label lblArtistName;
 
-    //Aux variables
-    private User currentUser;
-    private Artist selectedArtist;
+    // Attributes of the class.
     private Song selectedSong;
     private MenuController menuController;
-    private ObservableList<Song> songObservableList = FXCollections.observableArrayList();
-    private final Store store = Store.getInstance();
+    private final ObservableList<Song> songObservableList = FXCollections.observableArrayList();
 
     /**
-     * Init content for the controller
-     * @param currentUser
-     * @param selectedArtist
+     * Initialize content for the controller of the interface.
+     * @param selectedArtist Artist selected by the user.
      */
-    public void init(User currentUser, Artist selectedArtist, MenuController menuController) {
-        this.currentUser = currentUser;
-        this.selectedArtist = selectedArtist;
+    public void init(Artist selectedArtist, MenuController menuController) {
+        //Auxiliary attributes of the class.
         this.menuController = menuController;
-        //Artist's songs
+        //Artist's songs.
         tableViewSong.getItems().clear();
         tableViewSong.setItems(getArtistSongs(selectedArtist));
         lblArtistName.setText(selectedArtist.getName());
     }
 
     /**
-     * Get's the songs of an artist
-     * @param selectedArtist
-     * @return
+     * Get the songs of an artist.
+     * @param selectedArtist Artist selected by the user, to get the songs.
+     * @return List of songs of the artist.
      */
     private ObservableList<Song> getArtistSongs(Artist selectedArtist) {
         songObservableList.clear();
@@ -84,23 +71,23 @@ public class ShowArtistController implements Initializable {
     }
 
     /**
-     * Initialize content for the artis controller
-     * @param url
-     * @param resourceBundle
+     * Initialize content for the artis controller.
+     * @param url obligatory parameter.
+     * @param resourceBundle obligatory parameter.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Data in the tableView
-        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<Song, String>("name"));
-        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
-        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("year"));
-        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("durationOnSeconds"));
-        //Selection of a song on the table
+        //Data in the tableView.
+        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<>("album"));
+        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<>("year"));
+        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<>("durationOnSeconds"));
+        //Selection of a song on the table.
         tableViewSong.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedSong = newSelection;
                 selectedSong = tableViewSong.getSelectionModel().getSelectedItem();
-                // Show the cover of the song
+                // Show the cover of the song.
                 Image coverImage = new Image(selectedSong.getCover());
                 imageViewCoverSong.setImage(coverImage);
             }
@@ -108,11 +95,10 @@ public class ShowArtistController implements Initializable {
     }
 
     /**
-     * Shows the song to the user
-     * @param event
+     * Shows the song to the user.
      */
     @FXML
-    void showSong(ActionEvent event) {
+    void showSong() {
         menuController.setCurrentSong(selectedSong);
     }
 
