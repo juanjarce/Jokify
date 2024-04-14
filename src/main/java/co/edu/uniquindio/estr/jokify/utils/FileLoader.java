@@ -59,7 +59,7 @@ public class FileLoader {
                     readingSongs = true;
                 } else if (readingSongs) {
                     String[] parts = line.split(";");
-                    if (parts.length == 8) {
+                    if (parts.length == 9) {
                         String artistName = parts[0];
                         String songName = parts[1];
                         String album = parts[2];

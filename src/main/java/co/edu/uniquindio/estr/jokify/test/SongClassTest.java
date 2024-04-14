@@ -64,8 +64,8 @@ public class SongClassTest {
     // Test for Song equals, checking if two songs are not equal.
     @Test
     public void testSongNotEquals() {
-        Song song1 = new Song("name", "album", "cover", 2021, 180, "youtubeURL", Genre.ROCK, "artistName");
-        Song song2 = new Song("name2", "album2", "cover2", 2022, 200, "youtubeURL2", Genre.POP, "artistName2");
+        Song song1 = new Song("code1","name", "album", "cover", 2021, 180, "youtubeURL", Genre.ROCK, "artistName");
+        Song song2 = new Song("code2", "name2", "album2", "cover2", 2022, 200, "youtubeURL2", Genre.POP, "artistName2");
         assertNotEquals(song1, song2);
     }
 }
