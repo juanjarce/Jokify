@@ -234,7 +234,7 @@ public class Store implements Serializable {
      */
     public List<Song> getSongsSearch(String input) throws SearchException {
         input.toLowerCase();
-        String[] keywords = input.split(" ");
+        String[] keywords = input.split("&");
         System.out.println(Arrays.toString(keywords));
         System.out.println("Length: " + keywords.length);
         List<Song> searchSongs = new ArrayList<>();
