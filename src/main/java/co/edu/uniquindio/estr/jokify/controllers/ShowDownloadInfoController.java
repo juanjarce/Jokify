@@ -7,11 +7,9 @@ import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import co.edu.uniquindio.estr.jokify.utils.FileLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,8 +24,8 @@ import java.util.ResourceBundle;
 public class ShowDownloadInfoController implements Initializable {
 
     //Elements fot the manage of artist & songs
-    private ObservableList<Artist> listArtistData = FXCollections.observableArrayList();
-    private ObservableList<Song> listSongsData = FXCollections.observableArrayList();
+    private final ObservableList<Artist> listArtistData = FXCollections.observableArrayList();
+    private final ObservableList<Song> listSongsData = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
 
     @FXML
@@ -63,46 +61,48 @@ public class ShowDownloadInfoController implements Initializable {
     @FXML
     private TableColumn<Artist, String> columnNationalityArtist;
 
-    @FXML
-    private Button btnLoadFromFile;
-
+    /**
+     * Method to choose a file from the file system so that the administrator can load the artists and songs.
+     * @return The path of the file selected by the administrator.
+     */
     public String chooseFile(){
-        // Create a FileChooser object
+        // Create a FileChooser object.
         FileChooser fileChooser = new FileChooser();
 
-        // Set the dialog title
-        fileChooser.setTitle("Select Text File");
+        // Set the dialog title.
+        fileChooser.setTitle("Select a text file with the artists and songs information.");
 
-        // Set the extension filter to show only text files
+        // Set the extension filter to show only text files.
         FileChooser.ExtensionFilter extFilter =
-                new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+                new FileChooser.ExtensionFilter("Text file (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        // Get the primary stage
+        // Get the primary stage.
         Stage stage = new Stage();
 
-        // Show the file selection dialog and get the selected file
+        // Show the file selection dialog and get the selected file.
         File selectedFile = fileChooser.showOpenDialog(stage);
 
-        // Check if a file was selected
+        // Check if a file was selected.
         if (selectedFile != null) {
-            // Return the absolute path of the selected file
+            // Return the absolute path of the selected file.
             return selectedFile.getAbsolutePath();
         } else {
-            // If no file was selected, return an empty string
+            // If no file was selected, return an empty string.
             return "";
         }
     }
 
+    /**
+     * Load the artists and songs from a file.
+     */
     @FXML
-    void loadFromFile(ActionEvent event) {
+    void loadFromFile() {
         String path = chooseFile();
         if(!Objects.equals(path, "")){
             FileLoader.loadArtistsAndSongs(store, path);
 
-            //------------------------------------------------------------------------------------------------------------------------------------------------
             // Save the Store content
-            //BinaryResorce()
             SaveBinaryResource t1 = new SaveBinaryResource();
             t1.start();
             try {
@@ -110,51 +110,59 @@ public class ShowDownloadInfoController implements Initializable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //------------------------------------------------------------------------------------------------------------------------------------------------
 
-            //Show on tables
+            //Show the loaded data on the table.
             listArtistData.setAll(store.getArtistList().toObservableList());
             listSongsData.setAll(store.getSongList().toObservableList());
-
             tableViewArtist.setItems(listArtistData);
             tableViewSong.setItems(listSongsData);
 
         }else{
-            mostrarMensaje("ERROR", "Error de ruta archivo", "No se ha seleccionado correctamente el archivo", Alert.AlertType.WARNING);
+            showMessage("Error", "Error de ruta archivo.", "No se ha seleccionado el archivo.", Alert.AlertType.WARNING);
         }
     }
 
-    public void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+    /**
+     * Method to show a message on the screen.
+     * @param title Title of the message.
+     * @param header Header of the message.
+     * @param content Content of the message.
+     * @param alertType Type of the message.
+     */
+    public void showMessage(String title, String header, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
+        alert.setTitle(title);
         alert.setHeaderText(header);
-        alert.setContentText(contenido);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 
+    /**
+     * Initializes information to the interface.
+     * @param url obligatory parameter, not really used.
+     * @param resourceBundle obligatory parameter, not really used.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Initialize Artists ---------------------------------------------------------------------------------------------
-        //Defining columns
-        this.columnCodeArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("code"));
-        this.columnNameArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
-        this.columnNationalityArtist.setCellValueFactory(new PropertyValueFactory<Artist, String>("Nationality"));
+        // -------------------------Initialize Artist Information------------------------------------------------------
+        //Defining columns.
+        this.columnCodeArtist.setCellValueFactory(new PropertyValueFactory<>("code"));
+        this.columnNameArtist.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.columnNationalityArtist.setCellValueFactory(new PropertyValueFactory<>("Nationality"));
 
-        // Populate table with artist data
+        // Populate table with artist data.
         tableViewArtist.setItems(store.getArtistList().toObservableList());
-        //----------------------------------------------------------------------------------------------------------------
-        //Initialize Songs ---------------------------------------------------------------------------------------------
+        //--------------------------Initialize Songs of the Artist-----------------------------------------------------
         //Defining columns
-        this.columnCodeSong.setCellValueFactory(new PropertyValueFactory<Song, String>("code"));
-        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<Song, String>("name"));
-        this.columnArtistSong.setCellValueFactory(new PropertyValueFactory<Song, String>("artistName"));
-        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
-        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("year"));
-        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("durationOnSeconds"));
+        this.columnCodeSong.setCellValueFactory(new PropertyValueFactory<>("code"));
+        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.columnArtistSong.setCellValueFactory(new PropertyValueFactory<>("artistName"));
+        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<>("album"));
+        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<>("year"));
+        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<>("durationOnSeconds"));
 
         // Populate table with artist data
         tableViewSong.setItems(store.getSongList().toObservableList());
-        //----------------------------------------------------------------------------------------------------------------
     }
 }
 

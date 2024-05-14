@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1366.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1366.0" styleClass="body" stylesheets="@../styles/parentStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.estr.jokify.controllers.MenuController">
    <children>
       <SplitPane dividerPositions="0.23" prefHeight="700.0" prefWidth="1366.0" styleClass="splitPane">
          <items>
@@ -46,6 +46,8 @@
                         <Button fx:id="btnAddFavoriteSong" layoutX="121.0" layoutY="411.0" mnemonicParsing="false" onAction="#addFavoriteSong" styleClass="shortBtn" text="&lt;3" />
                         <Button fx:id="btnRemoveFavoriteSong" layoutX="30.0" layoutY="411.0" mnemonicParsing="false" onAction="#removeFavoriteSong" styleClass="shortBtn" text="!" />
                         <Button fx:id="btnPlaySong" layoutX="214.0" layoutY="411.0" mnemonicParsing="false" onAction="#playSong" styleClass="shortBtn" text="&gt;" />
+                        <Button fx:id="btnUndo" layoutX="169.0" layoutY="16.0" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleUndo" prefHeight="30.0" prefWidth="50.0" text="&lt;&lt;" />
+                        <Button fx:id="btnRedo" layoutX="231.0" layoutY="16.0" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleRedo" prefHeight="30.0" prefWidth="50.0" text="&gt;&gt;" />
                      </children>
                   </Pane>
                </children>

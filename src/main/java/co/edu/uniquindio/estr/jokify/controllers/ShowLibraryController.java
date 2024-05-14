@@ -8,7 +8,6 @@ import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,7 +18,6 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ShowLibraryController implements Initializable {
@@ -46,28 +44,19 @@ public class ShowLibraryController implements Initializable {
     private ImageView imageViewCoverSong;
 
     @FXML
-    private Button btnShowSong;
-
-    @FXML
-    private Button btnShowArtist;
-
-    @FXML
-    private Button btnRemoveFavorites;
-
-    @FXML
     private ComboBox<String> cbSortby;
 
-    //Aux variables
+    //Auxiliary variables.
     private User currentUser;
     private MenuController menuController;
     private Song selectedSong;
     private Artist selectedArtist;
-    private ObservableList<Song> songObservableList = FXCollections.observableArrayList();
+    private final ObservableList<Song> songObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
 
     /**
-     * Init content for the controller
-     * @param currentUser
+     * Initialize some content for the controller to use.
+     * @param currentUser The current user logged in.
      */
     public void init(User currentUser, MenuController menuController) {
         this.currentUser = currentUser;
@@ -78,9 +67,9 @@ public class ShowLibraryController implements Initializable {
     }
 
     /**
-     * Gets the favorite songs of the currentUser
-     * @param currentUser
-     * @return
+     * Gets the favorite songs of the current user.
+     * @param currentUser The current user logged in.
+     * @return An observable list of the user's favorite songs.
      */
     private ObservableList<Song> getUserSongs(User currentUser) {
         songObservableList.clear();
@@ -89,32 +78,32 @@ public class ShowLibraryController implements Initializable {
     }
 
     /**
-     * Init content for the controller
-     * @param url
-     * @param resourceBundle
+     * Initialize the content for the controller to use.
+     * @param url obligatory parameter.
+     * @param resourceBundle obligatory parameter.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Initialize the sorting values in the combobox
+        // Initialize the sorting values in the Combo Box.
         cbSortby.getItems().addAll("Nombre", "Album", "Año","Duración", "Artista");
 
-        // Action event listener for the combobox
+        // Action event listener for the Combo Box.
         initializeSortByComboBox();
 
-        //Data in the tableView
-        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<Song, String>("name"));
-        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
+        // Data in the table.
+        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<>("album"));
         this.columnArtistSong.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getArtistName()));
-        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("year"));
-        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("durationOnSeconds"));
-        //Selection of a song on the table
+        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<>("year"));
+        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<>("durationOnSeconds"));
+        // Selection of a song on the table.
         tableViewSong.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedSong = newSelection;
                 selectedSong = tableViewSong.getSelectionModel().getSelectedItem();
                 selectedArtist = store.getArtistByName(selectedSong.getArtistName());
-                // Show the cover of the song
+                // Show the cover of the song.
                 Image coverImage = new Image(selectedSong.getCover());
                 imageViewCoverSong.setImage(coverImage);
             }
@@ -122,18 +111,15 @@ public class ShowLibraryController implements Initializable {
     }
 
     /**
-     * Remove a song from the favorites list
-     * @param event
+     * Remove a song from the favorites list.
      */
     @FXML
-    void removeFavorites(ActionEvent event) {
+    void removeFavorites() {
         if (selectedSong != null) {
             store.removeSongFromFavorites(currentUser, selectedSong);
-            showMessage("Jokify", "Libreria", "Canción eliminada de favoritos", Alert.AlertType.INFORMATION);
+            showMessage("Libreria", "Canción eliminada de favoritos.");
 
-            //------------------------------------------------------------------------------------------------------------------------------------------------
-            // Save the Store content
-            //BinaryResorce()
+            // Save the Store content after removing the song from the favorites.
             SaveBinaryResource t1 = new SaveBinaryResource();
             t1.start();
             try {
@@ -141,50 +127,45 @@ public class ShowLibraryController implements Initializable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //------------------------------------------------------------------------------------------------------------------------------------------------
-
-            //Update the tableView and image
+            //Update the table and image.
             tableViewSong.getItems().clear();
             tableViewSong.setItems(getUserSongs(currentUser));
             imageViewCoverSong.setImage(null);
             selectedSong = null;
         } else {
-            showMessage("Jokify", "Libreria", "Por favor selecciona una cancioón en la tabla", Alert.AlertType.INFORMATION);
+            showMessage("Libreria", "Por favor selecciona una canción de la tabla.");
         }
     }
 
     /**
-     * Shows the information of an artist
-     * @param event
+     * Shows the information of an artist that is selected in the table.
      */
     @FXML
-    void showArtist(ActionEvent event) throws IOException {
+    void showArtist() throws IOException {
         if (selectedArtist != null) {
-            menuController.showAtist(selectedArtist);
+            menuController.showArtist(selectedArtist);
         } else {
-            showMessage("Jokify", "Artistas", "Por favor selecciona una canción en la tabla", Alert.AlertType.INFORMATION);
+            showMessage("Artistas", "Por favor selecciona una canción en la tabla.");
         }
     }
 
     /**
-     * Shows the song to the user
-     * @param event
+     * Shows the song to the user.
      */
     @FXML
-    void showSong(ActionEvent event) {
+    void showSong() {
         menuController.setCurrentSong(selectedSong);
     }
 
     /**
-     * show a message for the user
-     * @param title
-     * @param header
-     * @param content
-     * @param alertType
+     * Shows a message for the user to see.
+     * Alert type is always information in this class.
+     * @param header  The header of the message.
+     * @param content The content of the message.
      */
-    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
+    private void showMessage(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Jokify");
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -233,6 +214,16 @@ public class ShowLibraryController implements Initializable {
                 break;
         }
         tableViewSong.setItems(likedSongsList);
+    }
+
+    /**
+     * Function to update the table view of the liked songs.
+     * Used to show immediate changes to the user when redoing or undoing in the Library interface.
+     */
+    public void updateTableView() {
+        tableViewSong.setItems(null);
+        tableViewSong.layout();
+        tableViewSong.setItems(getUserSongs(currentUser));
     }
 
 }
