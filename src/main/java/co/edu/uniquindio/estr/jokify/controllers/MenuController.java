@@ -1,9 +1,7 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
-import co.edu.uniquindio.estr.jokify.model.Artist;
-import co.edu.uniquindio.estr.jokify.model.Song;
-import co.edu.uniquindio.estr.jokify.model.Store;
-import co.edu.uniquindio.estr.jokify.model.User;
+import co.edu.uniquindio.estr.jokify.model.*;
+import co.edu.uniquindio.estr.jokify.model.commands.AddFavoriteSongCommand;
 import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -56,6 +54,8 @@ public class MenuController implements Initializable {
     private User currentUser;
     private Song currentSong;
     private final Store store = Store.getInstance();
+    private final CommandManager commandManager = new CommandManager();
+    private ShowLibraryController showLibraryController;
 
     /**
      * Show the current stage
@@ -138,6 +138,8 @@ public class MenuController implements Initializable {
         ShowLibraryController controller = loader.getController();
         //Move the user to the controller
         controller.init(currentUser, this);
+        // Set the showLibraryController attribute
+        this.showLibraryController = controller;
         //Apply animations for the content
         animationDisplay(newContent);
         // Sets the content in the content pane.
@@ -211,7 +213,14 @@ public class MenuController implements Initializable {
     @FXML
     void addFavoriteSong() {
         if (currentSong != null) {
-            store.addSongToFavorites(currentUser, currentSong);
+            // store.addSongToFavorites(currentUser, currentSong); comentando esto por ahora.
+            // Command pattern implementation to add a song to favorites.
+            System.out.println("Se añade la canción: " + currentSong.getName() + " a la pila de favoritos.");
+            commandManager.executeCommand(new AddFavoriteSongCommand(currentUser, currentSong));
+            // Updating the table view of the library if it is shown. Se actualiza de una la canción en la tabla asi se añada a favoritos desde Library.
+            if(showLibraryController != null){
+                showLibraryController.updateTableView();
+            }
             showMessage("Canciones", "Cancion agregada a favoritos.", Alert.AlertType.INFORMATION);
             // Saves the favorites songs of the user in the store using a thread.
             SaveBinaryResource t1 = new SaveBinaryResource();
@@ -341,5 +350,33 @@ public class MenuController implements Initializable {
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
+    }
+
+    /*
+                        Doing and undoing methods. WIP
+     */
+    public void handleUndo() {
+        if(!commandManager.canUndo()) {
+            showMessage("Deshacer", "No hay nada que deshacer!", Alert.AlertType.INFORMATION);
+        } else {
+            System.out.println("Undo"); // For debugging purposes.
+            commandManager.undo();
+            if(showLibraryController != null) {
+                showLibraryController.updateTableView();
+            }
+        }
+
+    }
+
+    public void handleRedo() {
+        if(!commandManager.canRedo()){
+            showMessage("Rehacer", "No hay nada que rehacer!", Alert.AlertType.INFORMATION);
+        } else {
+            System.out.println("Redo");
+            commandManager.redo();
+            if(showLibraryController != null){
+                showLibraryController.updateTableView();
+            }
+        }
     }
 }

@@ -216,4 +216,14 @@ public class ShowLibraryController implements Initializable {
         tableViewSong.setItems(likedSongsList);
     }
 
+    /**
+     * Function to update the table view of the liked songs.
+     * Used to show immediate changes to the user when redoing or undoing in the Library interface.
+     */
+    public void updateTableView() {
+        tableViewSong.setItems(null);
+        tableViewSong.layout();
+        tableViewSong.setItems(getUserSongs(currentUser));
+    }
+
 }
