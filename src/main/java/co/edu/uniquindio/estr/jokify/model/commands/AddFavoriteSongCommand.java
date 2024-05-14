@@ -4,7 +4,7 @@ import co.edu.uniquindio.estr.jokify.model.*;
 
 public class AddFavoriteSongCommand implements Command {
 
-    // Atributes for AddFavoriteSongCommand class
+    // Attributes for AddFavoriteSongCommand class
     private final User currentUser;
     private final Song song;
 

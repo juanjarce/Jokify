@@ -2,6 +2,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/resources/store.dat
 
 
 ### IntelliJ IDEA ###
@@ -39,5 +40,3 @@ build/
 ### Mac OS ###
 .DS_Store!/.idea/inspectionProfiles/Project_Default.xml
 !/.idea/inspectionProfiles/Project_Default.xml
-!/src/main/resources/store.dat
-

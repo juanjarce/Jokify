@@ -1,10 +1,8 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
-import co.edu.uniquindio.estr.jokify.model.Artist;
-import co.edu.uniquindio.estr.jokify.model.Song;
-import co.edu.uniquindio.estr.jokify.model.Store;
-import co.edu.uniquindio.estr.jokify.model.User;
+import co.edu.uniquindio.estr.jokify.model.*;
 import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
+import co.edu.uniquindio.estr.jokify.model.commands.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,6 +51,7 @@ public class ShowLibraryController implements Initializable {
     private Artist selectedArtist;
     private final ObservableList<Song> songObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
+    private final CommandManager commandManager = new CommandManager();
 
     /**
      * Initialize some content for the controller to use.
@@ -116,7 +115,12 @@ public class ShowLibraryController implements Initializable {
     @FXML
     void removeFavorites() {
         if (selectedSong != null) {
-            store.removeSongFromFavorites(currentUser, selectedSong);
+            // store.removeSongFromFavorites(currentUser, selectedSong);
+
+            // Execute the command to remove the song from the favorites.
+            commandManager.executeCommand(new RemoveFavoriteSongCommand(currentUser, selectedSong));
+            // Update the table at the time of removing the song. Does not need to check if it is null because the only way to get here is by clicking the Library button.
+            updateTableView();
             showMessage("Libreria", "Canción eliminada de favoritos.");
 
             // Save the Store content after removing the song from the favorites.

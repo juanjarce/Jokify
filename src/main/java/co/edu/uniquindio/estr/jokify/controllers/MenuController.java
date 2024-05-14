@@ -2,6 +2,7 @@ package co.edu.uniquindio.estr.jokify.controllers;
 
 import co.edu.uniquindio.estr.jokify.model.*;
 import co.edu.uniquindio.estr.jokify.model.commands.AddFavoriteSongCommand;
+import co.edu.uniquindio.estr.jokify.model.commands.RemoveFavoriteSongCommand;
 import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -185,7 +186,7 @@ public class MenuController implements Initializable {
     }
 
     /**
-     * Shows an interface that contains infomartion about an artist.
+     * Shows an interface that contains information about an artist.
      * @param selectedArtist the artist that is selected by the user.
      * @throws IOException if the interface is not found or the path is incorrect.
      */
@@ -213,9 +214,15 @@ public class MenuController implements Initializable {
     @FXML
     void addFavoriteSong() {
         if (currentSong != null) {
-            // store.addSongToFavorites(currentUser, currentSong); comentando esto por ahora.
+            // store.addSongToFavorites(currentUser, currentSong); comentando esto por ahora. (Se añade dos veces si no)
+            /* La implementación de rehacer y deshacer hace que cada acción sea un comando.
+            *  Por lo tanto, se añade la canción a favoritos como un comando.
+            * Lo único malo de esto es que se puede llegar a llenar mucho la pila de comandos si se añaden muchas canciones a favoritos. (O si se hacen muchos otros comandos)
+            * Sin embargo, esto tiene una simple solución: limitar la cantidad de comandos que se pueden hacer.
+            * Igual no creo que Robinson piense siquiera en hacer tantas acciones en la aplicación.
+            */
+
             // Command pattern implementation to add a song to favorites.
-            System.out.println("Se añade la canción: " + currentSong.getName() + " a la pila de favoritos.");
             commandManager.executeCommand(new AddFavoriteSongCommand(currentUser, currentSong));
             // Updating the table view of the library if it is shown. Se actualiza de una la canción en la tabla asi se añada a favoritos desde Library.
             if(showLibraryController != null){
@@ -241,7 +248,13 @@ public class MenuController implements Initializable {
     @FXML
     void removeFavoriteSong() {
         if (currentSong != null) {
-            store.removeSongFromFavorites(currentUser, currentSong);
+
+            // store.removeSongFromFavorites(currentUser, currentSong); (Perdón por comentar esto, pero se añade dos veces si no)
+            commandManager.executeCommand(new RemoveFavoriteSongCommand(currentUser, currentSong));
+            // Updating the table view of the library if it is shown. Se actualiza de una la canción en la tabla asi se elimina de favoritos desde Library.
+            if(showLibraryController != null){
+                showLibraryController.updateTableView();
+            }
             showMessage("Canciones", "Cancion eliminada de favoritos.", Alert.AlertType.INFORMATION);
         } else {
             showMessage("Canciones", "Ocurrio un error eliminando la canción de favoritos.", Alert.AlertType.INFORMATION);
@@ -353,13 +366,16 @@ public class MenuController implements Initializable {
     }
 
     /*
-                        Doing and undoing methods. WIP
+                        Doing and undoing methods.
+     */
+
+    /**
+     * Handles the undo action on the application.
      */
     public void handleUndo() {
         if(!commandManager.canUndo()) {
             showMessage("Deshacer", "No hay nada que deshacer!", Alert.AlertType.INFORMATION);
         } else {
-            System.out.println("Undo"); // For debugging purposes.
             commandManager.undo();
             if(showLibraryController != null) {
                 showLibraryController.updateTableView();
@@ -368,11 +384,13 @@ public class MenuController implements Initializable {
 
     }
 
+    /**
+     * Handles the redo action on the application.
+     */
     public void handleRedo() {
         if(!commandManager.canRedo()){
             showMessage("Rehacer", "No hay nada que rehacer!", Alert.AlertType.INFORMATION);
         } else {
-            System.out.println("Redo");
             commandManager.redo();
             if(showLibraryController != null){
                 showLibraryController.updateTableView();
