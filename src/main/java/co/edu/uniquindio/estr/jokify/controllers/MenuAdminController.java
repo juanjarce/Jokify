@@ -1,65 +1,35 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
-import co.edu.uniquindio.estr.jokify.exceptions.ArtistsException;
-import co.edu.uniquindio.estr.jokify.model.Artist;
-import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+/**
+ * MenuAdminController class that shows after an admin logs in.
+ * MenuAdmin interface controller.
+ * @version 1.0
+ */
 
 public class MenuAdminController {
 
-    //Elements for the manage of the dynamic content
-
-    @FXML
-    private Button btnShowDownloadInfo;
-
-    @FXML
-    private Button btnShowAddSong;
-
-    @FXML
-    private Button btnShowAddArtist;
-
-    @FXML
-    private Button btnShowStatistics;
-
-    @FXML
-    private Button btnCloseSesion;
-
+    //FXML injected component.
     @FXML
     private BorderPane contentPane;
 
-    //Aux variables
+    //Auxiliary attributes of the class.
     private Stage stage;
     private LoginController loginController;
-    private final Store store = Store.getInstance();
+    static { Store.getInstance(); }
 
     /**
-     * Sets the curren stage
-     * @param primaryStage
-     */
-    public void setStage(Stage primaryStage) {
-        this.stage = primaryStage;
-    }
-
-    /**
-     * Show the current stage
+     * Shows the current stage, the menuAdmin interface in this case.
      */
     public void show() {
         stage.show();
@@ -67,8 +37,8 @@ public class MenuAdminController {
 
     /**
      * Init the stage and the loginController
-     * @param stage
-     * @param loginController
+     * @param stage the stage to initialize.
+     * @param loginController the loginController to initialize.
      */
     public void init(Stage stage, LoginController loginController) {
         this.stage = stage;
@@ -76,97 +46,85 @@ public class MenuAdminController {
     }
 
     /**
-     * Close the sesion of the admin
-     * @param event
+     * Close the session of the administrator to then display the login interface.
      */
     @FXML
-    void closeSesion(ActionEvent event) {
+    void closeSesion() {
         loginController.show();
         this.stage.close();
     }
 
     /**
      * Shows the dynamic content for the addArtist functionality
-     * @param event
      */
     @FXML
-    void showAddArtist(ActionEvent event) throws IOException {
+    void showAddArtist() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowAddArtist.fxml"));
         Parent newContent = loader.load();
 
-        // Obtener el controlador del FXML cargado
-        ShowAddArtistController controller = loader.getController();
-        // Aplicar animaciones para el contenido
+        // Few animations for the content to be displayed.
         FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
 
-        // Establecer el controlador en el contentPane
+        // Set the controller in the contentPane.
         contentPane.setCenter(newContent);
     }
 
     /**
-     * Shows the dynamic content for the addSong functionality
-     * @param event
+     * Shows the dynamic content to the adding songs feature.
      */
     @FXML
-    void showAddSong(ActionEvent event) throws IOException {
+    void showAddSong() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowAddSong.fxml"));
         Parent newContent = loader.load();
 
-        // Obtener el controlador del FXML cargado
-        ShowAddSongController controller = loader.getController();
-        // Aplicar animaciones para el contenido
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+        // Few animations for the content to be displayed.
+        animationDisplay(newContent);
 
-        // Establecer el controlador en el contentPane
+        // Set the controller in the content pane.
         contentPane.setCenter(newContent);
     }
 
     /**
-     * Shows the dynamic content for the downloadInfo functionality
-     * @param event
+     * Shows the dynamic content to the download information feature.
      */
     @FXML
-    void showDownloadInfo(ActionEvent event) throws IOException {
+    void showDownloadInfo() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowDownloadInfo.fxml"));
         Parent newContent = loader.load();
 
-        // Obtener el controlador del FXML cargado
-        ShowDownloadInfoController controller = loader.getController();
-        // Aplicar animaciones para el contenido
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+        // Few animations for the content to be displayed.
+        animationDisplay(newContent);
 
-        // Establecer el controlador en el contentPane
+        // Set the controller in the content pane.
         contentPane.setCenter(newContent);
     }
 
     /**
-     * Shows the dynamic content for the statistics functionality
-     * @param event
+     * Shows the dynamic content for the statistics functionality.
      */
     @FXML
-    void showStatistics(ActionEvent event) throws IOException {
+    void showStatistics() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowStatistics.fxml"));
         Parent newContent = loader.load();
 
-        // Obtener el controlador del FXML cargado
-        ShowStatisticsController controller = loader.getController();
-        // Aplicar animaciones para el contenido
+        // Few animations for the content to be displayed.
+        animationDisplay(newContent);
+
+        // Set the cotnroller in the content pane.
+        contentPane.setCenter(newContent);
+    }
+
+    /**
+     * Displays a little animation when changing the content of the interface.
+     * @param newContent the new content to be displayed.
+     */
+    private void animationDisplay(Parent newContent) {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
-
-        // Establecer el controlador en el contentPane
-        contentPane.setCenter(newContent);
     }
-
 }

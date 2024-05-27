@@ -3,11 +3,9 @@ package co.edu.uniquindio.estr.jokify.controllers;
 import co.edu.uniquindio.estr.jokify.model.Artist;
 import co.edu.uniquindio.estr.jokify.model.Song;
 import co.edu.uniquindio.estr.jokify.model.Store;
-import co.edu.uniquindio.estr.jokify.model.User;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,15 +21,6 @@ import java.util.ResourceBundle;
 public class SongListController implements Initializable {
     @FXML
     private ImageView imageViewCoverSong;
-
-    @FXML
-    private Button btnShowSong;
-
-    @FXML
-    private Label lblArtistName;
-
-    @FXML
-    private Button btnShowArtist;
 
     @FXML
     private TableView<Song> tableViewSong;
@@ -51,31 +40,28 @@ public class SongListController implements Initializable {
     @FXML
     private TableColumn<Song, Integer> columnDurationSong;
 
-    //Aux variables
-    private User currentUser;
     private MenuController menuController;
     private Song selectedSong;
     private Artist selectedArtist;
     private ArrayList<Song> songs;
-    private ObservableList<Song> songObservableList = FXCollections.observableArrayList();
+    private final ObservableList<Song> songObservableList = FXCollections.observableArrayList();
     private final Store store = Store.getInstance();
 
     /**
-     * Init content for the controller
-     * @param currentUser
+     * Initializes content for the controller.
      */
-    public void init(User currentUser, MenuController menuController, ArrayList<Song> songs) {
-        this.currentUser = currentUser;
+    public void init(MenuController menuController, ArrayList<Song> songs) {
+        // Auxiliary variables.
         this.menuController = menuController;
         this.songs = songs;
-        //Songs tableView
+        // Songs tableView
         tableViewSong.getItems().clear();
         tableViewSong.setItems(getSongs());
     }
 
     /**
-     * Gets the songs to show
-     * @return
+     * Gets the songs to show in the interface.
+     * @return the songs to show in the interface.
      */
     private ObservableList<Song> getSongs() {
         songObservableList.clear();
@@ -84,25 +70,25 @@ public class SongListController implements Initializable {
     }
 
     /**
-     * Init content for the controller
-     * @param url
-     * @param resourceBundle
+     * Initializes content for the controller.
+     * @param url obligatory parameter.
+     * @param resourceBundle obligatory parameter.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Data in the tableView
-        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<Song, String>("name"));
-        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
+        // Data in the tableView.
+        this.columnNameSong.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.columnAlbumSong.setCellValueFactory(new PropertyValueFactory<>("album"));
         this.columnArtistSong.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getArtistName()));
-        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("year"));
-        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<Song, Integer>("durationOnSeconds"));
-        //Selection of a song on the table
+        this.columnYearSong.setCellValueFactory(new PropertyValueFactory<>("year"));
+        this.columnDurationSong.setCellValueFactory(new PropertyValueFactory<>("durationOnSeconds"));
+        // Selection of a song on the table.
         tableViewSong.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedSong = newSelection;
                 selectedSong = tableViewSong.getSelectionModel().getSelectedItem();
                 selectedArtist = store.getArtistByName(selectedSong.getArtistName());
-                // Show the cover of the song
+                // Show the cover of the song.
                 Image coverImage = new Image(selectedSong.getCover());
                 imageViewCoverSong.setImage(coverImage);
             }
@@ -110,40 +96,34 @@ public class SongListController implements Initializable {
     }
 
     /**
-     * Shows the information of an artist
-     * @param event
-     * @throws IOException
+     * Shows the information of an artist.
      */
     @FXML
-    void showArtist(ActionEvent event) throws IOException {
+    void showArtist() throws IOException {
         if (selectedArtist != null) {
-            menuController.showAtist(selectedArtist);
+            menuController.showArtist(selectedArtist);
         } else {
-            showMessage("Jokify", "Artistas", "Por favor selecciona una canción en la tabla", Alert.AlertType.INFORMATION);
+            showMessage();
         }
     }
 
     /**
-     * Shows the song to the user
-     * @param event
+     * Shows the song to the user.
      */
     @FXML
-    void showSong(ActionEvent event) {
+    void showSong() {
         menuController.setCurrentSong(selectedSong);
     }
 
     /**
-     * show a message for the user
-     * @param title
-     * @param header
-     * @param content
-     * @param alertType
+     * Show a message for the user.
+     * Seems like this method did not have to use the parameters...
      */
-    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
+    private void showMessage() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Jokify");
+        alert.setHeaderText("Artistas.");
+        alert.setContentText("Por favor selecciona una canción de la tabla.");
         alert.showAndWait();
     }
 }

@@ -1,12 +1,10 @@
 package co.edu.uniquindio.estr.jokify.controllers;
 
-import co.edu.uniquindio.estr.jokify.model.Artist;
-import co.edu.uniquindio.estr.jokify.model.Song;
-import co.edu.uniquindio.estr.jokify.model.Store;
-import co.edu.uniquindio.estr.jokify.model.User;
+import co.edu.uniquindio.estr.jokify.model.*;
+import co.edu.uniquindio.estr.jokify.model.commands.AddFavoriteSongCommand;
+import co.edu.uniquindio.estr.jokify.model.commands.RemoveFavoriteSongCommand;
 import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,18 +28,6 @@ import java.util.ResourceBundle;
 public class MenuController implements Initializable {
 
     @FXML
-    private Button btnJokify;
-
-    @FXML
-    private Button btnSearch;
-
-    @FXML
-    private Button btnLibrary;
-
-    @FXML
-    private Button btnCloseSesion;
-
-    @FXML
     private ImageView imgViewCover;
 
     @FXML
@@ -63,19 +49,14 @@ public class MenuController implements Initializable {
     private BorderPane contentPane;
 
 
-    //Aux variables
+    //Auxiliary attributes of the class.
     private Stage stage;
     private LoginController loginController;
     private User currentUser;
     private Song currentSong;
     private final Store store = Store.getInstance();
-
-    /**
-     * Sets the current stage
-     */
-    public void setStage(Stage primaryStage) {
-        this.stage = primaryStage;
-    }
+    private final CommandManager commandManager = new CommandManager();
+    private ShowLibraryController showLibraryController;
 
     /**
      * Show the current stage
@@ -85,10 +66,10 @@ public class MenuController implements Initializable {
     }
 
     /**
-     * Init the stage and the loginController
-     * @param stage
-     * @param loginController
-     * @param currrentUser
+     * Initialize the stage and the login interface controller.
+     * @param stage current stage that is shown and given as a parameter.
+     * @param loginController login interface controller that is given as a parameter.
+     * @param currrentUser current user that is given as a parameter. Used to keep track of the current user and not lose the session.
      */
     public void init(Stage stage, LoginController loginController, User currrentUser) {
         this.stage = stage;
@@ -97,9 +78,9 @@ public class MenuController implements Initializable {
     }
 
     /**
-     * Intizize conten for the controller
-     * @param url
-     * @param resourceBundle
+     * Initialize the content that is used in the controller.
+     * @param url parameter that is not used but is necessary for the implementation of the method.
+     * @param resourceBundle parameter that is not used but is necessary for the implementation of the method.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,21 +90,19 @@ public class MenuController implements Initializable {
     }
 
     /**
-     * Close the sesion of the current user
-     * @param event
+     * Close the sesion of the current user.
      */
     @FXML
-    void closeSesion(ActionEvent event) {
+    void closeSesion() {
         loginController.show();
         this.stage.close();
     }
 
     /**
-     * Shows the dynamic content for the Jokify app
-     * @param event
+     * Shows the dynamic content of the Jokify app.
      */
     @FXML
-    void showJokify(ActionEvent event) throws IOException {
+    void showJokify() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowJokify.fxml"));
         Parent newContent = loader.load();
 
@@ -141,17 +120,16 @@ public class MenuController implements Initializable {
     }
 
     /**
-     * Shows the dynamic content for the library of the user
-     * @param event
+     * Shows the dynamic content for the library of the user.
      */
     @FXML
-    void showLibrary(ActionEvent event) throws IOException {
+    void showLibrary() throws IOException {
         showLibraryUser();
     }
 
     /**
      * Shows the dynamic content for the library of the user
-     * @throws IOException
+     * @throws IOException if the interface is not found or the path is incorrect.
      */
     public void showLibraryUser() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowLibrary.fxml"));
@@ -161,19 +139,18 @@ public class MenuController implements Initializable {
         ShowLibraryController controller = loader.getController();
         //Move the user to the controller
         controller.init(currentUser, this);
+        // Set the showLibraryController attribute
+        this.showLibraryController = controller;
         //Apply animations for the content
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
-
+        animationDisplay(newContent);
+        // Sets the content in the content pane.
         contentPane.setCenter(newContent);
     }
 
     /**
-     * Shows the list of songs of the app
-     * @param songs
-     * @throws IOException
+     * Shows the list of songs of the application.
+     * @param songs list of songs to be shown.
+     * @throws IOException if the interface is not found or the path is incorrect.
      */
     public void showSongs(ArrayList<Song> songs) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/SongList.fxml"));
@@ -182,45 +159,38 @@ public class MenuController implements Initializable {
         //Get the controller of the FXML file
         SongListController controller = loader.getController();
         //Move the user to the controller
-        controller.init(currentUser, this, songs);
+        controller.init(this, songs);
         //Apply animations for the content
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
-
+        animationDisplay(newContent);
+        // Sets the content in the content pane.
         contentPane.setCenter(newContent);
     }
 
 
     /**
-     * Shows the dynamic content for the search property of the app
-     * @param event
+     * Shows the dynamic content for the search property of the app.
      */
     @FXML
-    void showSearch(ActionEvent event) throws IOException {
+    void showSearch() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowSearch.fxml"));
         Parent newContent = loader.load();
 
         //Get the controller of the FXML file
         ShowSearchController controller = loader.getController();
         //Move the user to the controller
-        controller.init(currentUser, this);
+        controller.init(this);
         //Apply animations for the content
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
-
+        animationDisplay(newContent);
+        // Sets the content in the content pane.
         contentPane.setCenter(newContent);
     }
 
     /**
-     * Shows an interface that contains info of an artist
-     * @param selectedArtist
-     * @throws IOException
+     * Shows an interface that contains information about an artist.
+     * @param selectedArtist the artist that is selected by the user.
+     * @throws IOException if the interface is not found or the path is incorrect.
      */
-    public void showAtist(Artist selectedArtist) throws IOException {
+    public void showArtist(Artist selectedArtist) throws IOException {
         if (selectedArtist != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ShowArtist.fxml"));
             Parent newContent = loader.load();
@@ -228,32 +198,38 @@ public class MenuController implements Initializable {
             //Get the controller of the FXML file
             ShowArtistController controller = loader.getController();
             //Move the user to the controller
-            controller.init(currentUser, selectedArtist, this);
+            controller.init(selectedArtist, this);
             //Apply animations for the content
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
-            fadeIn.setFromValue(0.0);
-            fadeIn.setToValue(1.0);
-            fadeIn.play();
-
+            animationDisplay(newContent);
+            // Sets the content in the content pane.
             contentPane.setCenter(newContent);
         } else {
-            showMessage("Jokify", "Artistas", "Por favor selecciona un artista en la tabla", Alert.AlertType.INFORMATION);
+            showMessage("Artistas", "Por favor selecciona un artista en la tabla.", Alert.AlertType.INFORMATION);
         }
     }
 
     /**
-     * Adds a song to favorites
-     * @param event
+     * Adds a song to favorites.
      */
     @FXML
-    void addFavoriteSong(ActionEvent event) {
+    void addFavoriteSong() {
         if (currentSong != null) {
-            store.addSongToFavorites(currentUser, currentSong);
-            showMessage("Jokify", "Canciones", "Cancion agregada correctamente a favoritos", Alert.AlertType.INFORMATION);
+            // store.addSongToFavorites(currentUser, currentSong); comentando esto por ahora. (Se añade dos veces si no)
+            /* La implementación de rehacer y deshacer hace que cada acción sea un comando.
+            *  Por lo tanto, se añade la canción a favoritos como un comando.
+            * Lo único malo de esto es que se puede llegar a llenar mucho la pila de comandos si se añaden muchas canciones a favoritos. (O si se hacen muchos otros comandos)
+            * Sin embargo, esto tiene una simple solución: limitar la cantidad de comandos que se pueden hacer.
+            * Igual no creo que Robinson piense siquiera en hacer tantas acciones en la aplicación.
+            */
 
-            //------------------------------------------------------------------------------------------------------------------------------------------------
-            // Save the Store content
-            //BinaryResorce()
+            // Command pattern implementation to add a song to favorites.
+            commandManager.executeCommand(new AddFavoriteSongCommand(currentUser, currentSong));
+            // Updating the table view of the library if it is shown. Se actualiza de una la canción en la tabla asi se añada a favoritos desde Library.
+            if(showLibraryController != null){
+                showLibraryController.updateTableView();
+            }
+            showMessage("Canciones", "Cancion agregada a favoritos.", Alert.AlertType.INFORMATION);
+            // Saves the favorites songs of the user in the store using a thread.
             SaveBinaryResource t1 = new SaveBinaryResource();
             t1.start();
             try {
@@ -261,28 +237,29 @@ public class MenuController implements Initializable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //------------------------------------------------------------------------------------------------------------------------------------------------
         } else {
-            showMessage("Jokify", "Canciones", "Ocurrio un error agregando la canción a favoritos", Alert.AlertType.INFORMATION);
+            showMessage("Canciones", "Ocurrio un error agregando la canción a favoritos.", Alert.AlertType.INFORMATION);
         }
     }
 
     /**
-     * Removes a song from favorites
-     * @param event
+     * Removes a song from favorites.
      */
     @FXML
-    void removeFavoriteSong(ActionEvent event) {
+    void removeFavoriteSong() {
         if (currentSong != null) {
-            store.removeSongFromFavorites(currentUser, currentSong);
-            showMessage("Jokify", "Canciones", "Cancion eliminada correctamente de favoritos", Alert.AlertType.INFORMATION);
-        } else {
-            showMessage("Jokify", "Canciones", "Ocurrio un error eliminando la canción a favoritos", Alert.AlertType.INFORMATION);
-        }
 
-        //------------------------------------------------------------------------------------------------------------------------------------------------
-        // Save the Store content
-        //BinaryResorce()
+            // store.removeSongFromFavorites(currentUser, currentSong); (Perdón por comentar esto, pero se añade dos veces si no)
+            commandManager.executeCommand(new RemoveFavoriteSongCommand(currentUser, currentSong));
+            // Updating the table view of the library if it is shown. Se actualiza de una la canción en la tabla asi se elimina de favoritos desde Library.
+            if(showLibraryController != null){
+                showLibraryController.updateTableView();
+            }
+            showMessage("Canciones", "Cancion eliminada de favoritos.", Alert.AlertType.INFORMATION);
+        } else {
+            showMessage("Canciones", "Ocurrio un error eliminando la canción de favoritos.", Alert.AlertType.INFORMATION);
+        }
+        // Saves the removed favorite song from the user so that the changes are saved in the store using a thread.
         SaveBinaryResource t1 = new SaveBinaryResource();
         t1.start();
         try {
@@ -290,22 +267,20 @@ public class MenuController implements Initializable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        //------------------------------------------------------------------------------------------------------------------------------------------------
     }
 
     /**
      * Plays the song that is selected by showing an emergent window.
-     * Some songs can't be played due to YouTube politics: https://support.google.com/youtube/answer/6301625?hl=en
+     * Some songs can't be played due to YouTube politics: <a href="https://support.google.com/youtube/answer/6301625?hl=en">...</a>
      */
     @FXML
-    void playSong(ActionEvent event) {
+    void playSong() {
 
         // Check if there is a selected song.
         if(currentSong != null) {
 
-            // Obtain the "embed" link of the YouTube link.
+            // Obtaining the "embed" link of the YouTube link.
             String youtubeEmbed = convertToEmbedUrl(currentSong.getYoutubeURL());
-            System.out.println(youtubeEmbed);
             try {
                 // Create a new Stage for the video.
                 Stage stage = new Stage();
@@ -324,22 +299,22 @@ public class MenuController implements Initializable {
                 stage.show();
 
             } catch(Exception e) {
-                System.out.println(e.getMessage());
+                // If the video can't be played, show an error message.
+                showMessage("Canciones", "No se puede reproducir la canción seleccionada: \n" + e.getMessage(), Alert.AlertType.ERROR);
             }
         }
     }
 
     /**
      * Function to convert a YouTube video link into its embed correspondence.
-     * @param youtubeUrl
-     * @return
+     * @param youtubeUrl the YouTube video link to be converted.
+     * @return the embed link of the YouTube video or null if the input is not valid or an exception is thrown.
      */
     public static String convertToEmbedUrl(String youtubeUrl) {
         // Check if the input URL is a valid YouTube watch URL
         if (youtubeUrl.startsWith("https://www.youtube.com/watch?v=")) {
             // Extract the video ID from the URL
             String videoId = youtubeUrl.substring("https://www.youtube.com/watch?v=".length());
-
             // Construct the embed URL using the video ID
             return "https://www.youtube.com/embed/" + videoId;
         } else {
@@ -349,7 +324,7 @@ public class MenuController implements Initializable {
     }
 
     /**
-     * Sets the dynamic menu interface to show the user information of a selected song
+     * Sets the dynamic menu interface to show the user information of a selected song.
      */
     public void setCurrentSong(Song currentSong) {
         if (currentSong != null) {
@@ -367,17 +342,59 @@ public class MenuController implements Initializable {
 
     /**
      * show a message for the user
-     * @param title
-     * @param header
-     * @param content
-     * @param alertType
+     * @param header   the header of the message.
+     * @param content   the content of the message.
+     * @param alertType the type of the message.
      */
-    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
+    private void showMessage(String header, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
-        alert.setTitle(title);
+        alert.setTitle("Jokify");
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
     }
 
+    /**
+     * Displays a little animation when changing the content of the interface.
+     * @param newContent the new content to be displayed.
+     */
+    private void animationDisplay(Parent newContent) {
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), newContent);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+    }
+
+    /*
+                        Doing and undoing methods.
+     */
+
+    /**
+     * Handles the undo action on the application.
+     */
+    public void handleUndo() {
+        if(!commandManager.canUndo()) {
+            showMessage("Deshacer", "No hay nada que deshacer!", Alert.AlertType.INFORMATION);
+        } else {
+            commandManager.undo();
+            if(showLibraryController != null) {
+                showLibraryController.updateTableView();
+            }
+        }
+
+    }
+
+    /**
+     * Handles the redo action on the application.
+     */
+    public void handleRedo() {
+        if(!commandManager.canRedo()){
+            showMessage("Rehacer", "No hay nada que rehacer!", Alert.AlertType.INFORMATION);
+        } else {
+            commandManager.redo();
+            if(showLibraryController != null){
+                showLibraryController.updateTableView();
+            }
+        }
+    }
 }

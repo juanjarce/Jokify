@@ -4,12 +4,9 @@ import co.edu.uniquindio.estr.jokify.exceptions.AttributesException;
 import co.edu.uniquindio.estr.jokify.exceptions.UserException;
 import co.edu.uniquindio.estr.jokify.model.Store;
 import co.edu.uniquindio.estr.jokify.serialization.threads.SaveBinaryResource;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 
 public class SingInController {
@@ -21,38 +18,24 @@ public class SingInController {
     private TextField textFieldPassword;
 
     @FXML
-    private Button btnCreateAcount;
-
-    @FXML
     private TextField textFieldEmail;
 
-    @FXML
-    private Hyperlink hpLogin;
-
-    //Aux variables
+    //Auxiliary variables for the class to use.
     private Stage stage;
     private LoginController loginController;
     private final Store store = Store.getInstance();
 
     /**
-     * Sets the current stage
-     * @param primaryStage
-     */
-    public void setStage(Stage primaryStage) {
-        this.stage = primaryStage;
-    }
-
-    /**
-     * Shows the current stage
+     * Shows the current stage.
      */
     public void show() {
         stage.show();
     }
 
     /**
-     * Init the stage and loginController
-     * @param stage
-     * @param loginController
+     * Initializes the stage and the Login Controller.
+     * @param stage stage to be shown.
+     * @param loginController controller that is ligated to the stage.
      */
     public void init(Stage stage, LoginController loginController) {
         this.stage = stage;
@@ -60,22 +43,19 @@ public class SingInController {
     }
 
     /**
-     * Get the information in the textfields and create an user
-     * @param event
+     * Get the information in the text field of a user.
      */
     @FXML
-    void createAcount(ActionEvent event) {
+    void createAcount() {
         try {
             String username = textFieldUser.getText();
             String password = textFieldPassword.getText();
             String email = textFieldEmail.getText();
             store.createUser(username, password, email);
             cleanFields();
-            showMessage("Jokify", "Registrarse", "Tú registro ha sido realizado de manera exitosa", Alert.AlertType.INFORMATION);
+            showMessage("Registrarse.", "Tú registro ha sido realizado.", Alert.AlertType.INFORMATION);
 
-            //------------------------------------------------------------------------------------------------------------------------------------------------
-            // Save the Store content
-            //BinaryResorce()
+            // Save the Store content after registering a new user.
             SaveBinaryResource t1 = new SaveBinaryResource();
             t1.start();
             try {
@@ -83,24 +63,22 @@ public class SingInController {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //------------------------------------------------------------------------------------------------------------------------------------------------
         } catch (UserException | AttributesException e) {
-            showMessage("Jokify", "Registrarse", e.getMessage(), Alert.AlertType.WARNING);
+            showMessage("Registro:\n", e.getMessage(), Alert.AlertType.WARNING);
         }
     }
 
     /**
-     * Returns to the login interface
-     * @param event
+     * Returns to the login interface.
      */
     @FXML
-    void login(ActionEvent event) {
+    void login() {
         loginController.show();
         this.stage.close();
     }
 
     /**
-     * Cleans the text fields
+     * Cleans the input text fields.
      */
     private void cleanFields() {
         textFieldUser.setText("");
@@ -109,15 +87,14 @@ public class SingInController {
     }
 
     /**
-     * show a message for the user
-     * @param title
-     * @param header
-     * @param content
-     * @param alertType
+     * Shows a message to the user.
+     * @param header header of the message.
+     * @param content content of the message.
+     * @param alertType type of the message.
      */
-    private void showMessage(String title, String header, String content, Alert.AlertType alertType) {
+    private void showMessage(String header, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
-        alert.setTitle(title);
+        alert.setTitle("Jokify");
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();

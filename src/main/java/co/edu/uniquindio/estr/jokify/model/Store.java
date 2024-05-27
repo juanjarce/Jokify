@@ -9,12 +9,14 @@ import co.edu.uniquindio.estr.jokify.structures.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
 public class Store implements Serializable {
 
     //Serial ID for Serializable
+    @Serial
     private static final long serialVersionUID = 1L;
 
     //Attributes for the Store class

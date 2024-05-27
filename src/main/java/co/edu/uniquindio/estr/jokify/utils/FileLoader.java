@@ -13,14 +13,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class FileLoader {
 
+    /**
+     * Load artists from a file.
+     * @param filePath Path of the file to load the artists.
+     * @return List of artists loaded from the file.
+     */
     public static List<Artist> loadArtists(String filePath) {
         List<Artist> artists = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -43,12 +42,17 @@ public class FileLoader {
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
+
         }
         return artists;
     }
 
+    /**
+     * Load songs from a file.
+     * @param filePath Path of the file to load the songs.
+     * @return List of songs loaded from the file.
+     */
     public static List<Song> loadSongs(String filePath) {
         List<Song> songs = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -74,8 +78,7 @@ public class FileLoader {
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
         return songs;
     }
@@ -84,8 +87,8 @@ public class FileLoader {
         List<Artist> artists = loadArtists(filePath);
         List<Song> songs = loadSongs(filePath);
 
-        //Add artist from file to the Store
-        artists.stream().forEach(a -> {
+        // Add artist from file to the Store
+        artists.forEach(a -> {
             try {
                 store.createArtist(a);
             } catch (ArtistsException e) {
@@ -94,7 +97,6 @@ public class FileLoader {
         });
 
         for (Song song : songs) {
-            String artistName = song.getArtistName();
             Artist artist = store.getArtistByName(song.getArtistName());
             if (artist != null) {
                 try {
