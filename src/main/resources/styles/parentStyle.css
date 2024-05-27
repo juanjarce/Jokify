@@ -171,12 +171,12 @@
 }
 
 .comboBox .list-cell {
-    -fx-text-fill: #f0f0f0;
+    -fx-text-fill: #00A6FB;
 }
 
 .comboBox .list-cell:selected {
-    -fx-background-color: #00A6FB;
     -fx-text-fill: #f0f0f0;
+    -fx-background-color: #00A6FB;
 }
 
 /*STYLES FOR THE USER MENU*/
