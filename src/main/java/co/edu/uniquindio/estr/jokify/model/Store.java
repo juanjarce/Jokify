@@ -245,12 +245,12 @@ public class Store implements Serializable {
             searchSongs.addAll(searchSong(keywords[0]));
         } if (keywords.length == 2) {
             //Asume that the users search with OR
-            searchSongs.addAll(searchSongsOrAsync(keywords[0], keywords[1]));
+            searchSongs.addAll(searchSongsOrAsync(keywords[0], keywords[2]));
         } else if (keywords.length == 3) {
             if (keywords[1].equals("y")) {
                 searchSongs.addAll(searchSongsAndAsync(keywords[0], keywords[2]));
             } else if (keywords[1].equals("o")) {
-                searchSongs.addAll(searchSongsOrAsync(keywords[0], keywords[1]));
+                searchSongs.addAll(searchSongsOrAsync(keywords[0], keywords[2]));
             }
         }
         if (searchSongs.isEmpty()) {
